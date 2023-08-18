@@ -11,7 +11,7 @@
 	<!-- 조건 : webapp 에 만들것, 이름이 index.jsp 일 것 -->
 	<h1>Welcome Page!!</h1>
 	<h1>Welcome Page!!</h1>
-
+	<h1>김동영 커밋</h1>
 	<jsp:forward page="goCalendar.do"></jsp:forward>
 
 
