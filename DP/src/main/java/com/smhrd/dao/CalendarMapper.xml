@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.dao.CalendarDAO">
+
+	<!-- 일정 추가 SQL -->
+	<insert id="calAdd" parameterType="com.smhrd.entity.Calendar">
+		insert into TB_CALENDAR(cal_seq, cal_title, started_at, ended_at, mb_id, cal_status, cal_color)
+		values(tb_calendar_seq.nextval, #{cal_title}, #{started_at}, #{ended_at}, #{mb_id}, #{cal_status}, #{cal_color})		
+	</insert>
+	
+	<!-- 개별 일정 조회 SQL -->
+	<select id="calList" resultType="com.smhrd.entity.Calendar">
+		select * from TB_CALENDAR
+		where mb_id = #{mb_id}
+	</select>
+
+</mapper>
