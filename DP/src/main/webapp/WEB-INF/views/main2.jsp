@@ -1,15 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@page import="com.smhrd.entity.Member"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>ÀÓ½Ã ¸ÞÀÎ ÆäÀÌÁö</title>
+
+<meta charset="UTF-8">
+<title>ìž„ì‹œ ë©”ì¸ íŽ˜ì´ì§€</title>
 </head>
 <body>
-	<h1>${user.mb_id }ÀÇ ÀÓ½Ã ¸ÞÀÎ ÆäÀÌÁö¾ß~</h1>
-	<a href="goCalendar.do">Ä¶¸°´õ °¡±â</a><br>
-	<a href="goTodo.do">ÅõµÎ¸®½ºÆ® °¡±â</a><br>
-	<a href="#">·Î±×¾Æ¿ô</a><br>
+	<%
+		Member m = (Member)session.getAttribute("user");
+	%>
+	<h1><%=m.getMb_id() %>ë‹˜ì˜ ìž„ì‹œ ë©”ì¸ íŽ˜ì´ì§€ìž…ë‹ˆë‹¤~</h1>
+	<a href="goCalendar.do">ìº˜ë¦°ë” ê°€ê¸°</a><br>
+	<a href="goTodo.do">íˆ¬ë‘ë¦¬ìŠ¤íŠ¸ ê°€ê¸°</a><br>
+	<a href="#">ë¡œê·¸ì•„ì›ƒ</a><br>
 </body>
 </html>

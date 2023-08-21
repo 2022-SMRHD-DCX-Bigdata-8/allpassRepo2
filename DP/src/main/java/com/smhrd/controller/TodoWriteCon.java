@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.smhrd.dao.TodoListDAO;
+import com.smhrd.entity.Member;
 import com.smhrd.entity.Todo;
 
 public class TodoWriteCon implements Controller {
@@ -16,7 +17,8 @@ public class TodoWriteCon implements Controller {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String id = session.getId();
+		Member m = (Member)session.getAttribute("user");
+		String id = m.getMb_id();
 
 		request.setCharacterEncoding("UTF-8");
 		String todo_content = request.getParameter("taskInput");

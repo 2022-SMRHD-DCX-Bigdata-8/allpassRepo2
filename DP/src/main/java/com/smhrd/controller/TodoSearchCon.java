@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.smhrd.dao.TodoListDAO;
+import com.smhrd.entity.Member;
 import com.smhrd.entity.Todo;
 
 public class TodoSearchCon implements Controller {
@@ -20,7 +21,8 @@ public class TodoSearchCon implements Controller {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String id = session.getId();
+		Member m = (Member)session.getAttribute("user");
+		String id = m.getMb_id();
 
 		Todo todo = new Todo();
 		todo.setTodo_id(id);
