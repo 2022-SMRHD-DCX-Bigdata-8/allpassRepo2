@@ -239,7 +239,7 @@ h1 {
                 taskList[i].todo_status = false;
             } else {
                 taskList[i].todo_status = true;
-            }
+            };
 
             // 변동사항이 생겼으면 최신배열 재출력
             render();
@@ -292,9 +292,9 @@ h1 {
                 </div>
             </div>
             `;
-                    }
-                }
-            }
+                    };
+                };
+            };
             taskBoard.innerHTML = resultHTML;
         };
 		
@@ -500,7 +500,7 @@ h1 {
 	 			todo_seq = todo_seq;
 	        	console.log(todo_seq);
 	        	todoModify(todo_seq);
-            }
+            };
         });
 
         // 수정 엔터
@@ -513,8 +513,8 @@ h1 {
         	        console.log(todo_seq);
         	        todoModify(todo_seq);
                     $("#task-input").prop("value", "");
-                }
-            }
+                };
+            };
         });
 
         // 수정 완료
@@ -548,7 +548,7 @@ h1 {
 				alert("To Do List 를 입력해주세요~");
 			}else{
 				todoWrite();
-			}
+			};
 		});
 
         // 엔터
@@ -559,8 +559,8 @@ h1 {
                 } else {
                     todoWrite();
                     $("#task-input").prop("value", "");
-                }
-            }
+                };
+            };
         });
 
 	</script>
