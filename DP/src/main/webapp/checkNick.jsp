@@ -12,9 +12,9 @@ Connection conn = null;
 try {
 	// 데이터베이스 연결
 	Class.forName("oracle.jdbc.driver.OracleDriver");
-	String url = "jdbc:oracle:thin://@localhost:1521/xe"; // 데이터베이스 URL 수정
-	String user = "hr";
-	String password = "12345";
+	String url = "jdbc:oracle:thin://@project-db-cgi.smhrd.com:1524/xe"; // 데이터베이스 URL 수정
+	String user = "cgi_22K_BIG8_hacksim_2";
+	String password = "smhrd2";
 	conn = DriverManager.getConnection(url, user, password);
 
 	// 중복 확인 쿼리 실행
