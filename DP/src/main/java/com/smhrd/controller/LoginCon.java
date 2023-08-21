@@ -36,7 +36,7 @@ public class LoginCon implements Controller {
 			// 사용자의 정보를 유지할 수 있게끔 저장 >> session에 정보저장
 			HttpSession session = request.getSession();
 			session.setAttribute("user", result);
-			//response.sendRedirect("#");
+			response.sendRedirect("goMain2.do");
 
 		} else {
 			System.out.println("로그인 실패");

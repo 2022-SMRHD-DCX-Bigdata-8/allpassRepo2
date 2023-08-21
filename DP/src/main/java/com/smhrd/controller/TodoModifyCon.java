@@ -1,6 +1,7 @@
 package com.smhrd.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import com.smhrd.dao.TodoListDAO;
 import com.smhrd.entity.Todo;
 
-public class TodoWriteCon implements Controller {
+public class TodoModifyCon implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -19,23 +20,24 @@ public class TodoWriteCon implements Controller {
 		String id = session.getId();
 
 		request.setCharacterEncoding("UTF-8");
-		String todo_content = request.getParameter("taskInput");
+		int  todo_seq = Integer.parseInt(request.getParameter("todo_seq"));
+		String  todo_content = request.getParameter("todo_content");
 
 		Todo todo = new Todo();
 		todo.setTodo_id(id);
+		todo.setTodo_seq(todo_seq);
 		todo.setTodo_content(todo_content);
-
+		
 		TodoListDAO dao = new TodoListDAO();
-		int cnt = dao.todoInsert(todo);
+		int cnt = dao.todoModify(todo);
 
 		if (cnt > 0) {
-			System.out.println("Insert Complete!");
+			System.out.println("Modify Complete!");
 		} else {
-			System.out.println("Insert Faild!");
+			System.out.println("Modify Faild!");
 		}
-
+		
 		return null;
-
 	}
 
 }

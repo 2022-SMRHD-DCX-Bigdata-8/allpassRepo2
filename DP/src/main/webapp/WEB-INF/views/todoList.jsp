@@ -99,16 +99,32 @@ h1 {
 .input-area {
 	font-family: 'GmarketSansMedium';
 }
+#task-modify, #modify-button {
+	width: width: 400px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
 </style>
 
 </head>
 <body>
 	<!-- 모두를 감싸주는 div -->
-	<div style="width: 465px; margin: 0 auto;">
+	<div class="main-top" style="width: 465px; margin: 0 auto;">
 		<!-- 타이틀 ~ 입력태그까지 감싸는 div 시작-->
 		<div class="main">
-			<%--<h1>${user.mb_id }의 To-do List</h1> --%>
-			<h1>7반의 To-do List</h1>
+			<h1>${user.mb_id }의 To-do List</h1>
 			<br>
 			<div class="input-area">
 				<div class="row g-2">
@@ -119,6 +135,14 @@ h1 {
 					<div class="col-auto">
 						<button type="submit" class="btn btn-outline-warning mb-3"
 							id="add-button">추가</button>
+					</div>
+					<div class="col-auto">
+						<input type="text" class="form-control" id="task-modify"
+							autofocus="autofocus" placeholder="수정할 To Do List 를 입력해주세요~" value="">
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-outline-warning mb-3"
+							id="modify-button">수정</button>
 					</div>
 				</div>
 			</div>
@@ -239,9 +263,11 @@ h1 {
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">완료</button>
-                    <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')">▲</button><br>
+                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">☆☆</button>
+                    <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')" title="위로">▲</button><br>
                     <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">삭제</button>
-                    <button class="btn btn-outline-danger" onclick = "todoDown('${taskList[i].todo_seq}','${i}')">▼</button>
+                    <button class="btn btn-outline-danger" onclick = "todoModifyOpen('${taskList[i].todo_seq}')">수정</button>
+                    <button class="btn btn-outline-danger" onclick = "todoDown('${taskList[i].todo_seq}','${i}')" title="아래로">▼</button>
                 </div>
             </div>
             `;
@@ -253,9 +279,11 @@ h1 {
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">완료</button>
-                    <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')">▲</button><br>
+                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">☆☆</button>
+                    <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')" title="위로">▲</button><br>
                     <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">삭제</button>
-                    <button class="btn btn-outline-danger" onclick = "todoDown('${taskList[i].todo_seq}','${i}')">▼</button>
+                    <button class="btn btn-outline-danger" onclick = "todoModifyOpen('${taskList[i].todo_seq}')">수정</button>
+                    <button class="btn btn-outline-danger" onclick = "todoDown('${taskList[i].todo_seq}','${i}')" title="아래로">▼</button>
                 </div>
             </div>
             `;
@@ -308,7 +336,7 @@ h1 {
         function todoDelete(todo_seq) {
             $.ajax({
                 url: "todoDelete.do",
-                type: "get",
+                type: "post",
                 data: {
                     "todo_seq": todo_seq
                 },
@@ -368,17 +396,9 @@ h1 {
                     taskList = res;
                     let todo_seq_1;
                     i = parseInt(i);
-                    for(let j = i; j > 0; j--){
-        				if(taskList[j-1].todo_seq !== null){
-        					console.log("true");
-        					todo_seq_1 = taskList[j-1].todo_seq;
-        					break;
-                    	};
-        			};
-        			if(todo_seq_1 >= 0){
-                    	console.log(todo_seq_1);
-        				console.log(taskList[i].todo_seq, todo_seq_1);
-        				todoUpstairs(taskList[i].todo_seq, todo_seq_1);
+        			if(i-1 >= 0){
+        				console.log(taskList[i].todo_seq, taskList[i-1].todo_seq);
+        				todoUpstairs(taskList[i].todo_seq, taskList[i-1].todo_seq);
         			}else{
                     	console.log("todo_seq_1 is NULL");
                     	alert("최상위 입니다~");
@@ -391,7 +411,7 @@ h1 {
             });
         };
 
-        // 위층
+        // 업 완료 
         function todoUpstairs(todo_seq, todo_seq_1) {
         	console.log(todo_seq, todo_seq_1);
             $.ajax({
@@ -420,20 +440,10 @@ h1 {
                 success: function (res) {
                     console.log("todoUpstairs 서치 성공!");
                     taskList = res;
-                    let todo_seq_1;
                     i = parseInt(i);
-                    for(let j = i; j < taskList.length - 1; j++){
-                    	console.log(j, j+1);
-        				if(taskList[j+1].todo_seq !== null){
-        					console.log("true");
-        					todo_seq_1 = taskList[j+1].todo_seq;
-        					break;
-                    	};
-        			};
-        			if(todo_seq_1 >= 0){
-                    	console.log(todo_seq_1);
-        				console.log(taskList[i].todo_seq, todo_seq_1);
-        				todoDownstairs(taskList[i].todo_seq, todo_seq_1);
+        			if(i+1 < taskList.length){
+        				console.log(taskList[i].todo_seq, taskList[i+1].todo_seq);
+        				todoDownstairs(taskList[i].todo_seq, taskList[i+1].todo_seq);
         			}else{
                     	console.log("todo_seq_1 is NULL");
                     	alert("최하위 입니다~");
@@ -446,7 +456,7 @@ h1 {
             });
         };
 
-        // 아래층
+        // 다운 완료 
         function todoDownstairs(todo_seq, todo_seq_1){
         	console.log(todo_seq, todo_seq_1);
             $.ajax({
@@ -461,10 +471,91 @@ h1 {
                     todoSearch();
                 },
                 error: function (e) {
-                    console.log('다운 실패ㅠ');
+                    console.log("다운 실패ㅠ");
                 }
             });
-        }
+        };
+
+		// 수정 변수 선언 
+		let todo_seq;
+	    const taskModify = document.getElementById("task-modify");
+	    const modifyButton = document.getElementById("modify-button");
+	    const bodyClick = document.body;
+
+	 	// 수정 열기
+        function todoModifyOpen(i){
+	 		todo_seq = i;
+	        console.log(todo_seq);
+	        taskModify.style.display = "flex"
+	        modifyButton.style.display = "flex"
+		};
+	 	
+		// 수정 esc 닫기 
+        window.addEventListener("keyup", e => {
+            if (taskModify.style.display === "flex" && e.key === "Escape") {
+            	taskModify.style.display = "none"
+                modifyButton.style.display = "none"
+            };
+        });
+
+	 	// 수정 클릭 닫기
+	 	bodyClick.addEventListener("click", e => {
+            const evTarget = e.target;
+            if (evTarget.classList.contains("main")) {
+            	taskModify.style.display = "none"
+            	modifyButton.style.display = "none"
+            };
+        });
+
+		// 수정 클릭 
+        modifyButton.addEventListener("click", e => {
+            if (($("#task-modify").val().trim() == "")) {
+                alert("수정할 To Do List 를 입력해주세요~");
+            }else{
+	 			todo_seq = todo_seq;
+	        	console.log(todo_seq);
+	        	todoModify(todo_seq);
+            }
+        });
+
+        // 수정 엔터
+        $("#task-modify").on("keydown", function (i) {
+            if (i.keyCode == 13) {
+                if (($("#task-modify").val().trim() == "")) {
+                    alert("수정할 To Do List 를 입력해주세요~");
+                } else {
+        	 		todo_seq = todo_seq;
+        	        console.log(todo_seq);
+        	        todoModify(todo_seq);
+                    $("#task-input").prop("value", "");
+                }
+            }
+        });
+
+        // 수정 완료
+        function todoModify(todo_seq) {
+            console.log(todo_seq);
+        	let todo_content = $("#task-modify").val();
+            console.log(todo_content);
+            $.ajax({
+                url: "todoModify.do",
+                type: "post",
+                data: {
+                    "todo_seq": todo_seq,
+                    "todo_content": todo_content
+                },
+                success: function (res) {
+                    console.log("수정 성공1");
+                    todoSearch();
+                },
+                error: function (e) {
+                    console.log("수정 실패ㅠ");
+                }
+            });
+            taskModify.style.display = "none"
+            modifyButton.style.display = "none"
+            $("#task-modify").prop("value", "");
+        };
 
 		// 클릭
 		$("#add-button").on("click", function(){
@@ -478,15 +569,15 @@ h1 {
         // 엔터
         $("#task-input").on("keydown", function (i) {
             if (i.keyCode == 13) {
-                console.log("엔터 누름");
                 if (($("#task-input").val().trim() == "")) {
                     alert("To Do List 를 입력해주세요~");
                 } else {
                     todoWrite();
+                    $("#task-input").prop("value", "");
                 }
             }
         });
-        
+
 	</script>
 </body>
 </html>

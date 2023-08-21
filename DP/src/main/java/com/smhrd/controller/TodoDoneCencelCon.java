@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.smhrd.dao.TodoListDAO;
 import com.smhrd.entity.Todo;
@@ -15,14 +16,24 @@ public class TodoDoneCencelCon implements Controller {
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
+		HttpSession session = request.getSession();
+		String id = session.getId();
 
+		request.setCharacterEncoding("UTF-8");
 		int todo_seq = Integer.parseInt(request.getParameter("todo_seq"));
+		
 		Todo todo = new Todo();
+		todo.setTodo_id(id);
 		todo.setTodo_seq(todo_seq);
 		
 		TodoListDAO dao = new TodoListDAO();
-		dao.todoDoneCencel(todo);
+		int cnt = dao.todoDoneCencel(todo);
+
+		if (cnt > 0) {
+			System.out.println("TodoDoneCencel Complete!");
+		} else {
+			System.out.println("TodoDoneCencel Faild!");
+		}
 
 		return null;
 	}

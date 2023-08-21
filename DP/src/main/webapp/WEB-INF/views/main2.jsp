@@ -7,10 +7,9 @@
 <title>임시 메인 페이지</title>
 </head>
 <body>
-	<h1>방가~ 임시 메인 페이지야~</h1>
+	<h1>${user.mb_id }의 임시 메인 페이지야~</h1>
 	<a href="goCalendar.do">캘린더 가기</a><br>
 	<a href="goTodo.do">투두리스트 가기</a><br>
-	<a href="goLogin.do">로그인 페이지 가기</a><br>
-	<a href="goJoin.do">회원가입 페이지 가기</a>
+	<a href="#">로그아웃</a><br>
 </body>
 </html>

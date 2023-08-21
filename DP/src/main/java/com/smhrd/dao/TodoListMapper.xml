@@ -4,52 +4,63 @@
 
 	<insert id="todoInsert" parameterType="com.smhrd.entity.Todo">
 		insert into TB_TODO (
+		TODO_SEQ,
+		TODO_ID,
 		TODO_CONTENT,
-		TODO_STATUS,
-		TODO_COLOR
+		TODO_STATUS
 		) values (
+		TB_TODO_SEQ.NEXTVAL,
+		#{todo_id},
 		#{todo_content},
-		#{todo_status},
-		#{todo_color}
+		#{todo_status}
 		)
 	</insert>
 	
 	<select id="todoSelect" resultType="com.smhrd.entity.Todo">
 		select * from TB_TODO
+		where todo_id = #{id}
 		order by TODO_SEQ desc 
 	</select>
 	
 	<delete id="todoDelete" parameterType="com.smhrd.entity.Todo">
 		delete from TB_TODO
 		where TODO_SEQ = #{todo_seq}
+		and todo_id = #{id}
 	</delete>
 	
 	<update id="todoDone" parameterType="com.smhrd.entity.Todo">
 		update TB_TODO set TODO_STATUS = 'true'
 		where TODO_SEQ = #{todo_seq}
+		and todo_id = #{id}
 	</update>
 	
 	<update id="todoDoneCencel" parameterType="com.smhrd.entity.Todo">
 		update TB_TODO set TODO_STATUS = 'false'
 		where TODO_SEQ = #{todo_seq}
+		and todo_id = #{id}
 	</update>
 	
 	<update id="todoChange_0" parameterType="com.smhrd.entity.Todo">
 		update TB_TODO set TODO_SEQ = 0
 		where TODO_SEQ = #{todo_seq}
+		and todo_id = #{id}
 	</update>
 	
 	<update id="todoChange_1" parameterType="com.smhrd.entity.Todo">
 		update TB_TODO set TODO_SEQ = #{todo_seq}
 		where TODO_SEQ = #{todo_seq_1}
+		and todo_id = #{id}
 	</update>
 	
 	<update id="todoChange_2" parameterType="com.smhrd.entity.Todo">
 		update TB_TODO set TODO_SEQ = #{todo_seq_1}
 		where TODO_SEQ = 0
+		and todo_id = #{id}
 	</update>
 	
-	<update id="todoRearrange" parameterType="com.smhrd.entity.Todo">
-		alter SEQUENCE TB_TODO_SEQ INCREMENT BY 1
+	<update id="todoModify" parameterType="com.smhrd.entity.Todo">
+		update TB_TODO set TODO_CONTENT = #{todo_content} 
+		where TODO_SEQ = #{todo_seq}
+		and todo_id = #{id}
 	</update>
 </mapper>
