@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smhrd.dao.ToDoListMapper">
+
+	<insert id="todoInsert" parameterType="com.smhrd.entity.Todo">
+		insert into TB_TODO (
+		TODO_CONTENT,
+		TODO_STATUS,
+		TODO_COLOR
+		) values (
+		#{todo_content},
+		#{todo_status},
+		#{todo_color}
+		)
+	</insert>
+	
+	<select id="todoSelect" resultType="com.smhrd.entity.Todo">
+		select * from TB_TODO
+		order by TODO_SEQ desc 
+	</select>
+	
+	<delete id="todoDelete" parameterType="com.smhrd.entity.Todo">
+		delete from TB_TODO
+		where TODO_SEQ = #{todo_seq}
+	</delete>
+	
+	<update id="todoDone" parameterType="com.smhrd.entity.Todo">
+		update TB_TODO set TODO_STATUS = 'true'
+		where TODO_SEQ = #{todo_seq}
+	</update>
+	
+	<update id="todoDoneCencel" parameterType="com.smhrd.entity.Todo">
+		update TB_TODO set TODO_STATUS = 'false'
+		where TODO_SEQ = #{todo_seq}
+	</update>
+	
+	<update id="todoChange_0" parameterType="com.smhrd.entity.Todo">
+		update TB_TODO set TODO_SEQ = 0
+		where TODO_SEQ = #{todo_seq}
+	</update>
+	
+	<update id="todoChange_1" parameterType="com.smhrd.entity.Todo">
+		update TB_TODO set TODO_SEQ = #{todo_seq}
+		where TODO_SEQ = #{todo_seq_1}
+	</update>
+	
+	<update id="todoChange_2" parameterType="com.smhrd.entity.Todo">
+		update TB_TODO set TODO_SEQ = #{todo_seq_1}
+		where TODO_SEQ = 0
+	</update>
+	
+	<update id="todoRearrange" parameterType="com.smhrd.entity.Todo">
+		alter SEQUENCE TB_TODO_SEQ INCREMENT BY 1
+	</update>
+</mapper>

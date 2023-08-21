@@ -7,13 +7,11 @@
 <title>Index</title>
 </head>
 <body>
-	<!-- 기본 url 로 서버에 요청이 들어왔을 때, 자동으로 열리는 페이지 -->
-	<!-- 조건 : webapp 에 만들것, 이름이 index.jsp 일 것 -->
 	<h1>Welcome Page!!</h1>
-	<h1>Welcome Page!!</h1>
+	<jsp:forward page="goMain.do"></jsp:forward>
+	
 	<h1>김동영 커밋</h1>
-	<jsp:forward page="goCalendar.do"></jsp:forward>
-
+	<h1>장재욱 푸쉬</h1>
 
 </body>
 </html>
