@@ -26,11 +26,19 @@ public class FrontController extends HttpServlet {
 		handler = new HashMap<String, Controller>();
 		
 		// HashMap에 데이터 넣기
+		handler.put("/goMain.do", new GoMainCon());
 		handler.put("/goCalendar.do", new GoCalendarCon());
 		handler.put("/goAddSchedule.do", new GoAddScheduleCon());
 		handler.put("/addCalData.do", new AddCalDataCon());
 		handler.put("/goUpDelSchedule.do", new GoUpDelScheduleCon());
 		handler.put("/calList.do", new CalListCon());
+		handler.put("/goTodo.do", new GoTodoCon());
+		handler.put("/todoWrite.do", new TodoWriteCon());
+		handler.put("/todoSearch.do", new TodoSearchCon());
+		handler.put("/todoDelete.do", new TodoDeleteCon());
+		handler.put("/todoDone.do", new TodoDoneCon());
+		handler.put("/todoDoneCencel.do", new TodoDoneCencelCon());
+		handler.put("/todoChange.do", new TodoChangeCon());
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
