@@ -39,6 +39,12 @@ public class FrontController extends HttpServlet {
 		handler.put("/todoDone.do", new TodoDoneCon());
 		handler.put("/todoDoneCencel.do", new TodoDoneCencelCon());
 		handler.put("/todoChange.do", new TodoChangeCon());
+		handler.put("/login.do", new LoginCon());
+		handler.put("/join.do", new JoinCon());
+		handler.put("/goJoin.do", new GoJoinCon());
+		handler.put("/goLogin.do", new GoLoginCon());
+		handler.put("/goCheckUsername.do", new GoCheckUsernameCon());
+		handler.put("/goCheckNick.do", new  GoCheckUsernickCon());
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)

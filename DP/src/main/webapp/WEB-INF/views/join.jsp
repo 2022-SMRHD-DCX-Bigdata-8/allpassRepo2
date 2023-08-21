@@ -15,7 +15,7 @@
 			var username = $(this).val();
 			$.ajax({
 				type : "GET",
-				url : "checkUsername.jsp", // 중복 확인을 처리할 서블릿 경로
+				url : "goCheckUsername.do", // 중복 확인을 처리할 서블릿 경로
 				data : {
 					username : username
 				},
@@ -41,7 +41,7 @@
 			var usernick = $(this).val();
 			$.ajax({
 				type : "GET",
-				url : "checkNick.jsp", // 중복 확인을 처리할 서블릿 경로
+				url : "goCheckNick.do", // 중복 확인을 처리할 서블릿 경로
 				data : {
 					usernick : usernick
 				},
@@ -262,7 +262,7 @@ h2 {
 <body>
 
 
-	<form action="join">
+	<form action="join.do">
 	<div class="wrap">
 		<div class="join">
 			<h2>회원가입</h2>
@@ -324,7 +324,7 @@ h2 {
 		        }
 			$.ajax({
 				type : "GET",
-				url : "checkUsername.jsp",
+				url : "goCheckUsername.do",
 				data : {
 					username : username
 				},
@@ -334,7 +334,7 @@ h2 {
 					} else {
 						$.ajax({
 							type : "GET",
-							url : "checkNick.jsp",
+							url : "goCheckNick.do",
 							data : {
 								usernick : usernick
 							},
@@ -344,6 +344,7 @@ h2 {
 								} else {
 									$("form")[0].submit();
 									alert("회원가입 완료!");
+									alert("로그인 페이지로 이동합니다");
 									resetForm();
 								}
 							},
