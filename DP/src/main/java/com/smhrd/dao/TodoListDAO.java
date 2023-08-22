@@ -17,6 +17,7 @@ public class TodoListDAO {
 
 		List<Todo> list = new ArrayList<>();
 		SqlSession session = factory.openSession(true);
+		
 		try {
 			list = session.selectList("todoSelect", todo);
 		} catch (Exception e) {
