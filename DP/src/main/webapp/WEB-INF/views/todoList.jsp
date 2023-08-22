@@ -127,6 +127,8 @@ body {
 
 #nick, #task-cheer {
 	font-family: 'SBAggroB';
+	position: relative;
+	text-align: center;
 }
 
 #nick {
