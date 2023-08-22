@@ -27,11 +27,24 @@ public class FrontController extends HttpServlet {
 
 		// HashMap에 데이터 넣기
 		handler.put("/goMain.do", new GoMainCon());
+		handler.put("/goMain2.do", new GoMain2Con());
+		
+		// join & login
+		handler.put("/login.do", new LoginCon());
+		handler.put("/join.do", new JoinCon());
+		handler.put("/goJoin.do", new GoJoinCon());
+		handler.put("/goLogin.do", new GoLoginCon());
+		handler.put("/goCheckUsername.do", new GoCheckUsernameCon());
+		handler.put("/goCheckNick.do", new  GoCheckUsernickCon());
+
+		// calendar
 		handler.put("/goCalendar.do", new GoCalendarCon());
 		handler.put("/goAddSchedule.do", new GoAddScheduleCon());
 		handler.put("/addCalData.do", new AddCalDataCon());
 		handler.put("/goUpDelSchedule.do", new GoUpDelScheduleCon());
 		handler.put("/calList.do", new CalListCon());
+
+		// todoList
 		handler.put("/goTodo.do", new GoTodoCon());
 		handler.put("/todoWrite.do", new TodoWriteCon());
 		handler.put("/todoSearch.do", new TodoSearchCon());
@@ -39,12 +52,8 @@ public class FrontController extends HttpServlet {
 		handler.put("/todoDone.do", new TodoDoneCon());
 		handler.put("/todoDoneCencel.do", new TodoDoneCencelCon());
 		handler.put("/todoChange.do", new TodoChangeCon());
-		handler.put("/login.do", new LoginCon());
-		handler.put("/join.do", new JoinCon());
-		handler.put("/goJoin.do", new GoJoinCon());
-		handler.put("/goLogin.do", new GoLoginCon());
-		handler.put("/goCheckUsername.do", new GoCheckUsernameCon());
-		handler.put("/goCheckNick.do", new GoCheckUsernickCon());
+		handler.put("/todoModify.do", new TodoModifyCon());
+
 	}
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)

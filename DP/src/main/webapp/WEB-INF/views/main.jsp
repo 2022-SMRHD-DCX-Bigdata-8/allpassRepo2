@@ -1,23 +1,22 @@
+<<<<<<< HEAD
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+>>>>>>> branch 'main' of https://github.com/2022-SMRHD-DCX-Bigdata-8/allpassRepo2.git
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>ÀÓ½Ã ¸ÞÀÎ ÆäÀÌÁö</title>
+
+<meta charset="UTF-8">
+<title>ìž„ì‹œ ë©”ì¸ íŽ˜ì´ì§€</title>
 </head>
 <body>
-	<h1>¹æ°¡~ ÀÓ½Ã ¸ÞÀÎ ÆäÀÌÁö¾ß~</h1>
-	<a href="goCalendar.do">Ä¶¸°´õ °¡±â</a><br>
-	<a href="goTodo.do">ÅõµÎ¸®½ºÆ® °¡±â</a>
-	<a href="goLogin.do">·Î±×ÀÎ ÆäÀÌÁö °¡±â</a>
-	<a href="goJoin.do">È¸¿ø°¡ÀÔ ÆäÀÌÁö °¡±â</a>
-	
-	<% Member member = new Member(); %>
-	<h1><% String id= (String)member.getMb_id(); %></h1>
-	<%=id %>	
-	
-	
+
+	<h1>ë°©ê°€~ ìž„ì‹œ ë©”ì¸ íŽ˜ì´ì§€ì•¼~</h1>
+	<a href="goLogin.do">ë¡œê·¸ì¸ íŽ˜ì´ì§€ ê°€ê¸°</a><br>
+	<a href="goJoin.do">íšŒì›ê°€ìž… íŽ˜ì´ì§€ ê°€ê¸°</a>
 </body>
 </html>

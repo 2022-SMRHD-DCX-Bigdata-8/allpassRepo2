@@ -1,5 +1,6 @@
 package com.smhrd.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -12,54 +13,97 @@ public class TodoListDAO {
 
 	private SqlSessionFactory factory = SqlSessionManager.getSqlSessionFactory();
 
-	public List<Todo> todoSelect() {
+	public List<Todo> todoSelect(Todo todo) {
 
+		List<Todo> list = new ArrayList<>();
 		SqlSession session = factory.openSession(true);
-		List<Todo> list = session.selectList("todoSelect");
+		try {
+			list = session.selectList("todoSelect", todo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		session.close();
 		return list;
 	}
-	
-	public void todoInsert(Todo todo) {
-		
+
+	public int todoInsert(Todo todo) {
+
+		int cnt = 0;
 		SqlSession session = factory.openSession(true);
-		session.insert("todoInsert", todo);
-		session.close();
-	}
-
-	public void todoDelete(Todo todo) {
-
-		SqlSession session = factory.openSession(true);
-		session.delete("todoDelete", todo);
-		session.close();
-	}
-
-	public void todoDone(Todo todo) {
-
-		SqlSession session = factory.openSession(true);
-		session.update("todoDone", todo);
-		session.close();
-	}
-
-	public void todoDoneCencel(Todo todo) {
-
-		SqlSession session = factory.openSession(true);
-		session.update("todoDoneCencel", todo);
-		session.close();
-	}
-
-	public void todoChange(Todo todo) {
-
-		SqlSession session = factory.openSession(true);
-		session.update("todoChange_0", todo);
 		try {
-			session.update("todoChange_1", todo);
+			cnt = session.insert("todoInsert", todo);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			session.update("todoChange_2", todo);
-			session.close();
 		}
+		session.close();
+		return cnt;
 	}
-	
+
+	public int todoDelete(Todo todo) {
+
+		SqlSession session = factory.openSession(true);
+		int cnt = 0;
+		try {
+			cnt = session.delete("todoDelete", todo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		session.close();
+		return cnt;
+	}
+
+	public int todoDone(Todo todo) {
+
+		SqlSession session = factory.openSession(true);
+		int cnt = 0;
+		try {
+			session.update("todoDone", todo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		session.close();
+		return cnt;
+	}
+
+	public int todoDoneCencel(Todo todo) {
+
+		SqlSession session = factory.openSession(true);
+		int cnt = 0;
+		try {
+			session.update("todoDoneCencel", todo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		session.close();
+		return cnt;
+	}
+
+	public int todoChange(Todo todo) {
+
+		SqlSession session = factory.openSession(true);
+		int cnt = 0;
+		try {
+			session.update("todoChange_0", todo);
+			session.update("todoChange_1", todo);
+			session.update("todoChange_2", todo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		session.close();
+		return cnt;
+	}
+
+	public int todoModify(Todo todo) {
+
+		SqlSession session = factory.openSession(true);
+		int cnt = 0;
+		try {
+			cnt = session.update("todoModify", todo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		session.close();
+		return cnt;
+	}
+
 }

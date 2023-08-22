@@ -1,9 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@page import="com.smhrd.entity.Member"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+
+<meta charset="UTF-8">
 <title>To Do List</title>
 
 
@@ -99,65 +101,92 @@ h1 {
 .input-area {
 	font-family: 'GmarketSansMedium';
 }
+#task-modify, #modify-button {
+	width: width: 400px;
+    height: 100px;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(50px);
+    -webkit-backdrop-filter: blur(1.5px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
 </style>
 
 </head>
 <body>
-	<!-- ¸ğµÎ¸¦ °¨½ÎÁÖ´Â div -->
-	<div style="width: 465px; margin: 0 auto;">
-		<!-- Å¸ÀÌÆ² ~ ÀÔ·ÂÅÂ±×±îÁö °¨½Î´Â div ½ÃÀÛ-->
+	<%
+		Member m = (Member)session.getAttribute("user");
+	%>
+	<!-- ëª¨ë‘ë¥¼ ê°ì‹¸ì£¼ëŠ” div -->
+	<div class="main-top" style="width: 465px; margin: 0 auto;">
+		<!-- íƒ€ì´í‹€ ~ ì…ë ¥íƒœê·¸ê¹Œì§€ ê°ì‹¸ëŠ” div ì‹œì‘-->
 		<div class="main">
-			<%--<h1>${user.mb_id }ÀÇ To-do List</h1> --%>
-			<h1>7¹İÀÇ To-do List</h1>
+			<h1><%=m.getMb_id() %>ë‹˜ì˜<br> To-do List</h1>
 			<br>
 			<div class="input-area">
 				<div class="row g-2">
 					<div class="col-auto">
 						<input type="text" class="form-control" id="task-input"
-							autofocus="autofocus" placeholder="To Do List ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä~">
+							autofocus="autofocus" placeholder="To Do List ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”~">
 					</div>
 					<div class="col-auto">
 						<button type="submit" class="btn btn-outline-warning mb-3"
-							id="add-button">Ãß°¡</button>
+							id="add-button">ì¶”ê°€</button>
+					</div>
+					<div class="col-auto">
+						<input type="text" class="form-control" id="task-modify"
+							autofocus="autofocus" placeholder="ìˆ˜ì •í•  To Do List ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”~" value="">
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn btn-outline-warning mb-3"
+							id="modify-button">ìˆ˜ì •</button>
 					</div>
 				</div>
 			</div>
 			<hr>
 			<br>
 		</div>
-		<!-- Å¸ÀÌÆ² ~ ÀÔ·ÂÅÂ±×±îÁö °¨½Î´Â div ³¡-->
+		<!-- íƒ€ì´í‹€ ~ ì…ë ¥íƒœê·¸ê¹Œì§€ ê°ì‹¸ëŠ” div ë-->
 
 
-		<!-- ÇÒÀÏ ÀüÃ¼¸¦ °¨½Î´Â ±¸¿ª ½ÃÀÛ-->
+		<!-- í• ì¼ ì „ì²´ë¥¼ ê°ì‹¸ëŠ” êµ¬ì—­ ì‹œì‘-->
 		<div id="task-board">
 
-			<!-- ÇÒÀÏ1 ½ÃÀÛ
+			<!-- í• ì¼1 ì‹œì‘
             <div class="row g-3 task">
                 <div class="col todo">
-                    <span class="todo">¿ä¸®ÇÏ±â</span>
+                    <span class="todo">ìš”ë¦¬í•˜ê¸°</span>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-outline-success">¿Ï·á</button>
-                    <button class="btn btn-outline-danger">»èÁ¦</button>
+                    <button class="btn btn-outline-success">ì™„ë£Œ</button>
+                    <button class="btn btn-outline-danger">ì‚­ì œ</button>
                 </div>
             </div>
-            ÇÒÀÏ1 ³¡-->
+            í• ì¼1 ë-->
 
-			<!-- ÇÒÀÏ2 ½ÃÀÛ
+			<!-- í• ì¼2 ì‹œì‘
             <div class="row g-3 task task-done">
                 <div class="col todo">
-                    <span class="todo">Ã»¼ÒÇÏ±â</span>
+                    <span class="todo">ì²­ì†Œí•˜ê¸°</span>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-outline-success">¿Ï·á</button>
-                    <button class="btn btn-outline-danger">»èÁ¦</button>
+                    <button class="btn btn-outline-success">ì™„ë£Œ</button>
+                    <button class="btn btn-outline-danger">ì‚­ì œ</button>
                 </div>
             </div>
-           ÇÒÀÏ2 ³¡ -->
+           í• ì¼2 ë -->
 		</div>
-		<!-- ÇÒÀÏ ÀüÃ¼¸¦ °¨½Î´Â ±¸¿ª ³¡-->
+		<!-- í• ì¼ ì „ì²´ë¥¼ ê°ì‹¸ëŠ” êµ¬ì—­ ë-->
 	</div>
-	<!-- ¸ğµÎ¸¦  °¨½Î´Â ±¸¿ª ³¡-->
+	<!-- ëª¨ë‘ë¥¼  ê°ì‹¸ëŠ” êµ¬ì—­ ë-->
 
 	<script src="https://code.jquery.com/jquery-3.7.0.js"
 		integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
@@ -165,71 +194,71 @@ h1 {
 
 
 	<script>
-        // 1. À¯Àú°¡ ÇÒÀÏÀ» ÀÔ·ÂÇÑ´Ù
-        // 2. ¹öÆ°À» ´©¸£¸é ÇÒ ÀÏÀÌ Ãß°¡ µÈ´Ù
-        // 3. Ãß°¡µÈ ¸ñ·ÏÀ» ´Ù½Ã À¥ ÆäÀÌÁö¿¡ º¸¿©ÁØ´Ù
-        // 4. '¿Ï·á'¹öÆ°À» ´©¸£¸é ÇÒÀÏ¿¡ ¹è°æ»öÀÌ µé¾î°£´Ù(task-done Å¬·¡½ºÀÇ ½ºÅ¸ÀÏ)
-        //  ¿Ï·áÀÎÁö ¹Ì¿Ï·áÀÎÁö ±¸ºĞ ÇÊ¿ä
-        // -> ÇÒ ÀÏÀ» ÀúÀåÇÒ ¶§ »óÅÂ°ªÀ» ÀúÀåÇØ¾ß ÇÑ´Ù
-        // 4.1 ÇÒ ÀÏ ÀúÀå(¹Ì¿Ï·á) -> ¿Ï·á Å¬¸¯ (¿Ï·á) -> ¶Ç Å¬¸¯ (¹Ì¿Ï·á)
-        //          -> °´Ã¼ ÇüÅÂ·Î ÀúÀå
-        // 4-2 (¸¸¾à) ÇÒ ÀÏ »óÅÂ°¡ ¿Ï·á(true) -> ¹è°æ»ö
-        // 4-2 (¸¸¾à) ÇÒ ÀÏ »óÅÂ°¡ ¹Ì¿Ï·á(false) -> ¹è°æ»ö
-        // 5. »èÁ¦ ¹öÆ°À» ´©¸£¸é ÇØ´ç ÇÒ ÀÏÀÌ »èÁ¦
+        // 1. ìœ ì €ê°€ í• ì¼ì„ ì…ë ¥í•œë‹¤
+        // 2. ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ í•  ì¼ì´ ì¶”ê°€ ëœë‹¤
+        // 3. ì¶”ê°€ëœ ëª©ë¡ì„ ë‹¤ì‹œ ì›¹ í˜ì´ì§€ì— ë³´ì—¬ì¤€ë‹¤
+        // 4. 'ì™„ë£Œ'ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ í• ì¼ì— ë°°ê²½ìƒ‰ì´ ë“¤ì–´ê°„ë‹¤(task-done í´ë˜ìŠ¤ì˜ ìŠ¤íƒ€ì¼)
+        //  ì™„ë£Œì¸ì§€ ë¯¸ì™„ë£Œì¸ì§€ êµ¬ë¶„ í•„ìš”
+        // -> í•  ì¼ì„ ì €ì¥í•  ë•Œ ìƒíƒœê°’ì„ ì €ì¥í•´ì•¼ í•œë‹¤
+        // 4.1 í•  ì¼ ì €ì¥(ë¯¸ì™„ë£Œ) -> ì™„ë£Œ í´ë¦­ (ì™„ë£Œ) -> ë˜ í´ë¦­ (ë¯¸ì™„ë£Œ)
+        //          -> ê°ì²´ í˜•íƒœë¡œ ì €ì¥
+        // 4-2 (ë§Œì•½) í•  ì¼ ìƒíƒœê°€ ì™„ë£Œ(true) -> ë°°ê²½ìƒ‰
+        // 4-2 (ë§Œì•½) í•  ì¼ ìƒíƒœê°€ ë¯¸ì™„ë£Œ(false) -> ë°°ê²½ìƒ‰
+        // 5. ì‚­ì œ ë²„íŠ¼ì„ ëˆ„ë¥´ë©´ í•´ë‹¹ í•  ì¼ì´ ì‚­ì œ
 
-        // »ç¿ëÀÚ°¡ inputÃ¢¿¡ Àû´Â ÇÒÀÏ
+        // ì‚¬ìš©ìê°€ inputì°½ì— ì ëŠ” í• ì¼
         let taskInput = document.getElementById("task-input");
-        // À¯Àú°¡ ÀÔ·ÂÇÒ ÇÒÀÏÀ» ¼øÂ÷ÀûÀ¸·Î ÀúÀåÇÏ´Â ¹è¿­
+        // ìœ ì €ê°€ ì…ë ¥í•  í• ì¼ì„ ìˆœì°¨ì ìœ¼ë¡œ ì €ì¥í•˜ëŠ” ë°°ì—´
         let taskList = [];
         function todoSearch() {
             $.ajax({
                 url: "todoSearch.do",
                 dataType: 'json',
                 success: function (res) {
-                    console.log("¼­Ä¡ ¼º°ø!");
+                    console.log("ì„œì¹˜ ì„±ê³µ!");
                     taskList = res;
                     render();
                 },
                 error: function (e) {
-                    console.log('¼­Ä¡ ½ÇÆĞ¤Ğ');
+                    console.log('ì„œì¹˜ ì‹¤íŒ¨ã… ');
                 }
             });
         };
 		todoSearch();
-        // ÇÒ ÀÏ Ãß°¡ ¹öÆ°
+        // í•  ì¼ ì¶”ê°€ ë²„íŠ¼
         let addButton = document.getElementById("add-button");
-		// ÇÒÀÏ ÀüÃ¼¸¦ ´ã´Â Å« div »ı¼º
+		// í• ì¼ ì „ì²´ë¥¼ ë‹´ëŠ” í° div ìƒì„±
         let taskBoard = document.getElementById("task-board");
 
-        // ³»°¡ ´©¸¥ ¿Ï·á¹öÆ°¿¡ ÇØ´çÇÏ´Â ÇÒÀÏ µ¢¾î¸®ÀÇ ¿Ï·á¿©ºÎ¸¦ ¹Ù²ãÁÖ´Â ÇÔ¼ö
+        // ë‚´ê°€ ëˆ„ë¥¸ ì™„ë£Œë²„íŠ¼ì— í•´ë‹¹í•˜ëŠ” í• ì¼ ë©ì–´ë¦¬ì˜ ì™„ë£Œì—¬ë¶€ë¥¼ ë°”ê¿”ì£¼ëŠ” í•¨ìˆ˜
         const toggleCheck = function (i) {
-            console.log('³»°¡ ¼±ÅÃÇÑ ÇÒÀÏ', i);
+            console.log('ë‚´ê°€ ì„ íƒí•œ í• ì¼', i);
 
-            // ¹è¿­ÀÇ ÇüÅÂ·Î ÀúÀåµÈ ÇÒ ÀÏÀ» ¸¸µå´Â ÇÔ¼ö »ı¼º
+            // ë°°ì—´ì˜ í˜•íƒœë¡œ ì €ì¥ëœ í•  ì¼ì„ ë§Œë“œëŠ” í•¨ìˆ˜ ìƒì„±
             if (taskList[i].todo_status) {
                 taskList[i].todo_status = false;
             } else {
                 taskList[i].todo_status = true;
-            }
+            };
 
-            // º¯µ¿»çÇ×ÀÌ »ı°åÀ¸¸é ÃÖ½Å¹è¿­ ÀçÃâ·Â
+            // ë³€ë™ì‚¬í•­ì´ ìƒê²¼ìœ¼ë©´ ìµœì‹ ë°°ì—´ ì¬ì¶œë ¥
             render();
         };
 
-        // ³»°¡ ´©¸¥ »èÁ¦¹öÆ°¿¡ ÇØ´çÇÏ´Â ÇÒÀÏÀ» Áö¿öÁÖ´Â ÇÔ¼ö
+        // ë‚´ê°€ ëˆ„ë¥¸ ì‚­ì œë²„íŠ¼ì— í•´ë‹¹í•˜ëŠ” í• ì¼ì„ ì§€ì›Œì£¼ëŠ” í•¨ìˆ˜
       //  const deleteTask = function (i) {
         //    taskList.splice(i, 1);
 
       //      render();
     //    }
 
-        // ¹è¿­ ÇüÅÂ·Î ÀúÀåµÈ ÇÒ ÀÏÀ» À¥ÆäÀÌÁö¿¡ Ãâ·ÂÇÏ´Â ÇÔ¼ö
+        // ë°°ì—´ í˜•íƒœë¡œ ì €ì¥ëœ í•  ì¼ì„ ì›¹í˜ì´ì§€ì— ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜
         const render = function () {
 			console.log(taskList);
             let resultHTML = '';
             for (let i = 0; i < taskList.length; i++) {
-                //¿Ï·á ¿©ºÎ¿¡ µû¸¥ ÇÒÀÏ Ãâ·Â isComplete == true : class "task task-done"
-                //¿Ï·á ¿©ºÎ¿¡ µû¸¥ ÇÒÀÏ Ãâ·Â isComplete == false : class "task"
+                //ì™„ë£Œ ì—¬ë¶€ì— ë”°ë¥¸ í• ì¼ ì¶œë ¥ isComplete == true : class "task task-done"
+                //ì™„ë£Œ ì—¬ë¶€ì— ë”°ë¥¸ í• ì¼ ì¶œë ¥ isComplete == false : class "task"
                 if (taskList[i].todo_content != "") {
                     if (taskList[i].todo_status == "true") {
                         resultHTML += `
@@ -238,10 +267,12 @@ h1 {
                     <span class="todo">${taskList[i].todo_content}</span>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">¿Ï·á</button>
-                    <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')">¡ã</button><br>
-                    <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">»èÁ¦</button>
-                    <button class="btn btn-outline-danger" onclick = "todoDown('${taskList[i].todo_seq}','${i}')">¡å</button>
+                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">ì™„ë£Œ</button>
+                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">â˜†â˜†</button>
+                    <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')" title="ìœ„ë¡œ">â–²</button><br>
+                    <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">ì‚­ì œ</button>
+                    <button class="btn btn-outline-danger" onclick = "todoModifyOpen('${taskList[i].todo_seq}')">ìˆ˜ì •</button>
+                    <button class="btn btn-outline-danger" onclick = "todoDown('${taskList[i].todo_seq}','${i}')" title="ì•„ë˜ë¡œ">â–¼</button>
                 </div>
             </div>
             `;
@@ -252,40 +283,22 @@ h1 {
                     <span class="todo">${taskList[i].todo_content}</span>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">¿Ï·á</button>
-                    <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')">¡ã</button><br>
-                    <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">»èÁ¦</button>
-                    <button class="btn btn-outline-danger" onclick = "todoDown('${taskList[i].todo_seq}','${i}')">¡å</button>
+                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">ì™„ë£Œ</button>
+                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">â˜†â˜†</button>
+                    <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')" title="ìœ„ë¡œ">â–²</button><br>
+                    <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">ì‚­ì œ</button>
+                    <button class="btn btn-outline-danger" onclick = "todoModifyOpen('${taskList[i].todo_seq}')">ìˆ˜ì •</button>
+                    <button class="btn btn-outline-danger" onclick = "todoDown('${taskList[i].todo_seq}','${i}')" title="ì•„ë˜ë¡œ">â–¼</button>
                 </div>
             </div>
             `;
-                    }
-                }
-            }
+                    };
+                };
+            };
             taskBoard.innerHTML = resultHTML;
         };
-
-        // Ãß°¡ ¹öÆ°À» ´©¸£¸é »õ ÇÒÀÏÀ» ÇÒ ÀÏ ¸ñ·Ï¿¡ Ãß°¡ÇÏ´Â ÇÔ¼ö
-        const addTask = function () {
-            let task = {
-                "taskContent": taskInput.value,
-                "isComplete": false
-            }
-
-            // console.log(task);
-
-            // ¹è¿­¿¡ ÇÒ ÀÏ Ãß°¡
-            taskList.push(task)
-            // console.log(taskList);
-
-            // ÀÔ·ÂÃ¢ ºñ¿öÁÖ±â ¿ëµµ
-            //taskInput.value = "";
-
-            // À¥ÆäÀÌÁö¿¡ ¾÷µ¥ÀÌÆ®µÈ ÇÒÀÏ ¸ñ·ÏÀ» ´Ù½Ã Ãâ·ÂÇÏ´Â ÇÔ¼ö
-            render();
-        };
 		
-        // ¾²±â
+        // ì“°ê¸°
 		function todoWrite(){
 			let taskInput = $("#task-input").val();
 			$.ajax({
@@ -295,34 +308,34 @@ h1 {
 					"taskInput" : taskInput
 				},
 				success : function(res){
-					console.log("¾²±â ¼º°ø!");
+					console.log("ì“°ê¸° ì„±ê³µ!");
 					todoSearch();
 				},
 				error : function(e){
-					console.log("¾²±â ½ÇÆĞ¤Ğ")
+					console.log("ì“°ê¸° ì‹¤íŒ¨ã… ")
 				}
 			});
 		};
 
-        // »èÁ¦
+        // ì‚­ì œ
         function todoDelete(todo_seq) {
             $.ajax({
                 url: "todoDelete.do",
-                type: "get",
+                type: "post",
                 data: {
                     "todo_seq": todo_seq
                 },
                 success: function (res) {
-                    console.log("»èÁ¦ ¼º°ø!");
+                    console.log("ì‚­ì œ ì„±ê³µ!");
 					todoSearch();
                 },
                 error: function (e) {
-                    console.log("»èÁ¦ ½ÇÆĞ¤Ğ");
+                    console.log("ì‚­ì œ ì‹¤íŒ¨ã… ");
                 }
             });
         };
 
-        // ¿Ï·á
+        // ì™„ë£Œ
         function todoDone(todo_seq, todo_status) {
             if (todo_status === "false") {
                 $.ajax({
@@ -332,11 +345,11 @@ h1 {
                         "todo_seq": todo_seq
                     },
                     success: function (res) {
-                        console.log("¿Ï·á ¼º°ø!");
+                        console.log("ì™„ë£Œ ì„±ê³µ!");
                         todoSearch();
                     },
                     error: function (e) {
-                        console.log("¿Ï·á ½ÇÆĞ¤Ğ");
+                        console.log("ì™„ë£Œ ì‹¤íŒ¨ã… ");
                     }
                 });
             } else {
@@ -347,51 +360,43 @@ h1 {
                         "todo_seq": todo_seq
                     },
                     success: function (res) {
-                        console.log("¿Ï·á Ãë¼Ò ¼º°ø!");
+                        console.log("ì™„ë£Œ ì·¨ì†Œ ì„±ê³µ!");
                         todoSearch();
                     },
                     error: function (e) {
-                        console.log("¿Ï·á Ãë¼Ò ½ÇÆĞ¤Ğ");
+                        console.log("ì™„ë£Œ ì·¨ì†Œ ì‹¤íŒ¨ã… ");
                     }
                 });
             };
         };
         
-        // ¾÷
+        // ì—…
         function todoUp(todo_seq, i) {
         	console.log(todo_seq, i);
             $.ajax({
                 url: "todoSearch.do",
                 dataType: 'json',
                 success: function (res) {
-                    console.log("todoUpstairs ¼­Ä¡ ¼º°ø!");
+                    console.log("todoUpstairs ì„œì¹˜ ì„±ê³µ!");
                     taskList = res;
                     let todo_seq_1;
                     i = parseInt(i);
-                    for(let j = i; j > 0; j--){
-        				if(taskList[j-1].todo_seq !== null){
-        					console.log("true");
-        					todo_seq_1 = taskList[j-1].todo_seq;
-        					break;
-                    	};
-        			};
-        			if(todo_seq_1 >= 0){
-                    	console.log(todo_seq_1);
-        				console.log(taskList[i].todo_seq, todo_seq_1);
-        				todoUpstairs(taskList[i].todo_seq, todo_seq_1);
+        			if(i-1 >= 0){
+        				console.log(taskList[i].todo_seq, taskList[i-1].todo_seq);
+        				todoUpstairs(taskList[i].todo_seq, taskList[i-1].todo_seq);
         			}else{
                     	console.log("todo_seq_1 is NULL");
-                    	alert("ÃÖ»óÀ§ ÀÔ´Ï´Ù~");
+                    	alert("ìµœìƒìœ„ ì…ë‹ˆë‹¤~");
                         todoSearch();
         			};
                 },
                 error: function (e) {
-                    console.log('todoUpstairs ¼­Ä¡ ½ÇÆĞ¤Ğ');
+                    console.log('todoUpstairs ì„œì¹˜ ì‹¤íŒ¨ã… ');
                 }
             });
         };
 
-        // À§Ãş
+        // ì—… ì™„ë£Œ 
         function todoUpstairs(todo_seq, todo_seq_1) {
         	console.log(todo_seq, todo_seq_1);
             $.ajax({
@@ -402,51 +407,41 @@ h1 {
                     "todo_seq_1": todo_seq_1,
                 },
                 success: function (res) {
-                    console.log("¾÷ ¼º°ø!");
+                    console.log("ì—… ì„±ê³µ!");
                     todoSearch();
                 },
                 error: function (e) {
-                    console.log('¾÷ ½ÇÆĞ¤Ğ');
+                    console.log('ì—… ì‹¤íŒ¨ã… ');
                 }
             });
         };
 
-        // ´Ù¿î
+        // ë‹¤ìš´
         function todoDown(todo_seq, i) {
         	console.log(todo_seq, i);
             $.ajax({
                 url: "todoSearch.do",
                 dataType: 'json',
                 success: function (res) {
-                    console.log("todoUpstairs ¼­Ä¡ ¼º°ø!");
+                    console.log("todoUpstairs ì„œì¹˜ ì„±ê³µ!");
                     taskList = res;
-                    let todo_seq_1;
                     i = parseInt(i);
-                    for(let j = i; j < taskList.length - 1; j++){
-                    	console.log(j, j+1);
-        				if(taskList[j+1].todo_seq !== null){
-        					console.log("true");
-        					todo_seq_1 = taskList[j+1].todo_seq;
-        					break;
-                    	};
-        			};
-        			if(todo_seq_1 >= 0){
-                    	console.log(todo_seq_1);
-        				console.log(taskList[i].todo_seq, todo_seq_1);
-        				todoDownstairs(taskList[i].todo_seq, todo_seq_1);
+        			if(i+1 < taskList.length){
+        				console.log(taskList[i].todo_seq, taskList[i+1].todo_seq);
+        				todoDownstairs(taskList[i].todo_seq, taskList[i+1].todo_seq);
         			}else{
                     	console.log("todo_seq_1 is NULL");
-                    	alert("ÃÖÇÏÀ§ ÀÔ´Ï´Ù~");
+                    	alert("ìµœí•˜ìœ„ ì…ë‹ˆë‹¤~");
                         todoSearch();
         			};
                 },
                 error: function (e) {
-                    console.log('todoUpstairs ¼­Ä¡ ½ÇÆĞ¤Ğ');
+                    console.log('todoUpstairs ì„œì¹˜ ì‹¤íŒ¨ã… ');
                 }
             });
         };
 
-        // ¾Æ·¡Ãş
+        // ë‹¤ìš´ ì™„ë£Œ 
         function todoDownstairs(todo_seq, todo_seq_1){
         	console.log(todo_seq, todo_seq_1);
             $.ajax({
@@ -457,36 +452,117 @@ h1 {
                     "todo_seq_1": todo_seq_1,
                 },
                 success: function (res) {
-                    console.log("´Ù¿î ¼º°ø!");
+                    console.log("ë‹¤ìš´ ì„±ê³µ!");
                     todoSearch();
                 },
                 error: function (e) {
-                    console.log('´Ù¿î ½ÇÆĞ¤Ğ');
+                    console.log("ë‹¤ìš´ ì‹¤íŒ¨ã… ");
                 }
             });
-        }
+        };
 
-		// Å¬¸¯
+		// ìˆ˜ì • ë³€ìˆ˜ ì„ ì–¸ 
+		let todo_seq;
+	    const taskModify = document.getElementById("task-modify");
+	    const modifyButton = document.getElementById("modify-button");
+	    const bodyClick = document.body;
+
+	 	// ìˆ˜ì • ì—´ê¸°
+        function todoModifyOpen(i){
+	 		todo_seq = i;
+	        console.log(todo_seq);
+	        taskModify.style.display = "flex"
+	        modifyButton.style.display = "flex"
+		};
+	 	
+		// ìˆ˜ì • esc ë‹«ê¸° 
+        window.addEventListener("keyup", e => {
+            if (taskModify.style.display === "flex" && e.key === "Escape") {
+            	taskModify.style.display = "none"
+                modifyButton.style.display = "none"
+            };
+        });
+
+	 	// ìˆ˜ì • í´ë¦­ ë‹«ê¸°
+	 	bodyClick.addEventListener("click", e => {
+            const evTarget = e.target;
+            if (evTarget.classList.contains("main")) {
+            	taskModify.style.display = "none"
+            	modifyButton.style.display = "none"
+            };
+        });
+
+		// ìˆ˜ì • í´ë¦­ 
+        modifyButton.addEventListener("click", e => {
+            if (($("#task-modify").val().trim() == "")) {
+                alert("ìˆ˜ì •í•  To Do List ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”~");
+            }else{
+	 			todo_seq = todo_seq;
+	        	console.log(todo_seq);
+	        	todoModify(todo_seq);
+            };
+        });
+
+        // ìˆ˜ì • ì—”í„°
+        $("#task-modify").on("keydown", function (i) {
+            if (i.keyCode == 13) {
+                if (($("#task-modify").val().trim() == "")) {
+                    alert("ìˆ˜ì •í•  To Do List ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”~");
+                } else {
+        	 		todo_seq = todo_seq;
+        	        console.log(todo_seq);
+        	        todoModify(todo_seq);
+                    $("#task-input").prop("value", "");
+                };
+            };
+        });
+
+        // ìˆ˜ì • ì™„ë£Œ
+        function todoModify(todo_seq) {
+            console.log(todo_seq);
+        	let todo_content = $("#task-modify").val();
+            console.log(todo_content);
+            $.ajax({
+                url: "todoModify.do",
+                type: "post",
+                data: {
+                    "todo_seq": todo_seq,
+                    "todo_content": todo_content
+                },
+                success: function (res) {
+                    console.log("ìˆ˜ì • ì„±ê³µ1");
+                    todoSearch();
+                },
+                error: function (e) {
+                    console.log("ìˆ˜ì • ì‹¤íŒ¨ã… ");
+                }
+            });
+            taskModify.style.display = "none"
+            modifyButton.style.display = "none"
+            $("#task-modify").prop("value", "");
+        };
+
+		// í´ë¦­
 		$("#add-button").on("click", function(){
 			if(($("#task-input").val().trim() == "")){
-				alert("To Do List ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä~");
+				alert("To Do List ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”~");
 			}else{
 				todoWrite();
-			}
+			};
 		});
 
-        // ¿£ÅÍ
+        // ì—”í„°
         $("#task-input").on("keydown", function (i) {
             if (i.keyCode == 13) {
-                console.log("¿£ÅÍ ´©¸§");
                 if (($("#task-input").val().trim() == "")) {
-                    alert("To Do List ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä~");
+                    alert("To Do List ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”~");
                 } else {
                     todoWrite();
-                }
-            }
+                    $("#task-input").prop("value", "");
+                };
+            };
         });
-        
+
 	</script>
 </body>
 </html>
