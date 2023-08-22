@@ -558,7 +558,7 @@ h1 {
                     alert("To Do List 를 입력해주세요~");
                 } else {
                     todoWrite();
-                    //$("#task-input").prop("value", "");
+                    $("#task-input").prop("value", "");
                 };
             };
         });
