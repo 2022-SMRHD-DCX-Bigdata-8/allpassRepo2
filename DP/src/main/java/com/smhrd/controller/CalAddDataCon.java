@@ -2,14 +2,10 @@ package com.smhrd.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.smhrd.dao.CalendarDAO;
 import com.smhrd.entity.Calendar;
@@ -30,7 +26,7 @@ public class CalAddDataCon implements Controller {
 		String startstr = request.getParameter("start");
 		String endstr = request.getParameter("end");
 		String color = request.getParameter("color");
-		String mb_id = "test";
+		String mb_id = request.getParameter("mb_id");
 		String status = "test2";
 		
 		// 수집된 데이터들을 하나로 묶어줌

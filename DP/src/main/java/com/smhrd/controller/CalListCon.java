@@ -21,7 +21,7 @@ public class CalListCon implements Controller {
 		
 		// 수집
 		request.setCharacterEncoding("utf-8");		
-		String mb_id = "test";
+		String mb_id = request.getParameter("mb_id");
 			
 		// 기능
 		response.setCharacterEncoding("utf-8");

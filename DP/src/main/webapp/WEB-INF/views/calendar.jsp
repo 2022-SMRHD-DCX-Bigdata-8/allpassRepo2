@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.entity.Member"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="java.util.Map"%>
@@ -70,45 +71,13 @@
 		
 		// 컨트롤러에서 만든 JSON데이터들
 		<%
-			String calList = (String)request.getAttribute("calList");
-			String calSession = (String)request.getAttribute("calSession");
-			String status = (String)request.getAttribute("status");
+			String calList = (String)session.getAttribute("calList");
+			String calSession = (String)session.getAttribute("calSession");
+			Member user = (Member)session.getAttribute("user");
 		%>
 		
-		var calListJson = []; // JSON데이터를 배열로 표현하기 위한 함수
-		calListJson = <%=calList%>; // 배열로 바뀐 변수에 데이터 넣어주기
-		
-		console.log("배열로 표현된 JSON : ", calListJson);
-		console.log(typeof(calListJson));
-		
-		// for문 돌리기 위해 길이 구해서 size변수에 넣어주기
-		var size = Object.values(calListJson).length ;
-		console.log(size);
-		
-		// 위에서 구한 길이를 활용해서 캘린더에 일정 표시
-		for(var i = 0, result=[] ; i < size ; i++) {			
-			// 날짜에서 시간부분을 지우기위해 substr 사용
-			var start = calListJson[i].started_at.substr(0, 10);
-			var end = calListJson[i].ended_at.substr(0, 10);
-			// 풀캘린더가 종료날짜를 하루 빼고 적용하길래 임의로 1 더해주기
-			var end2 = end.substr(0, 8);
-			var day = end.substr(8, 2) * 1 + 1;
-			// 일자가 10일 미만인 경우에는 09가 아니라 9로 표시되서
-			// 풀캘린더에 표시가 안 되므로 임의로 일자 앞에 0 붙여주기
-			if(day < 10){
-				day = "0" + day;
-			}
-			end = end2 + day;
-			
-			result.push({
-				"id": calListJson[i].cal_seq , 
-				"title": calListJson[i].cal_title , 
-				"start": start , 
-				"end": end , 
-				"color": calListJson[i].cal_color							
-			});
-			console.log("일정을 추가하기 위한 반복문 실행");
-		};		
+		var userId = '<%=user.getMb_id()%>';
+		console.log("멤버세션값 : ", userId);
 		
 		// 캘린더 출력하기 위한 코드
 		document.addEventListener('DOMContentLoaded', function() {
@@ -132,7 +101,9 @@
 					$.ajax({
 						url: 'calAddSession.do' , 
 						type: 'post' , 
-						data: {"start" : info.dateStr} , 
+						data: {
+							"start" : info.dateStr
+						} , 
 						dataType: 'json' , 
 						success: function(res){
 							console.log("calSession2로그 : ", typeof(res));
@@ -146,14 +117,14 @@
 							alert("goAddSchedule.do 요청실패 : ", e);
 						}
 					});
-					
-					
 				},  
 				eventClick: function(info){ // 일정 클릭시 수정/삭제화면 팝업
 					$.ajax({
 						url: 'calUpDelSession.do' ,
 						type: 'post' , 
-						data: {"cal_seq" : info.event.id} , 
+						data: {
+							"cal_seq" : info.event.id
+						} , 
 						dataType: 'json' , 
 						success: function(res){
 							console.log("calSession로그 : ", res.started_at);
@@ -169,14 +140,51 @@
 					});	
 					console.log(typeof(info.event));
 				} ,				 
-				events: result, 
 				timeZone: 'UTC'
 			});	
+			
+			// db에 저장된 데이터를 캘린더에 표시하기 위한 비동기 통신
+			$.ajax({ 
+				url: 'calList.do' ,
+				type: 'post' , 
+				data: { "mb_id" : userId } , 
+				dataType: "json" , 
+				success: function(res){
+					// select로 받아온 데이터를 모두 추가하기 위해 for문 사용
+					for(var i = 0 ; i < res.length ; i++){
+						// 날짜에서 시간부분을 지우기위해 substr 사용
+						var start = res[i].started_at.substr(0, 10);
+						var end = res[i].ended_at.substr(0, 10);
+						// 풀캘린더가 종료날짜를 하루 빼고 적용하길래 임의로 1 더해주기
+						var end2 = end.substr(0, 8);
+						var day = end.substr(8, 2) * 1 + 1;
+						// 일자가 10일 미만인 경우에는 09가 아니라 9로 표시되서
+						// 풀캘린더에 표시가 안 되므로 임의로 일자 앞에 0 붙여주기
+						if(day < 10){
+							day = "0" + day;
+						}
+						end = end2 + day;
+						
+						console.log(end);
+						
+						// 캘린더에 일정을 추가하는 풀캘린더 내부 기능
+						calendar.addEvent({
+							id: res[i].cal_seq, 
+							title: res[i].cal_title ,
+							start: start, 
+							end: end, 
+							color: res[i].cal_color 
+						});
+					}
+				} , 
+				error: function(e){
+					alert('calList 요청 실패');
+				}
+			});
 			
 			// 캘린더 렌더링
 			calendar.render();	
 			console.log("첫렌더링", calendar);
-	
 		});
 		// 캘린더 출력하기 위한 코드
 		// ===============================================
