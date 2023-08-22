@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html>
@@ -12,5 +13,11 @@
 	<a href="goTodo.do">투두리스트 가기</a>
 	<a href="goLogin.do">로그인 페이지 가기</a>
 	<a href="goJoin.do">회원가입 페이지 가기</a>
+	
+	<% Member member = new Member(); %>
+	<h1><% String id= (String)member.getMb_id(); %></h1>
+	<%=id %>	
+	
+	
 </body>
 </html>
