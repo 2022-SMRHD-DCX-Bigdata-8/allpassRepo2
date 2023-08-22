@@ -34,4 +34,37 @@ public class CalendarDAO {
 		return list;		
 	}
 	
+	// 세션 생성을 위한 Select SQL
+	public Calendar calSession(int cal_seq) {
+		SqlSession session = factory.openSession(true);
+		
+		Calendar calSession = session.selectOne("calSession", cal_seq);
+		
+		session.close();
+		
+		return calSession;
+	}
+	
+	// 일정 삭제 SQL
+	public int calDel(int cal_seq) {
+		SqlSession session = factory.openSession(true);
+		
+		int cnt = session.delete("calDel", cal_seq);
+		
+		session.close();
+		
+		return cnt;
+	}
+	
+	// 일정 수정 SQL
+	public int calUp(Calendar cal) {
+		SqlSession session = factory.openSession(true);
+		
+		int cnt = session.update("calUp", cal);
+		
+		session.close();
+		
+		return cnt;
+	}
+	
 }
