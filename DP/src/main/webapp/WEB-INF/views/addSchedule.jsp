@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.entity.Member"%>
 <%@page import="com.smhrd.entity.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -136,8 +137,10 @@
 
 	<%
 	Calendar calStart = (Calendar)session.getAttribute("addStart");
-	System.out.println(calStart);
+	
 	%>
+	
+	
 
 	<div class="wrap">
 		<div class="addCal">
@@ -173,6 +176,10 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 	<script type="text/javascript">
+		<% Member user = (Member)session.getAttribute("user"); %>
+		
+		var userId = '<%=user.getMb_id()%>';
+	
 		// Ajax 기술 활용! -> Jquery 라이브러리도 필요하다
 
 		// jquery 방식으로 사용하고자 하는 버튼 선택
@@ -193,6 +200,7 @@
 				url : 'calAddData.do', // 어디로 요청을 보낼건지
 				type : 'post' , 
 				data : {
+					mb_id : userId , 
 					title : title.val(), 
 					start : start.val(), 
 					end : end.val(), 

@@ -135,7 +135,11 @@
 </head>
 <body>
 
-	<% Calendar calData = (Calendar)session.getAttribute("calData"); %>
+	<% 
+	Calendar calData = (Calendar)session.getAttribute("calData"); 
+	System.out.println("넘어온 세션의 일정제목 : " + calData.getCal_title());
+	%>
+	
 	
 	<div class="wrap">
 		<div class="upDelCal">
@@ -143,7 +147,7 @@
 			
 			<div class="cal_title">
 				<h4>일정 제목</h4>
-				<input type="text" value=<%=calData.getCal_title()%> name="cal_title">
+				<input type="text" value="<%=calData.getCal_title()%>" name="cal_title">
 			</div>
 			
 			<div class="cal_start">
