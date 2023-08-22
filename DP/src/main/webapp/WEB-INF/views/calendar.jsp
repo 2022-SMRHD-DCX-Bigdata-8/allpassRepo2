@@ -70,11 +70,9 @@
 		
 		// 컨트롤러에서 만든 JSON데이터들
 		<%
-		String calList = (String)request.getAttribute("calList");
-		String calSession = (String)request.getAttribute("calSession");
-		String status = (String)request.getAttribute("status");
-		System.out.println(calList.getClass().getName());
-		System.out.println(calList);
+			String calList = (String)request.getAttribute("calList");
+			String calSession = (String)request.getAttribute("calSession");
+			String status = (String)request.getAttribute("status");
 		%>
 		
 		var calListJson = []; // JSON데이터를 배열로 표현하기 위한 함수
