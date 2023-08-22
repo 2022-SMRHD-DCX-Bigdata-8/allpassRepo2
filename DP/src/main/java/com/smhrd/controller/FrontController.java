@@ -40,9 +40,13 @@ public class FrontController extends HttpServlet {
 		// calendar
 		handler.put("/goCalendar.do", new GoCalendarCon());
 		handler.put("/goAddSchedule.do", new GoAddScheduleCon());
-		handler.put("/addCalData.do", new AddCalDataCon());
 		handler.put("/goUpDelSchedule.do", new GoUpDelScheduleCon());
 		handler.put("/calList.do", new CalListCon());
+		handler.put("/calUpDelSession.do", new CalUpDelSessionCon());
+		handler.put("/calAddSession.do", new CalAddSessionCon());
+		handler.put("/calAddData.do", new CalAddDataCon());
+		handler.put("/calDelData.do", new CalDelDataCon());
+		handler.put("/calUpData.do", new CalUpDataCon());
 
 		// todoList
 		handler.put("/goTodo.do", new GoTodoCon());

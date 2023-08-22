@@ -13,33 +13,34 @@ import com.google.gson.Gson;
 import com.smhrd.dao.CalendarDAO;
 import com.smhrd.entity.Calendar;
 
-public class CalListCon implements Controller {
+public class CalUpDelSessionCon implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		// 수집
-		request.setCharacterEncoding("utf-8");		
-		String mb_id = request.getParameter("mb_id");
-			
-		// 기능
+		request.setCharacterEncoding("utf-8");
+		
+		String cal_seqstr = request.getParameter("cal_seq");
+
+		int cal_seq = Integer.parseInt(cal_seqstr);
+		
+		CalendarDAO dao = new CalendarDAO();
+		Calendar cal = dao.calSession(cal_seq);
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("calData", cal);
+		
 		response.setCharacterEncoding("utf-8");
 		
 		PrintWriter out = response.getWriter();
 		
-		CalendarDAO dao = new CalendarDAO();
-		List<Calendar> list = dao.calList(mb_id);		
-				
 		Gson gson = new Gson();
-		String json = gson.toJson(list);
-				
-		//request.setAttribute("reCalList", json);
+		String json = gson.toJson(cal);
 		
 		out.print(json);
 		
-		System.out.println("List<Calendar> : " + list);
-		System.out.println("CalListCon실행결과 : " + json);
+		System.out.println("updelcal data : " + cal);
 		
 		return null;
 	}
