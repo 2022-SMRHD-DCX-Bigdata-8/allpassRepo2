@@ -201,7 +201,7 @@ h2 {
 </style>
 
 <body>
-	<form action="login" method="post">
+	<form action="login.do" method="post">
 		<div class="wrap">
 			<div class="login">
 				<h2>로그인</h2>

@@ -1,14 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>ÀÓ½Ã ¸ÞÀÎ ÆäÀÌÁö</title>
+
+<meta charset="UTF-8">
+<title>ìž„ì‹œ ë©”ì¸ íŽ˜ì´ì§€</title>
 </head>
 <body>
-	<h1>¹æ°¡~ ÀÓ½Ã ¸ÞÀÎ ÆäÀÌÁö¾ß~</h1>
-	<a href="goCalendar.do">Ä¶¸°´õ °¡±â</a><br>
-	<a href="goTodo.do">ÅõµÎ¸®½ºÆ® °¡±â</a>
+	<h1>ë°©ê°€~ ìž„ì‹œ ë©”ì¸ íŽ˜ì´ì§€ì•¼~</h1>
+	<a href="goLogin.do">ë¡œê·¸ì¸ íŽ˜ì´ì§€ ê°€ê¸°</a><br>
+	<a href="goJoin.do">íšŒì›ê°€ìž… íŽ˜ì´ì§€ ê°€ê¸°</a>
 </body>
 </html>

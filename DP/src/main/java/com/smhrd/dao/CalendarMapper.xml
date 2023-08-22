@@ -13,5 +13,25 @@
 		select * from TB_CALENDAR
 		where mb_id = #{mb_id}
 	</select>
+	
+	<!-- 일정 삭제 SQL -->
+	<delete id="calDel" parameterType="com.smhrd.entity.Calendar">
+		delete from tb_calendar
+		where cal_seq = #{cal_seq}
+	</delete>
+	
+	<!-- 일정 수정 SQL -->
+	<update id="calUp" parameterType="com.smhrd.entity.Calendar">
+		update tb_calendar
+		set cal_title=#{cal_title}, started_at=#{started_at}, ended_at=#{ended_at}, cal_color=#{cal_color}
+		where cal_seq = #{cal_seq}
+	</update>
+	
+	<!-- 세션 생성을 위한 Select SQL -->
+	<select id="calSession" resultType="com.smhrd.entity.Calendar">
+		select * from tb_calendar
+		where cal_seq = #{cal_seq}
+	</select>
+
 
 </mapper>

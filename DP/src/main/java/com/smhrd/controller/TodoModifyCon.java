@@ -11,7 +11,7 @@ import com.smhrd.dao.TodoListDAO;
 import com.smhrd.entity.Member;
 import com.smhrd.entity.Todo;
 
-public class TodoDoneCon implements Controller {
+public class TodoModifyCon implements Controller {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response)
@@ -22,19 +22,21 @@ public class TodoDoneCon implements Controller {
 		String id = m.getMb_id();
 
 		request.setCharacterEncoding("UTF-8");
-		int todo_seq = Integer.parseInt(request.getParameter("todo_seq"));
-		
+		int  todo_seq = Integer.parseInt(request.getParameter("todo_seq"));
+		String  todo_content = request.getParameter("todo_content");
+
 		Todo todo = new Todo();
 		todo.setTodo_id(id);
 		todo.setTodo_seq(todo_seq);
+		todo.setTodo_content(todo_content);
 		
 		TodoListDAO dao = new TodoListDAO();
-		int cnt = dao.todoDone(todo);
+		int cnt = dao.todoModify(todo);
 
 		if (cnt > 0) {
-			System.out.println("TodoDone Complete!");
+			System.out.println("Modify Complete!");
 		} else {
-			System.out.println("TodoDone Faild!");
+			System.out.println("Modify Faild!");
 		}
 		
 		return null;
