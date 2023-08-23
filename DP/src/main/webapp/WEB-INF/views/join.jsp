@@ -216,18 +216,7 @@ h2 {
 	outline: none;
 }
 
-.join_img {
-	margin-top: 20px;
-	width: 80%;
-}
 
-.join_img input {
-	width: 100%;
-	height: 50px;
-	margin-top: 10px;
-	padding: 0px 20px;
-	outline: none;
-}
 
 .join_etc {
 	align-content: center;

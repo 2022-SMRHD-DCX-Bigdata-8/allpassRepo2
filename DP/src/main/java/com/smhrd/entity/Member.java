@@ -13,6 +13,5 @@ public class Member {
 	private String mb_pw;		// 회원 비번
 	private String mb_phone;	// 회원 전화번호
 	private String mb_nick;		// 회원 닉네임
-	private String mb_img;		// 회원 프로필사진
 	
 }
