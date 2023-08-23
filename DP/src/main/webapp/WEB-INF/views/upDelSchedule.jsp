@@ -185,46 +185,56 @@
 		
 		upbtn.on('click', update);
 		function update(){
-			console.log(confirm("일정을 수정하시겠습니까?"));
+			var answer = confirm("일정을 수정하시겠습니까?");
 			
-			$.ajax({
-				url: 'calUpData.do', 
-				type: 'post',
-				data: {
-					"cal_seq" : <%= calData.getCal_seq() %>, 
-					"cal_title" : title.val(), 
-					"started_at" : start.val(), 
-					"ended_at" : end.val(), 
-					"cal_color" : color.val()
-				} , 
-				success: function(res){
-					console.log(res);
-					alert("수정이 완료되었습니다!");
-					window.close();
-				} , 
-				error: function(e){
-					alert("upCalData error")
-				}
-			});
+			if(answer == true){
+				$.ajax({
+					url: 'calUpData.do', 
+					type: 'post',
+					data: {
+						"cal_seq" : <%= calData.getCal_seq() %>, 
+						"cal_title" : title.val(), 
+						"started_at" : start.val(), 
+						"ended_at" : end.val(), 
+						"cal_color" : color.val()
+					} , 
+					success: function(res){
+						console.log(res);
+						alert("수정이 완료되었습니다!");
+						window.close();
+					} , 
+					error: function(e){
+						alert("upCalData error")
+					}
+				});
+			}else{
+				alert("취소하였습니다!");
+			};
+			
 		};
 				
 		delbtn.on('click', del);
 		function del(){
-			console.log(confirm("일정을 삭제하시겠습니까?"));			
+			var answer = confirm("일정을 삭제하시겠습니까?");		
 			
-			$.ajax({
-				url: 'calDelData.do', 
-				type: 'post',
-				data: {"cal_seq" : <%= calData.getCal_seq() %>} , 
-				success: function(res){
-					console.log(res);
-					alert("삭제가 완료되었습니다!");
-					window.close();
-				} , 
-				error: function(e){
-					alert("delCalData error")
-				}
-			});
+			if(answer == true){
+				$.ajax({
+					url: 'calDelData.do', 
+					type: 'post',
+					data: {"cal_seq" : <%= calData.getCal_seq() %>} , 
+					success: function(res){
+						console.log(res);
+						alert("삭제가 완료되었습니다!");
+						window.close();
+					} , 
+					error: function(e){
+						alert("delCalData error")
+					}
+				});
+			}else{
+				alert("취소하였습니다!");
+			};
+			
 		};
 	</script>
 	

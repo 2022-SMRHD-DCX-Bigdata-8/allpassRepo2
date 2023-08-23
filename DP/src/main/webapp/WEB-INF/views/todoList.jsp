@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -41,6 +42,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
+
 
 @font-face {
 	font-family: 'sans-serif';
@@ -167,11 +169,12 @@ body {
 }
 
 #modal .modal-window {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: baseline;
+	position: absolute;
 	width: 445px;
 	padding: 10px;
-	flex-direction: column;
-    align-items: center;
-    justify-content: center;
 	background: rgba(195, 228, 255, 0.7);
 	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
 	backdrop-filter: blur(50px);
@@ -180,21 +183,8 @@ body {
 	border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-#task-modify, #modify-button {
-	width: width: 400px;
-	height: 100px;
-	left: 0;
-	right: 0;
-	display: none;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	background: rgba(255, 255, 255, 0.25);
-	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-	backdrop-filter: blur(50px);
-	-webkit-backdrop-filter: blur(1.5px);
-	border-radius: 10px;
-	border: 1px solid rgba(255, 255, 255, 0.18);
+#task-modify {
+	possion: absolute;
 }
 </style>
 
@@ -228,7 +218,7 @@ body {
 					<div id="task-cheer"></div>
 					<%-- 응원글 출력 구역 끝 --%>
 					<div id="modal" class="modal-overlay">
-						<div class="modal-window row g-2 col-auto">
+						<div class="modal-window col-auto">
 							<input type="text" class="form-control" id="task-modify"
 								autofocus="autofocus" placeholder="수정 내용을 입력해주세요~">
 							<button type="submit" class="btn btn-outline-warning mb-3"
