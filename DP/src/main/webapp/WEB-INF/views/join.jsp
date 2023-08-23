@@ -263,7 +263,7 @@ h2 {
 			</div>
 			<div class="join_pw">
 				<h4>비밀번호</h4>
-				<input type="password" name="join_pw" id="join_pw_input" placeholder="Password" >
+				<input type="password" name="join_pw" id="join_pw_input" placeholder="Password">
 			</div>
 
 			<div class="join_pwcheck">
@@ -304,6 +304,11 @@ h2 {
 			var usernick = $("#join_nick_input").val();
 			 var password = $("#join_pw_input").val();
 		        var passwordCheck = $("#join_pwcheck_input").val();
+		        
+		        if (username === "" || usernick === "" || password === "" || passwordCheck === "") {
+		            alert("모든 필드를 입력하세요.");
+		            return;
+		        }
 
 		        if (password !== passwordCheck) {
 		            alert("비밀번호와 비밀번호 확인이 일치하지 않습니다. 다시 입력하세요!");
