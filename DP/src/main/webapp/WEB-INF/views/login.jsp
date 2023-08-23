@@ -15,44 +15,64 @@
 
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
+
+
 <script>
-	Kakao.init('8a7d49787221c777a1bdccddbcb51ff7'); //발급받은 키 중 javascript키를 사용해준다.
-	console.log(Kakao.isInitialized()); // sdk초기화여부판단
-	//카카오로그인
+	Kakao.init('8a7d49787221c777a1bdccddbcb51ff7');
+
+	function sendUserDataToServer(email, nickname) {
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', 'storeUserData.do', true);
+		xhr.setRequestHeader('Content-Type',
+				'application/x-www-form-urlencoded');
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+			}
+		};
+		var data = 'email=' + encodeURIComponent(email) + '&nickname='
+				+ encodeURIComponent(nickname);
+		xhr.send(data);
+	}
+
 	function kakaoLogin() {
 		Kakao.Auth.login({
 			success : function(response) {
 				Kakao.API.request({
 					url : '/v2/user/me',
 					success : function(response) {
-						console.log(response)
+						var email = response.kakao_account.email;
+						var nickname = response.properties.nickname;
+						sendUserDataToServer(email, nickname); // Send user data to the server
+						window.location.href = 'goMain2.do';
 					},
 					fail : function(error) {
-						console.log(error)
+						console.log(error);
 					},
-				})
+				});
 			},
 			fail : function(error) {
-				console.log(error)
+				console.log(error);
 			},
-		})
+		});
 	}
-	//카카오로그아웃  
+
 	function kakaoLogout() {
 		if (Kakao.Auth.getAccessToken()) {
 			Kakao.API.request({
 				url : '/v1/user/unlink',
 				success : function(response) {
-					console.log(response)
+					console.log(response);
 				},
 				fail : function(error) {
-					console.log(error)
+					console.log(error);
 				},
-			})
-			Kakao.Auth.setAccessToken(undefined)
+			});
+			Kakao.Auth.setAccessToken(undefined);
 		}
 	}
 </script>
+
+
 
 
 <!-- <link rel="stylesheet" href="./login.css"> -->
@@ -233,7 +253,7 @@ h2 {
 				</div>
 
 				<div class="submit">
-					<a href="join.jsp"><input type="button" value="회원가입"
+					<a href="goJoin.do"><input type="button" value="회원가입"
 						style="cursor: pointer"></a>
 				</div>
 
@@ -244,7 +264,7 @@ h2 {
 						src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png"
 						id="button_login_input" style="cursor: pointer"><a
 						href="javascript:void(0)"> </a></li>
-						
+
 					<li onclick="kakaoLogout();"><a href="javascript:void(0)">
 							<span>카카오 로그아웃</span>
 					</a></li>
