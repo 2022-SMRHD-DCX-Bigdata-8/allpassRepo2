@@ -43,7 +43,6 @@
 	font-style: normal;
 }
 
-
 @font-face {
 	font-family: 'sans-serif';
 	src:
@@ -158,8 +157,8 @@ body {
 	right: 0;
 	display: none;
 	flex-direction: column;
-    align-items: center;
-    justify-content: center;
+	align-items: center;
+	justify-content: center;
 	background: rgba(255, 255, 255, 0.25);
 	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
 	backdrop-filter: blur(50px);
@@ -173,8 +172,7 @@ body {
 	justify-content: space-evenly;
 	align-items: baseline;
 	position: absolute;
-	width: 445px;
-	padding: 10px;
+	padding: 15px;
 	background: rgba(195, 228, 255, 0.7);
 	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
 	backdrop-filter: blur(50px);
@@ -183,8 +181,14 @@ body {
 	border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
-#task-modify {
-	possion: absolute;
+#text-close {
+	position: absolute;
+	right: 7px;
+	top: 0px;
+	font-size: small;
+	cursor: pointer;
+	text-shadow: 1px 1px 2px gray;
+	color: rgb(36, 22, 22);
 }
 </style>
 
@@ -200,7 +204,7 @@ body {
 		<div class="main">
 			<div class="title">
 				<h1 id="nick">
-					<%=m.getMb_nick() %>님의 To-do List
+					<%=m.getMb_nick()%>님의 To-do List
 				</h1>
 			</div>
 			<br>
@@ -217,12 +221,13 @@ body {
 					<%-- 응원글 출력 구역 시작 --%>
 					<div id="task-cheer"></div>
 					<%-- 응원글 출력 구역 끝 --%>
-					<div id="modal" class="modal-overlay">
+					<div id="modal" class="modal-overlay" title="닫기">
 						<div class="modal-window col-auto">
 							<input type="text" class="form-control" id="task-modify"
 								autofocus="autofocus" placeholder="수정 내용을 입력해주세요~">
 							<button type="submit" class="btn btn-outline-warning mb-3"
 								id="modify-button">수정</button>
+							<div id="text-close" title="닫기">x</div>
 						</div>
 					</div>
 				</div>
@@ -552,6 +557,12 @@ body {
                         if (modal.style.display === "flex" && e.key === "Escape") {
 	                        modal.style.display = "none"
                         };
+                    });
+                    
+                    // 수정 x 닫기
+                    const closeBtn = modal.querySelector("#text-close");
+                    closeBtn.addEventListener("click", e => {
+                    	modal.style.display = "none"
                     });
 
                     // 수정 클릭 닫기
