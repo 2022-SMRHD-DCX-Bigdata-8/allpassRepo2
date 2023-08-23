@@ -77,6 +77,5 @@
 		xhr.send(data);
 	</script>
 
->>>>>>> branch 'main' of https://github.com/2022-SMRHD-DCX-Bigdata-8/allpassRepo2.git
 </body>
 </html>
