@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.smhrd.entity.Member;
+
 public class LogoutCon implements Controller {
 
 	@Override
@@ -14,7 +16,21 @@ public class LogoutCon implements Controller {
 			throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		session.removeAttribute("user");
+		Member user = (Member) session.getAttribute("user");
+		
+		String nickname = (String) session.getAttribute("nickname");
+		String email = (String) session.getAttribute("email");
+		
+		if(user!=null) {
+			session.removeAttribute("user");
+		}
+		
+		if(nickname!=null) {
+			session.removeAttribute("email");
+			session.removeAttribute("nickname");
+		}
+		
+		
 		// 4. 뷰 선택
 		response.sendRedirect("goMain.do");
 		
