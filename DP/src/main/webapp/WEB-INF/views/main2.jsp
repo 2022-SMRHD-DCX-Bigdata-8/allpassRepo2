@@ -14,8 +14,8 @@
 	<%
 	Member user = (Member) session.getAttribute("user");
 
-	String kemail = (String) session.getAttribute("email");
-	String knickname = (String) session.getAttribute("nickname");
+	String email = (String) session.getAttribute("email");
+	String nickname = (String) session.getAttribute("nickname");
 	%>
 
 	<h1>임시 메인 페이지입니다~</h1>
@@ -23,15 +23,15 @@
 	<%-- 카카오 로그인 사용자의 경우 카카오 정보를 보여줌 --%>
 	<%-- 일반 로그인 사용자의 경우 일반 정보를 보여줌 --%>
 	<%
-	if (knickname != null) {
+	if (nickname != null) {
 	%>
 	<p>카카오 로그인 시</p>
 	<p>
 		이메일 :
-		<%=kemail%></p>
+		<%=email%></p>
 	<p>
 		닉네임 :
-		<%=knickname%></p>
+		<%=nickname%></p>
 	<%
 	}
 	%>
