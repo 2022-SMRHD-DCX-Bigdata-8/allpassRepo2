@@ -36,7 +36,8 @@ public class FrontController extends HttpServlet {
 		handler.put("/goLogin.do", new GoLoginCon());
 		handler.put("/goCheckUsername.do", new GoCheckUsernameCon());
 		handler.put("/goCheckNick.do", new  GoCheckUsernickCon());
-
+		handler.put("/logout.do", new LogoutCon());
+		
 		// calendar
 		handler.put("/goCalendar.do", new GoCalendarCon());
 		handler.put("/goAddSchedule.do", new GoAddScheduleCon());
