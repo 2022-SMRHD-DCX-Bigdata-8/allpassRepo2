@@ -17,13 +17,7 @@
 	String email = (String) session.getAttribute("email");
 	String nickname = (String) session.getAttribute("nickname");
 	%>
-<<<<<<< HEAD
-	<h1><<span style="color: blue"><%=user.getMb_nick() %></span>>님의 임시 메인 페이지입니다~</h1>
-	<a href="goCalendar.do">캘린더 가기</a><br>
-	<a href="goTodo.do">투두리스트 가기</a><br>
-	<a href="#">로그아웃</a><br>
-=======
-
+	
 	<h1><<span style="color: blue"><%=user.getMb_nick() %></span>>님의 임시 메인 페이지입니다~</h1>
 
 	<%-- 카카오 로그인 사용자의 경우 카카오 정보를 보여줌 --%>
