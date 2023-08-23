@@ -22,7 +22,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
 	rel="stylesheet">
-	
+
 <style>
 @font-face {
 	font-family: 'GmarketSansMedium';
@@ -68,6 +68,8 @@ hr {
 	border-radius: 10px;
 	margin-left: 5px;
 	padding-top: 5px;
+	border-radius: 10px;
+	font-size: 20px;
 }
 
 .form-control {
@@ -147,6 +149,37 @@ body {
 	font-family: 'GmarketSansMedium';
 }
 
+#modal.modal-overlay {
+	width: 465px;
+	height: 150px;
+	left: 0;
+	right: 0;
+	display: none;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+	background: rgba(255, 255, 255, 0.25);
+	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(1.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#modal .modal-window {
+	width: 445px;
+	padding: 10px;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+	background: rgba(195, 228, 255, 0.7);
+	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(1.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
 #task-modify, #modify-button {
 	width: width: 400px;
 	height: 100px;
@@ -177,7 +210,7 @@ body {
 		<div class="main">
 			<div class="title">
 				<h1 id="nick">
-					<%=m.getMb_id()%>님의 To-do List
+					<%=m.getMb_nick() %>님의 To-do List
 				</h1>
 			</div>
 			<br>
@@ -192,18 +225,15 @@ body {
 							id="add-button">추가</button>
 					</div>
 					<%-- 응원글 출력 구역 시작 --%>
-					<div id="task-cheer">
-						
-					</div>
+					<div id="task-cheer"></div>
 					<%-- 응원글 출력 구역 끝 --%>
-					<div class="col-auto">
-						<input type="text" class="form-control" id="task-modify"
-							autofocus="autofocus" placeholder="수정할 To Do List 를 입력해주세요~"
-							value="">
-					</div>
-					<div class="col-auto">
-						<button type="submit" class="btn btn-outline-warning mb-3"
-							id="modify-button">수정</button>
+					<div id="modal" class="modal-overlay">
+						<div class="modal-window row g-2 col-auto">
+							<input type="text" class="form-control" id="task-modify"
+								autofocus="autofocus" placeholder="수정 내용을 입력해주세요~">
+							<button type="submit" class="btn btn-outline-warning mb-3"
+								id="modify-button">수정</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -384,7 +414,6 @@ body {
                             success: function (res) {
                                 console.log("todoDelete complete!");
                                 todoSearch();
-                                getCheering();
                             },
                             error: function (e) {
                                 console.log('todoDelete faild!');
@@ -518,32 +547,28 @@ body {
 
                     // 수정 변수 선언 
                     let todo_seq;
-                    const taskModify = document.getElementById("task-modify");
+                    const modal = document.getElementById("modal");
                     const modifyButton = document.getElementById("modify-button");
-                    const bodyClick = document.body;
 
                     // 수정 열기
                     function todoModifyOpen(i) {
                         todo_seq = i;
                         console.log(todo_seq);
-                        taskModify.style.display = "flex"
-                        modifyButton.style.display = "flex"
+                        modal.style.display = "flex"
                     };
 
                     // 수정 esc 닫기 
                     window.addEventListener("keyup", e => {
-                        if (taskModify.style.display === "flex" && e.key === "Escape") {
-                            taskModify.style.display = "none"
-                            modifyButton.style.display = "none"
+                        if (modal.style.display === "flex" && e.key === "Escape") {
+	                        modal.style.display = "none"
                         };
                     });
 
                     // 수정 클릭 닫기
-                    bodyClick.addEventListener("click", e => {
+                    modal.addEventListener("click", e => {
                         const evTarget = e.target;
-                        if (evTarget.classList.contains("main")) {
-                            taskModify.style.display = "none"
-                            modifyButton.style.display = "none"
+                        if (evTarget.classList.contains("modal-overlay")) {
+	                        modal.style.display = "none"
                         };
                     });
 
@@ -587,14 +612,12 @@ body {
                             success: function (res) {
                                 console.log("todoModify complete!");
                                 todoSearch();
-                                getCheering();
                             },
                             error: function (e) {
                                 console.log('todoModify faild!');
                             }
                         });
-                        taskModify.style.display = "none"
-                        modifyButton.style.display = "none"
+                        modal.style.display = "none"
                         $("#task-modify").prop("value", "");
                     };
 
