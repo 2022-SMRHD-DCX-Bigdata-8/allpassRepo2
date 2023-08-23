@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <meta charset="UTF-8">
@@ -15,6 +16,13 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+	rel="stylesheet">
+	
 <style>
 @font-face {
 	font-family: 'GmarketSansMedium';
@@ -34,8 +42,17 @@
 	font-style: normal;
 }
 
+@font-face {
+	font-family: 'sans-serif';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 hr {
-	width: 465px;
+	width: 445px;
 }
 
 .main {
@@ -43,7 +60,9 @@ hr {
 }
 
 .todo {
-	font-size: 25px;
+	font-family: 'SBAggroB';
+	coler: #7c653f;
+	font-size: 20px;
 	width: 200px;
 	background-color: #a2c6ff;
 	border-radius: 10px;
@@ -52,12 +71,21 @@ hr {
 }
 
 .form-control {
-	width: 400px !important;
+	width: 350px !important;
 }
 
 body {
 	margin: 20px;
-	background-color: #fff9e9;
+	background-color: #d6c1a1;
+}
+
+.main-top {
+	background-color: white;
+	padding: 10px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
 }
 
 .task {
@@ -92,44 +120,66 @@ body {
 	background: rgba(33, 122, 244, .1);
 }
 
-h1 {
+.title {
+	position: relative;
+	text-align: center;
+}
+
+#nick, #task-cheer {
 	font-family: 'SBAggroB';
-	font-size: 55px;
-	color: #5a8100;
+	position: relative;
+	text-align: center;
+}
+
+#nick {
+	font-size: 35px;
+	color: #3f4756;
+	height: 50px;
+}
+
+#task-cheer {
+	display: inline;
+	font-size: 20px;
+	color: crimson;
 }
 
 .input-area {
 	font-family: 'GmarketSansMedium';
 }
+
 #task-modify, #modify-button {
 	width: width: 400px;
-    height: 100px;
-    left: 0;
-    right: 0;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    background: rgba(255, 255, 255, 0.25);
-    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(50px);
-    -webkit-backdrop-filter: blur(1.5px);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
+	height: 100px;
+	left: 0;
+	right: 0;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255, 255, 255, 0.25);
+	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(1.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
 }
 </style>
 
 </head>
+
 <body>
 	<%
-		Member m = (Member)session.getAttribute("user");
+	Member m = (Member) session.getAttribute("user");
 	%>
 	<!-- 모두를 감싸주는 div -->
 	<div class="main-top" style="width: 465px; margin: 0 auto;">
 		<!-- 타이틀 ~ 입력태그까지 감싸는 div 시작-->
 		<div class="main">
-			<h1><%=m.getMb_id() %>님의<br> To-do List</h1>
+			<div class="title">
+				<h1 id="nick">
+					<%=m.getMb_id()%>님의 To-do List
+				</h1>
+			</div>
 			<br>
 			<div class="input-area">
 				<div class="row g-2">
@@ -141,9 +191,15 @@ h1 {
 						<button type="submit" class="btn btn-outline-warning mb-3"
 							id="add-button">추가</button>
 					</div>
+					<%-- 응원글 출력 구역 시작 --%>
+					<div id="task-cheer">
+						
+					</div>
+					<%-- 응원글 출력 구역 끝 --%>
 					<div class="col-auto">
 						<input type="text" class="form-control" id="task-modify"
-							autofocus="autofocus" placeholder="수정할 To Do List 를 입력해주세요~" value="">
+							autofocus="autofocus" placeholder="수정할 To Do List 를 입력해주세요~"
+							value="">
 					</div>
 					<div class="col-auto">
 						<button type="submit" class="btn btn-outline-warning mb-3"
@@ -152,7 +208,6 @@ h1 {
 				</div>
 			</div>
 			<hr>
-			<br>
 		</div>
 		<!-- 타이틀 ~ 입력태그까지 감싸는 div 끝-->
 
@@ -194,74 +249,74 @@ h1 {
 
 
 	<script>
-        // 1. 유저가 할일을 입력한다
-        // 2. 버튼을 누르면 할 일이 추가 된다
-        // 3. 추가된 목록을 다시 웹 페이지에 보여준다
-        // 4. '완료'버튼을 누르면 할일에 배경색이 들어간다(task-done 클래스의 스타일)
-        //  완료인지 미완료인지 구분 필요
-        // -> 할 일을 저장할 때 상태값을 저장해야 한다
-        // 4.1 할 일 저장(미완료) -> 완료 클릭 (완료) -> 또 클릭 (미완료)
-        //          -> 객체 형태로 저장
-        // 4-2 (만약) 할 일 상태가 완료(true) -> 배경색
-        // 4-2 (만약) 할 일 상태가 미완료(false) -> 배경색
-        // 5. 삭제 버튼을 누르면 해당 할 일이 삭제
+                    // 1. 유저가 할일을 입력한다
+                    // 2. 버튼을 누르면 할 일이 추가 된다
+                    // 3. 추가된 목록을 다시 웹 페이지에 보여준다
+                    // 4. '완료'버튼을 누르면 할일에 배경색이 들어간다(task-done 클래스의 스타일)
+                    //  완료인지 미완료인지 구분 필요
+                    // -> 할 일을 저장할 때 상태값을 저장해야 한다
+                    // 4.1 할 일 저장(미완료) -> 완료 클릭 (완료) -> 또 클릭 (미완료)
+                    //          -> 객체 형태로 저장
+                    // 4-2 (만약) 할 일 상태가 완료(true) -> 배경색
+                    // 4-2 (만약) 할 일 상태가 미완료(false) -> 배경색
+                    // 5. 삭제 버튼을 누르면 해당 할 일이 삭제
 
-        // 사용자가 input창에 적는 할일
-        let taskInput = document.getElementById("task-input");
-        // 유저가 입력할 할일을 순차적으로 저장하는 배열
-        let taskList = [];
-        function todoSearch() {
-            $.ajax({
-                url: "todoSearch.do",
-                dataType: 'json',
-                success: function (res) {
-                    console.log("서치 성공!");
-                    taskList = res;
-                    render();
-                },
-                error: function (e) {
-                    console.log('서치 실패ㅠ');
-                }
-            });
-        };
-		todoSearch();
-        // 할 일 추가 버튼
-        let addButton = document.getElementById("add-button");
-		// 할일 전체를 담는 큰 div 생성
-        let taskBoard = document.getElementById("task-board");
+                    // 사용자가 input창에 적는 할일
+                    let taskInput = document.getElementById("task-input");
+                    // 유저가 입력할 할일을 순차적으로 저장하는 배열
+                    let taskList = [];
+                    function todoSearch() {
+                        $.ajax({
+                            url: "todoSearch.do",
+                            dataType: 'json',
+                            success: function (res) {
+                                console.log("todoSearch complete!");
+                                taskList = res;
+                                console.log(taskList.length);
+                                render();
+                            },
+                            error: function (e) {
+                                console.log('todoSearch faild!');
+                            }
+                        });
+                    };
+                    todoSearch();
+                    // 할 일 추가 버튼
+                    let addButton = document.getElementById("add-button");
+                    // 할일 전체를 담는 큰 div 생성
+                    let taskBoard = document.getElementById("task-board");
 
-        // 내가 누른 완료버튼에 해당하는 할일 덩어리의 완료여부를 바꿔주는 함수
-        const toggleCheck = function (i) {
-            console.log('내가 선택한 할일', i);
+                    // 내가 누른 완료버튼에 해당하는 할일 덩어리의 완료여부를 바꿔주는 함수
+                    const toggleCheck = function (i) {
+                        console.log('내가 선택한 할일', i);
 
-            // 배열의 형태로 저장된 할 일을 만드는 함수 생성
-            if (taskList[i].todo_status) {
-                taskList[i].todo_status = false;
-            } else {
-                taskList[i].todo_status = true;
-            };
+                        // 배열의 형태로 저장된 할 일을 만드는 함수 생성
+                        if (taskList[i].todo_status) {
+                            taskList[i].todo_status = false;
+                        } else {
+                            taskList[i].todo_status = true;
+                        };
 
-            // 변동사항이 생겼으면 최신배열 재출력
-            render();
-        };
+                        // 변동사항이 생겼으면 최신배열 재출력
+                        render();
+                    };
 
-        // 내가 누른 삭제버튼에 해당하는 할일을 지워주는 함수
-      //  const deleteTask = function (i) {
-        //    taskList.splice(i, 1);
+                    // 내가 누른 삭제버튼에 해당하는 할일을 지워주는 함수
+                    //  const deleteTask = function (i) {
+                    //    taskList.splice(i, 1);
 
-      //      render();
-    //    }
+                    //      render();
+                    //    }
 
-        // 배열 형태로 저장된 할 일을 웹페이지에 출력하는 함수
-        const render = function () {
-			console.log(taskList);
-            let resultHTML = '';
-            for (let i = 0; i < taskList.length; i++) {
-                //완료 여부에 따른 할일 출력 isComplete == true : class "task task-done"
-                //완료 여부에 따른 할일 출력 isComplete == false : class "task"
-                if (taskList[i].todo_content != "") {
-                    if (taskList[i].todo_status == "true") {
-                        resultHTML += `
+                    // 배열 형태로 저장된 할 일을 웹페이지에 출력하는 함수
+                    const render = function () {
+                        let resultHTML = '';
+                        for (let i = 0; i < taskList.length; i++) {
+                            //완료 여부에 따른 할일 출력 isComplete == true : class "task task-done"
+                            //완료 여부에 따른 할일 출력 isComplete == false : class "task"
+                            if (taskList[i].todo_content != "") {
+                                if (taskList[i].todo_status == "true") {
+                                    resultHTML += `
             <div class="row g-3 task task-done">
                 <div class="col todo">
                     <span class="todo">${taskList[i].todo_content}</span>
@@ -276,8 +331,8 @@ h1 {
                 </div>
             </div>
             `;
-                    } else {
-                        resultHTML += `
+                                } else {
+                                    resultHTML += `
             <div class="row g-3 task">
                 <div class="col todo">
                     <span class="todo">${taskList[i].todo_content}</span>
@@ -292,277 +347,314 @@ h1 {
                 </div>
             </div>
             `;
+                                };
+                            };
+                        };
+                        taskBoard.innerHTML = resultHTML;
                     };
-                };
-            };
-            taskBoard.innerHTML = resultHTML;
-        };
-		
-        // 쓰기
-		function todoWrite(){
-			let taskInput = $("#task-input").val();
-			$.ajax({
-				url : "todoWrite.do",
-				type : "post",
-				data : {
-					"taskInput" : taskInput
-				},
-				success : function(res){
-					console.log("쓰기 성공!");
-					todoSearch();
-				},
-				error : function(e){
-					console.log("쓰기 실패ㅠ")
-				}
-			});
-		};
 
-        // 삭제
-        function todoDelete(todo_seq) {
-            $.ajax({
-                url: "todoDelete.do",
-                type: "post",
-                data: {
-                    "todo_seq": todo_seq
-                },
-                success: function (res) {
-                    console.log("삭제 성공!");
-					todoSearch();
-                },
-                error: function (e) {
-                    console.log("삭제 실패ㅠ");
-                }
-            });
-        };
+                    // 쓰기
+                    function todoWrite() {
+                        let taskInput = $("#task-input").val();
+                        $.ajax({
+                            url: "todoWrite.do",
+                            type: "post",
+                            data: {
+                                "taskInput": taskInput
+                            },
+                            success: function (res) {
+                                console.log("todoWrite complete!");
+                                todoSearch();
+                                getCheering();
+                            },
+                            error: function (e) {
+                                console.log('todoWrite faild!');
+                            }
+                        });
+                    };
 
-        // 완료
-        function todoDone(todo_seq, todo_status) {
-            if (todo_status === "false") {
-                $.ajax({
-                    url: "todoDone.do",
-                    type: "post",
-                    data: {
-                        "todo_seq": todo_seq
-                    },
-                    success: function (res) {
-                        console.log("완료 성공!");
-                        todoSearch();
-                    },
-                    error: function (e) {
-                        console.log("완료 실패ㅠ");
-                    }
-                });
-            } else {
-                $.ajax({
-                    url: "todoDoneCencel.do",
-                    type: "post",
-                    data: {
-                        "todo_seq": todo_seq
-                    },
-                    success: function (res) {
-                        console.log("완료 취소 성공!");
-                        todoSearch();
-                    },
-                    error: function (e) {
-                        console.log("완료 취소 실패ㅠ");
-                    }
-                });
-            };
-        };
-        
-        // 업
-        function todoUp(todo_seq, i) {
-        	console.log(todo_seq, i);
-            $.ajax({
-                url: "todoSearch.do",
-                dataType: 'json',
-                success: function (res) {
-                    console.log("todoUpstairs 서치 성공!");
-                    taskList = res;
-                    let todo_seq_1;
-                    i = parseInt(i);
-        			if(i-1 >= 0){
-        				console.log(taskList[i].todo_seq, taskList[i-1].todo_seq);
-        				todoUpstairs(taskList[i].todo_seq, taskList[i-1].todo_seq);
-        			}else{
-                    	console.log("todo_seq_1 is NULL");
-                    	alert("최상위 입니다~");
-                        todoSearch();
-        			};
-                },
-                error: function (e) {
-                    console.log('todoUpstairs 서치 실패ㅠ');
-                }
-            });
-        };
+                    // 삭제
+                    function todoDelete(todo_seq) {
+                        $.ajax({
+                            url: "todoDelete.do",
+                            type: "post",
+                            data: {
+                                "todo_seq": todo_seq
+                            },
+                            success: function (res) {
+                                console.log("todoDelete complete!");
+                                todoSearch();
+                                getCheering();
+                            },
+                            error: function (e) {
+                                console.log('todoDelete faild!');
+                            }
+                        });
+                    };
 
-        // 업 완료 
-        function todoUpstairs(todo_seq, todo_seq_1) {
-        	console.log(todo_seq, todo_seq_1);
-            $.ajax({
-                url: "todoChange.do",
-                type: "post",
-                data: {
-                    "todo_seq": todo_seq,
-                    "todo_seq_1": todo_seq_1,
-                },
-                success: function (res) {
-                    console.log("업 성공!");
-                    todoSearch();
-                },
-                error: function (e) {
-                    console.log('업 실패ㅠ');
-                }
-            });
-        };
+                    // 완료
+                    function todoDone(todo_seq, todo_status) {
+                        if (todo_status === "false") {
+                            $.ajax({
+                                url: "todoDone.do",
+                                type: "post",
+                                data: {
+                                    "todo_seq": todo_seq
+                                },
+                                success: function (res) {
+                                    console.log("todoDone complete!");
+                                    todoSearch();
+                                    getCheering();
+                                },
+                                error: function (e) {
+                                    console.log('todoDone faild!');
+                                }
+                            });
+                        } else {
+                            $.ajax({
+                                url: "todoDoneCencel.do",
+                                type: "post",
+                                data: {
+                                    "todo_seq": todo_seq
+                                },
+                                success: function (res) {
+                                    console.log("todoDoneCencel complete!");
+                                    todoSearch();
+                                    getCheering();
+                                },
+                                error: function (e) {
+                                    console.log('todoDoneCencel faild!');
+                                }
+                            });
+                        };
+                    };
 
-        // 다운
-        function todoDown(todo_seq, i) {
-        	console.log(todo_seq, i);
-            $.ajax({
-                url: "todoSearch.do",
-                dataType: 'json',
-                success: function (res) {
-                    console.log("todoUpstairs 서치 성공!");
-                    taskList = res;
-                    i = parseInt(i);
-        			if(i+1 < taskList.length){
-        				console.log(taskList[i].todo_seq, taskList[i+1].todo_seq);
-        				todoDownstairs(taskList[i].todo_seq, taskList[i+1].todo_seq);
-        			}else{
-                    	console.log("todo_seq_1 is NULL");
-                    	alert("최하위 입니다~");
-                        todoSearch();
-        			};
-                },
-                error: function (e) {
-                    console.log('todoUpstairs 서치 실패ㅠ');
-                }
-            });
-        };
+                    // 업
+                    function todoUp(todo_seq, i) {
+                        console.log(todo_seq, i);
+                        $.ajax({
+                            url: "todoSearch.do",
+                            dataType: 'json',
+                            success: function (res) {
+                                console.log("todoUp complete!");
+                                taskList = res;
+                                let todo_seq_1;
+                                i = parseInt(i);
+                                if (i - 1 >= 0) {
+                                    console.log(taskList[i].todo_seq, taskList[i - 1].todo_seq);
+                                    todoUpstairs(taskList[i].todo_seq, taskList[i - 1].todo_seq);
+                                } else {
+                                    alert("최상위 입니다~");
+                                };
+                            },
+                            error: function (e) {
+                                console.log('todoUp faild!');
+                            }
+                        });
+                    };
 
-        // 다운 완료 
-        function todoDownstairs(todo_seq, todo_seq_1){
-        	console.log(todo_seq, todo_seq_1);
-            $.ajax({
-                url: "todoChange.do",
-                type: "post",
-                data: {
-                    "todo_seq": todo_seq,
-                    "todo_seq_1": todo_seq_1,
-                },
-                success: function (res) {
-                    console.log("다운 성공!");
-                    todoSearch();
-                },
-                error: function (e) {
-                    console.log("다운 실패ㅠ");
-                }
-            });
-        };
+                    // 업 완료 
+                    function todoUpstairs(todo_seq, todo_seq_1) {
+                        console.log(todo_seq, todo_seq_1);
+                        $.ajax({
+                            url: "todoChange.do",
+                            type: "post",
+                            data: {
+                                "todo_seq": todo_seq,
+                                "todo_seq_1": todo_seq_1,
+                            },
+                            success: function (res) {
+                                console.log("todoUpstairs complete!");
+                                todoSearch();
+                            },
+                            error: function (e) {
+                                console.log('todoUpstairs faild!');
+                            }
+                        });
+                    };
 
-		// 수정 변수 선언 
-		let todo_seq;
-	    const taskModify = document.getElementById("task-modify");
-	    const modifyButton = document.getElementById("modify-button");
-	    const bodyClick = document.body;
+                    // 다운
+                    function todoDown(todo_seq, i) {
+                        console.log(todo_seq, i);
+                        $.ajax({
+                            url: "todoSearch.do",
+                            dataType: 'json',
+                            success: function (res) {
+                                console.log("todoDown complete!");
+                                taskList = res;
+                                i = parseInt(i);
+                                if (i + 1 < taskList.length) {
+                                    console.log(taskList[i].todo_seq, taskList[i + 1].todo_seq);
+                                    todoDownstairs(taskList[i].todo_seq, taskList[i + 1].todo_seq);
+                                } else {
+                                    alert("최하위 입니다~");
+                                };
+                            },
+                            error: function (e) {
+                                console.log('todoDown faild!');
+                            }
+                        });
+                    };
 
-	 	// 수정 열기
-        function todoModifyOpen(i){
-	 		todo_seq = i;
-	        console.log(todo_seq);
-	        taskModify.style.display = "flex"
-	        modifyButton.style.display = "flex"
-		};
-	 	
-		// 수정 esc 닫기 
-        window.addEventListener("keyup", e => {
-            if (taskModify.style.display === "flex" && e.key === "Escape") {
-            	taskModify.style.display = "none"
-                modifyButton.style.display = "none"
-            };
-        });
+                    // 다운 완료 
+                    function todoDownstairs(todo_seq, todo_seq_1) {
+                        console.log(todo_seq, todo_seq_1);
+                        $.ajax({
+                            url: "todoChange.do",
+                            type: "post",
+                            data: {
+                                "todo_seq": todo_seq,
+                                "todo_seq_1": todo_seq_1,
+                            },
+                            success: function (res) {
+                                console.log("todoDownstairs complete!");
+                                todoSearch();
+                            },
+                            error: function (e) {
+                                console.log('todoDownstairs faild!');
+                            }
+                        });
+                    };
 
-	 	// 수정 클릭 닫기
-	 	bodyClick.addEventListener("click", e => {
-            const evTarget = e.target;
-            if (evTarget.classList.contains("main")) {
-            	taskModify.style.display = "none"
-            	modifyButton.style.display = "none"
-            };
-        });
+                    // 수정 변수 선언 
+                    let todo_seq;
+                    const taskModify = document.getElementById("task-modify");
+                    const modifyButton = document.getElementById("modify-button");
+                    const bodyClick = document.body;
 
-		// 수정 클릭 
-        modifyButton.addEventListener("click", e => {
-            if (($("#task-modify").val().trim() == "")) {
-                alert("수정할 To Do List 를 입력해주세요~");
-            }else{
-	 			todo_seq = todo_seq;
-	        	console.log(todo_seq);
-	        	todoModify(todo_seq);
-            };
-        });
+                    // 수정 열기
+                    function todoModifyOpen(i) {
+                        todo_seq = i;
+                        console.log(todo_seq);
+                        taskModify.style.display = "flex"
+                        modifyButton.style.display = "flex"
+                    };
 
-        // 수정 엔터
-        $("#task-modify").on("keydown", function (i) {
-            if (i.keyCode == 13) {
-                if (($("#task-modify").val().trim() == "")) {
-                    alert("수정할 To Do List 를 입력해주세요~");
-                } else {
-        	 		todo_seq = todo_seq;
-        	        console.log(todo_seq);
-        	        todoModify(todo_seq);
-                    $("#task-input").prop("value", "");
-                };
-            };
-        });
+                    // 수정 esc 닫기 
+                    window.addEventListener("keyup", e => {
+                        if (taskModify.style.display === "flex" && e.key === "Escape") {
+                            taskModify.style.display = "none"
+                            modifyButton.style.display = "none"
+                        };
+                    });
 
-        // 수정 완료
-        function todoModify(todo_seq) {
-            console.log(todo_seq);
-        	let todo_content = $("#task-modify").val();
-            console.log(todo_content);
-            $.ajax({
-                url: "todoModify.do",
-                type: "post",
-                data: {
-                    "todo_seq": todo_seq,
-                    "todo_content": todo_content
-                },
-                success: function (res) {
-                    console.log("수정 성공1");
-                    todoSearch();
-                },
-                error: function (e) {
-                    console.log("수정 실패ㅠ");
-                }
-            });
-            taskModify.style.display = "none"
-            modifyButton.style.display = "none"
-            $("#task-modify").prop("value", "");
-        };
+                    // 수정 클릭 닫기
+                    bodyClick.addEventListener("click", e => {
+                        const evTarget = e.target;
+                        if (evTarget.classList.contains("main")) {
+                            taskModify.style.display = "none"
+                            modifyButton.style.display = "none"
+                        };
+                    });
 
-		// 클릭
-		$("#add-button").on("click", function(){
-			if(($("#task-input").val().trim() == "")){
-				alert("To Do List 를 입력해주세요~");
-			}else{
-				todoWrite();
-			};
-		});
+                    // 수정 클릭 
+                    modifyButton.addEventListener("click", e => {
+                        if (($("#task-modify").val().trim() == "")) {
+                            alert("수정할 To Do List 를 입력해주세요~");
+                        } else {
+                            todo_seq = todo_seq;
+                            console.log(todo_seq);
+                            todoModify(todo_seq);
+                        };
+                    });
 
-        // 엔터
-        $("#task-input").on("keydown", function (i) {
-            if (i.keyCode == 13) {
-                if (($("#task-input").val().trim() == "")) {
-                    alert("To Do List 를 입력해주세요~");
-                } else {
-                    todoWrite();
-                    $("#task-input").prop("value", "");
-                };
-            };
-        });
+                    // 수정 엔터
+                    $("#task-modify").on("keydown", function (i) {
+                        if (i.keyCode == 13) {
+                            if (($("#task-modify").val().trim() == "")) {
+                                alert("수정할 To Do List 를 입력해주세요~");
+                            } else {
+                                todo_seq = todo_seq;
+                                console.log(todo_seq);
+                                todoModify(todo_seq);
+                                $("#task-input").prop("value", "");
+                            };
+                        };
+                    });
 
-	</script>
+                    // 수정 완료
+                    function todoModify(todo_seq) {
+                        console.log(todo_seq);
+                        let todo_content = $("#task-modify").val();
+                        console.log(todo_content);
+                        $.ajax({
+                            url: "todoModify.do",
+                            type: "post",
+                            data: {
+                                "todo_seq": todo_seq,
+                                "todo_content": todo_content
+                            },
+                            success: function (res) {
+                                console.log("todoModify complete!");
+                                todoSearch();
+                                getCheering();
+                            },
+                            error: function (e) {
+                                console.log('todoModify faild!');
+                            }
+                        });
+                        taskModify.style.display = "none"
+                        modifyButton.style.display = "none"
+                        $("#task-modify").prop("value", "");
+                    };
+
+                    // 응원글 변수 선언
+                    let cheering;
+                    let taskCheering = document.getElementById("task-cheer");
+
+                    // 응원글 가져오기
+                    function getCheering() {
+                        $.ajax({
+                            url: "todoCmSelect.do",
+                            dataType: 'json',
+                            success: function (res) {
+                                console.log("getCheering complete!");
+                                cheering = res;
+                                renderCheering();
+                            },
+                            error: function (e) {
+                                console.log('getCheering faild!');
+                            }
+                        });
+
+                    };
+                    getCheering();
+
+                    // 응원글 랜덤 
+                    function renderCheering() {
+                        const random = Math.floor(Math.random() * cheering.length);
+                        console.log(random);
+                        let resultHTML = '';
+                        if (cheering[random] != "") {
+                            resultHTML += `
+                <div id="task-cheer">${cheering[random].todocm_content}</div>
+                `;
+                            taskCheering.innerHTML = resultHTML;
+                        };
+                    };
+                    
+                    // 클릭
+                    $("#add-button").on("click", function () {
+                        if (($("#task-input").val().trim() == "")) {
+                            alert("To Do List 를 입력해주세요~");
+                        } else {
+                            todoWrite();
+                        };
+                    });
+
+                    // 엔터
+                    $("#task-input").on("keydown", function (i) {
+                        if (i.keyCode == 13) {
+                            if (($("#task-input").val().trim() == "")) {
+                                alert("To Do List 를 입력해주세요~");
+                            } else {
+                                todoWrite();
+                                $("#task-input").prop("value", "");
+                            };
+                        };
+                    });
+
+                </script>
 </body>
+
 </html>
