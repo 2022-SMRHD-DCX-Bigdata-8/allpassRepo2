@@ -216,18 +216,7 @@ h2 {
 	outline: none;
 }
 
-.join_img {
-	margin-top: 20px;
-	width: 80%;
-}
 
-.join_img input {
-	width: 100%;
-	height: 50px;
-	margin-top: 10px;
-	padding: 0px 20px;
-	outline: none;
-}
 
 .join_etc {
 	align-content: center;
@@ -265,6 +254,7 @@ h2 {
 	<form action="join.do">
 	<div class="wrap">
 		<div class="join">
+		<img id="dpLogo" style="width:200px; height:80px; margin-bottom: 10px;" src="assets/image/DPlogo.png">
 			<h2>회원가입</h2>
 			<div class="join_id">
 				<h4>아이디</h4>
@@ -295,10 +285,7 @@ h2 {
 
 
 			</div>
-			<div class="join_img">
-				<h4>프로필 사진</h4>
-				<input type="file" name="join_img" accept="image/*">
-			</div>
+			
 
 
 			<div class="join_etc"></div>

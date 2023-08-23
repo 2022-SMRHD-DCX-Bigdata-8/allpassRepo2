@@ -9,7 +9,6 @@
 		#{mb_pw},
 		#{mb_phone},
 		#{mb_nick},
-		#{mb_img},
 		sysdate
 		)
 	</insert>
@@ -37,7 +36,6 @@
 		#{mb_pw},
 		#{mb_phone},
 		#{mb_nick},
-		#{mb_img},
 		sysdate
 		)
 	</insert>

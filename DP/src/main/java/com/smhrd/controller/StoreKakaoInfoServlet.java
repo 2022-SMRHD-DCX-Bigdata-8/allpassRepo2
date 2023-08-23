@@ -25,7 +25,6 @@ public class StoreKakaoInfoServlet extends HttpServlet {
         String nickname = request.getParameter("nickname");
         String email = request.getParameter("email");
         String phone = "phone"; 
-        String img = "img"; 
         String pw = "pw"; 
         
         
@@ -44,7 +43,6 @@ public class StoreKakaoInfoServlet extends HttpServlet {
             member.setMb_pw(pw); // You can generate a random password or leave it empty
             member.setMb_phone(phone); // Set phone number as needed
             member.setMb_nick(nickname); // Set nickname as needed
-            member.setMb_img(img); // Set image URL as needed
             dao.insert(member); // Insert the new member into the database using the 'join' method
         }
 

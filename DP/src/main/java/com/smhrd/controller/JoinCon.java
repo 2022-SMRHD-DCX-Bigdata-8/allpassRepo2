@@ -21,10 +21,9 @@ public class JoinCon implements Controller {
 		String mb_pw = request.getParameter("join_pw");
 		String mb_phone = request.getParameter("join_phone");
 		String mb_nick = request.getParameter("join_nick");
-		String mb_img = request.getParameter("join_img");
 
 		// id ~ tel까지 Member로 묶기
-		Member member = new Member(mb_id, mb_pw, mb_phone, mb_nick, mb_img);
+		Member member = new Member(mb_id, mb_pw, mb_phone, mb_nick);
 
 		// 2. 기능 실행
 		// 입력받은 정보를 DB-MEMBER 테이블에 저장 >> DAO
