@@ -218,18 +218,19 @@ h2 {
 	font-size: 1.2em;
 	letter-spacing: 2px;
 }
+
+
 </style>
+
 
 <body>
 	<form action="login.do" method="post">
 		<div class="wrap">
 			<div class="login">
+				
+				<img id="dpLogo" style="width:300px; height:180px; margin: 30px;" src="assets/image/DPlogo.png">
 				<h2>로그인</h2>
-				<div class="login_sns">
-					<li><a href=""><i class="fab fa-instagram"></i></a></li>
-					<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-					<li><a href=""><i class="fab fa-twitter"></i></a></li>
-				</div>
+				
 				<div class="login_id">
 					<h4>아이디</h4>
 					<input type="text" name="login_id" id="" placeholder="ID">
@@ -239,15 +240,7 @@ h2 {
 					<input type="password" name="login_pw" id="" placeholder="Password">
 				</div>
 
-				<div class="login_etc">
-
-					<div class="forgot_pw">
-						<a href="findId.jsp">ID 찾기</a>
-					</div>
-					<div class="forgot_pw">
-						<a href="findPw.jsp">PW 찾기</a>
-					</div>
-				</div>
+				
 				<div class="submit">
 					<input type="submit" value="LOGIN" style="cursor: pointer">
 				</div>
@@ -265,9 +258,7 @@ h2 {
 						id="button_login_input" style="cursor: pointer"><a
 						href="javascript:void(0)"> </a></li>
 
-					<li onclick="kakaoLogout();"><a href="javascript:void(0)">
-							<span>카카오 로그아웃</span>
-					</a></li>
+					
 				</ul>
 
 			</div>

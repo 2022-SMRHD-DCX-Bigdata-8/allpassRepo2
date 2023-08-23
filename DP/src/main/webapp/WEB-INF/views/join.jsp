@@ -265,6 +265,7 @@ h2 {
 	<form action="join.do">
 	<div class="wrap">
 		<div class="join">
+		<img id="dpLogo" style="width:200px; height:80px; margin-bottom: 10px;" src="assets/image/DPlogo.png">
 			<h2>회원가입</h2>
 			<div class="join_id">
 				<h4>아이디</h4>
@@ -295,10 +296,7 @@ h2 {
 
 
 			</div>
-			<div class="join_img">
-				<h4>프로필 사진</h4>
-				<input type="file" name="join_img" accept="image/*">
-			</div>
+			
 
 
 			<div class="join_etc"></div>

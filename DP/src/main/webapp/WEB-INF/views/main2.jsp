@@ -72,7 +72,7 @@
 	<br>
 	<a href="goTodo.do">투두리스트 가기</a>
 	<div class="submit">
-		<a href="logout.do" onclick="alert('로그아웃되었습니다!'), alert('로그인 페이지로 이동합니다.')"><input type="submit" value="LOGOUT" style="cursor: pointer"></a>
+		<a href="logout.do" onclick="alert('로그아웃되었습니다!'), alert('메인 페이지1로 이동합니다.')"><input type="submit" value="LOGOUT" style="cursor: pointer"></a>
 	</div>
 
 	<script>
