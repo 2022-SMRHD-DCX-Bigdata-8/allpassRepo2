@@ -194,29 +194,34 @@
 		
 		// 연결될 function 생성
 		function request() {
-			console.log(confirm("일정을 추가하시겠습니까?"));
+			var answer = confirm("일정을 추가하시겠습니까?");
 			
-			$.ajax({	
-				url : 'calAddData.do', // 어디로 요청을 보낼건지
-				type : 'post' , 
-				data : {
-					mb_id : userId , 
-					title : title.val(), 
-					start : start.val(), 
-					end : end.val(), 
-					color : color.val() 
-				},
-				success : function(res) { // res : response
-					// 요청이 성공이면 실행할 내용
-					console.log(typeof(res));
-					alert("추가가 완료되었습니다!");
-					window.close();									
-				},
-				error : function(e) {
-					// 요청이 실패라면 실행할 내용
-					alert('addCalData 요청 실패', e);
-				}
-			});
+			if(answer == true){
+				$.ajax({	
+					url : 'calAddData.do', // 어디로 요청을 보낼건지
+					type : 'post' , 
+					data : {
+						mb_id : userId , 
+						title : title.val(), 
+						start : start.val(), 
+						end : end.val(), 
+						color : color.val() 
+					},
+					success : function(res) { // res : response
+						// 요청이 성공이면 실행할 내용
+						console.log(typeof(res));
+						alert("추가가 완료되었습니다!");
+						window.close();									
+					},
+					error : function(e) {
+						// 요청이 실패라면 실행할 내용
+						alert('addCalData 요청 실패', e);
+					}
+				});
+			}else{
+				alert("취소하였습니다!");
+			};
+			
 		};
 	</script>
 

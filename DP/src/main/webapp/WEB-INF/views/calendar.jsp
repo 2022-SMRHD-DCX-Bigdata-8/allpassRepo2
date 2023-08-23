@@ -12,10 +12,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<!-- 제이쿼리 스크립트 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.0/main.min.js"></script>
- -->
+<!-- 제이쿼리 스크립트 -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-
 
 <!-- Fullcalendar CSS -->
 <link rel="stylesheet"	href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
@@ -28,30 +26,35 @@
 	
 	<style type="text/css">
 		
+		body{
+			background: #d6c1a1;
+		}
+		
 		#calBack{
-			width: 1025px;
-			height: 650px;
+			width: 950px;
+			height: 610px;
 			background: #fff9f0;
 			border-radius: 30px;
 			
 			padding-top: 25px;
 			padding-left: 25px;
 			
-			position: relative;
+			position: absolute;
 			
-			left: 440px;
-			top: 250px;
+			left: 550px;
+			top: 300px;
 		}
 		
 		#calendar {
-			width: 1000px;
-			height: 625px;			
-		}
+			width: 900px;
+			height: 560px;			
+		}		
 		
-		body{
-			background: #d6c1a1;
+		a{
+			color: #000000;
+			text-decoration: none;
 		}
-		
+				
 	</style>
 
 </head>
@@ -62,9 +65,6 @@
 		<div id="calendar"></div>
 	</div>
 	
-	
-	<!-- <button id="reloadBtn" type="button">캘린더 새로고침</button>
-	 -->
 	<script type="text/javascript">
 		// calendar를 전역변수로 선언
 		var calendar = null;
@@ -87,10 +87,65 @@
 			
 			calendar = new FullCalendar.Calendar(calendarEl, {
 				initialView : 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
+				customButtons:{
+					reloadBtn:{
+						text: '캘린더 동기화' , 
+						// 새로고침 버튼을 누르면 동작하는 캘린더 동기화 기능
+						click: function(event){
+							// 기존 이벤트 제거
+						    calendar.getEvents().forEach(function(event) {
+						        event.remove();
+						    });
+						
+						    // db에 저장된 데이터를 캘린더에 다시 표시
+						    $.ajax({
+						        url: 'calList.do',
+						        type: 'post',
+						        data: { "mb_id" : userId },
+						        dataType: "json",
+						        success: function(res){
+									// select로 받아온 데이터를 모두 추가하기 위해 for문 사용
+									for(var i = 0 ; i < res.length ; i++){
+										// 날짜에서 시간부분을 지우기위해 substr 사용
+										var start = res[i].started_at.substr(0, 10);
+										var end = res[i].ended_at.substr(0, 10);
+										// 풀캘린더가 종료날짜를 하루 빼고 적용하길래 임의로 1 더해주기
+										var end2 = end.substr(0, 8);
+										var day = end.substr(8, 2) * 1 + 1;
+										// 일자가 10일 미만인 경우에는 09가 아니라 9로 표시되서
+										// 풀캘린더에 표시가 안 되므로 임의로 일자 앞에 0 붙여주기
+										if(day < 10){
+											day = "0" + day;
+										}
+										end = end2 + day;
+										
+										console.log(end);
+										
+										// 캘린더에 일정을 추가하는 풀캘린더 내부 기능
+										calendar.addEvent({
+											id: res[i].cal_seq, 
+											title: res[i].cal_title ,
+											start: start, 
+											end: end, 
+											color: res[i].cal_color 
+										});
+									}
+								} ,
+						        error: function(e) {
+						            alert('calList 요청 실패');
+						        }
+						    });
+						}
+					}
+				} , 
+				views: {
+					listMonth:{buttonText: '월간 일정'} , 
+					listWeek:{buttonText: '주간 일정'}
+				} , 
 				headerToolbar : { // 헤더에 표시할 툴 바
-					left : 'prev,next today',
+					left : 'prev,next today reloadBtn',
 					center : 'title',
-					right : 'dayGridMonth,timeGridWeek,timeGridDay'
+					right : 'listMonth listWeek dayGridMonth'
 				},
 				//editable : true, // 일정 수정 가능 여부
 				//navLinks : true, // 달력에 날짜 클릭시 해달 날짜의 일별달력으로 이동
@@ -188,8 +243,6 @@
 		});
 		// 캘린더 출력하기 위한 코드
 		// ===============================================
-			
-		
 		
 	</script>
 

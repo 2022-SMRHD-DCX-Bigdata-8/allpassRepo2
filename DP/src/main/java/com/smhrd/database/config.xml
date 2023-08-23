@@ -26,8 +26,9 @@
   <!-- Mapper.xml 생성 -> Mapper태그 추가해서 XML파일 경로 알려주기 -->
   <!-- Mapper 파일을 만들때마다 추가해야한다. -->
   <mappers>
+    <mapper resource="com/smhrd/dao/MemberMapper.xml"/>
     <mapper resource="com/smhrd/dao/CalendarMapper.xml"/>
     <mapper resource="com/smhrd/dao/TodoListMapper.xml"/>
-    <mapper resource="com/smhrd/dao/MemberMapper.xml"/>
+    <mapper resource="com/smhrd/dao/TodoCmMapper.xml"/>
   </mappers>
 </configuration>
