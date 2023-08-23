@@ -59,6 +59,8 @@ public class FrontController extends HttpServlet {
 		handler.put("/todoChange.do", new TodoChangeCon());
 		handler.put("/todoModify.do", new TodoModifyCon());
 		handler.put("/todoCmSelect.do", new TodoCmSelectCon());
+		handler.put("/todoRrSelect.do", new TodoRrSelectCon());
+		handler.put("/todoRandomModify.do", new TodoRandomModifyCon());
 
 		
 	}

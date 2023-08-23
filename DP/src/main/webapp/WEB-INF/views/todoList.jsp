@@ -206,15 +206,21 @@ body {
 		<!-- 타이틀 ~ 입력태그까지 감싸는 div 시작-->
 		<div class="main">
 			<div class="title">
-			<% if (user != null) { %>
+				<%
+				if (user != null) {
+				%>
 				<h1 id="nick">
 					<%=user.getMb_nick()%>님의 To-do List
 				</h1>
-			<% } else if (nickname != null) { %>
+				<%
+				} else if (nickname != null) {
+				%>
 				<h1 id="nick">
 					<%=nickname%>님의 To-do List
 				</h1>
-			<% }; %>
+				<%
+				} ;
+				%>
 			</div>
 			<br>
 			<div class="input-area">
@@ -357,7 +363,7 @@ body {
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">완료</button>
-                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">☆☆</button>
+                    <button class="btn btn-outline-success" onclick="todoRandom('${taskList[i].todo_seq}')">랜덤</button>
                     <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')" title="위로">▲</button><br>
                     <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">삭제</button>
                     <button class="btn btn-outline-danger" onclick = "todoModifyOpen('${taskList[i].todo_seq}')">수정</button>
@@ -373,7 +379,7 @@ body {
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">완료</button>
-                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">☆☆</button>
+                    <button class="btn btn-outline-success" onclick="todoRandom('${taskList[i].todo_seq}')">랜덤</button>
                     <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')" title="위로">▲</button><br>
                     <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">삭제</button>
                     <button class="btn btn-outline-danger" onclick = "todoModifyOpen('${taskList[i].todo_seq}')">수정</button>
@@ -665,6 +671,49 @@ body {
                             taskCheering.innerHTML = resultHTML;
                         };
                     };
+
+                    // 랜덤 루틴 변수 선언
+                    let todorr_content;
+                    let todorr_seq;
+
+                    // 루틴 가져오기
+                    function todoRandom(todo_seq) {
+                        $.ajax({
+                            url: "todoRrSelect.do",
+                            dataType: 'json',
+                            success: function (res) {
+                                console.log("getCheering complete!");
+                                const random = Math.floor(Math.random() * res.length);
+                                console.log(random);
+                                todorr_content = res[random].todorr_content;
+                                todorr_seq = todo_seq;
+                                todoRandomModify(todorr_seq, todorr_content);
+                            },
+                            error: function (e) {
+                                console.log('getCheering faild!');
+                            }
+                        });
+
+                    };
+
+                    // 루틴 수정 완료
+                    function todoRandomModify(todorr_seq, todorr_content) {
+                        $.ajax({
+                            url: "todoRandomModify.do",
+                            type: "post",
+                            data: {
+                                "todorr_seq": todorr_seq,
+                                "todorr_content": todorr_content
+                            },
+                            success: function (res) {
+                                console.log("todoRandomModify complete!");
+                                todoSearch();
+                            },
+                            error: function (e) {
+                                console.log('todoRandomModify faild!');
+                            }
+                        });
+                    };
                     
                     // 클릭
                     $("#add-button").on("click", function () {
@@ -688,21 +737,6 @@ body {
                     });
 
                 </script>
-
-	<script src="https://apis.google.com/js/api:client.js"></script>
-	<script>
-        // Load the Cloud Natural Language API library.
-        const naturalLanguage = require("@google-cloud/natural-language");
-
-        // Create a client object.
-        const client = new naturalLanguage.LanguageServiceClient();
-
-        // Detect the language of a text string.
-        const text = "This is a sentence in English.";
-        const language = client.language().detect(text).then((result) => {
-            console.log("The language of the text is:", result.languageCode);
-        });
-    </script>
 
 </body>
 

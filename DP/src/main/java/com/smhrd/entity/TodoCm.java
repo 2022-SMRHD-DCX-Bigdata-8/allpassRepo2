@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TodoCm {
 
-	private String todocm_seq;		// 응원글 순번 
+	private int todocm_seq;		// 응원글 순번 
 	private String todocm_content;	// 응원글 내용 
 }
