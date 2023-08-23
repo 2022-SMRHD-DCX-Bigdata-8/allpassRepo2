@@ -17,8 +17,7 @@
 	String email = (String) session.getAttribute("email");
 	String nickname = (String) session.getAttribute("nickname");
 	%>
-	
-	<h1><<span style="color: blue"><%=user.getMb_nick() %></span>>님의 임시 메인 페이지입니다~</h1>
+
 
 	<%-- 카카오 로그인 사용자의 경우 카카오 정보를 보여줌 --%>
 	<%-- 일반 로그인 사용자의 경우 일반 정보를 보여줌 --%>
@@ -46,6 +45,12 @@
 	<p>
 		닉네임 :
 		<%=user.getMb_nick()%></p>
+
+	<h1>
+		<<span style="color: blue"><%=user.getMb_nick()%></span>>님의 임시 메인
+		페이지입니다~
+	</h1>
+
 	<%
 	}
 	%>
@@ -60,7 +65,8 @@
 	<script>
     // 카카오 로그인한 사용자 세션에서 이메일 및 닉네임 값 가져오기
     var email = '<%=session.getAttribute("email")%>';
-    var nickname = '<%=session.getAttribute("nickname")%>';
+    var nickname = '<%=session.getAttribute("nickname")%>
+		';
 
 		// Send the data to the servlet
 		var xhr = new XMLHttpRequest();

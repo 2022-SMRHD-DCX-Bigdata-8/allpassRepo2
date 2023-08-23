@@ -196,16 +196,25 @@ body {
 
 <body>
 	<%
-	Member m = (Member) session.getAttribute("user");
+	Member user = (Member) session.getAttribute("user");
+
+	String email = (String) session.getAttribute("email");
+	String nickname = (String) session.getAttribute("nickname");
 	%>
 	<!-- 모두를 감싸주는 div -->
 	<div class="main-top" style="width: 465px; margin: 0 auto;">
 		<!-- 타이틀 ~ 입력태그까지 감싸는 div 시작-->
 		<div class="main">
 			<div class="title">
+			<% if (user != null) { %>
 				<h1 id="nick">
-					<%=m.getMb_nick()%>님의 To-do List
+					<%=user.getMb_nick()%>님의 To-do List
 				</h1>
+			<% } else if (nickname != null) { %>
+				<h1 id="nick">
+					<%=nickname%>님의 To-do List
+				</h1>
+			<% }; %>
 			</div>
 			<br>
 			<div class="input-area">
@@ -679,6 +688,22 @@ body {
                     });
 
                 </script>
+
+	<script src="https://apis.google.com/js/api:client.js"></script>
+	<script>
+        // Load the Cloud Natural Language API library.
+        const naturalLanguage = require("@google-cloud/natural-language");
+
+        // Create a client object.
+        const client = new naturalLanguage.LanguageServiceClient();
+
+        // Detect the language of a text string.
+        const text = "This is a sentence in English.";
+        const language = client.language().detect(text).then((result) => {
+            console.log("The language of the text is:", result.languageCode);
+        });
+    </script>
+
 </body>
 
 </html>
