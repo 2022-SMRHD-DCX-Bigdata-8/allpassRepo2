@@ -85,54 +85,7 @@
 			height: 8%;
 			margin: 0;
 		}
-		
-		#header{
-			background: linear-gradient(to bottom, #613f0e 80%, #ffebce);
-			
-			height: 10%;
-			width: 100%;
-			padding: 15px;
-			
-		}
-		
-		#username{
-			color: #ffffff;
-			font-family: 'Cafe24Supermagic-Bold-v1.0';
-			font-size: 30px;
-		}
-		
-		#logoutBtn{
-			height: 48px;
-			width: 100px;
-			border-color: #613f0e;
-			margin-left: 10px;
-			background-color: #ffffff;
-		}
-		
-		#todoMain{
-			width: 30%;
-			height: 80%;
-			float: left;
-		}
-		
-		#calMain{
-			width: 50%;
-			height: 80%;
-			float: left;
-		}
-		
-		#chatMain{
-			width: 20%;
-			height: 80%;
-			float: left;
-		}
-		
-		#footer{
-			background-color: #613f0e;
-			width: 100%;
-			height: 10%;
-			float: left;
-		}
+	
 		
 
 	</style>
