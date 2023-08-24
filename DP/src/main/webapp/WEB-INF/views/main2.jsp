@@ -43,20 +43,32 @@
 		
 		#userinfo{
 			float: right;
+			width : 20%;
 		}
 		
 		#username{
 			color: #613f0e;
 			font-family: 'Cafe24Supermagic-Bold-v1.0';
 			font-size: 30px;
+			width : 20%;
+			top : 3px;
+			left : 80px;
+			
+			
 		}
-		
+			
 		#logoutBtn{
-			height: 48px;
-			width: 100px;
-			border-color: #613f0e;
-			margin-left: 10px;
-			background-color: #ffffff;
+		right : 50px;
+		height: 50px;
+		outline: none;
+		border-radius: 20px;
+		background: linear-gradient(to left, #aec6ff, #e2bf8a);
+		color: rgb(255, 255, 255);
+		font-size: 1.0em;
+		letter-spacing: 2px;
+    	font-weight: bold;
+    	float : right;
+    	
 		}
 		
 		#todoMain{
@@ -109,14 +121,15 @@
 		<div id="header">
 			<div id="task-cheer"></div>
 			<div id="userinfo">
+			<a href="logout.do" onclick="alert('로그인 페이지로 이동합니다.')"><input id="logoutBtn" type="button" value="LOGOUT" style="cursor: pointer"
+                onclick="alert('로그아웃 되었습니다!')"></a>
 				<span id="username">
 					<% if (nickname != null) { %>
 						<%=nickname%>
 					<% } else if (m != null) { %>
 						<%=m.getMb_nick()%>
 					<% }%>님
-				</span> <a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button
-						type="button" id="logoutBtn">로그아웃</button></a>
+				</span> 
 			</div>
 		</div>
 
