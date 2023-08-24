@@ -27,8 +27,8 @@
 	<style type="text/css">
 		
 		#calBack{
-			width: 950px;
-			height: 710px;
+			width: 1000px;
+			height: 750px;
 			/*background: #fff9f0;*/
 			background-image: url('assets/img/notepad-6648710_1920.png');
 			background-size: 100%;
@@ -39,8 +39,8 @@
 		}
 		
 		#calendar {
-			width: 900px;
-			height: 560px;			
+			width: 950px;
+			height: 600px;			
 		}		
 		
 		#calendar a{
@@ -64,7 +64,7 @@
 	
 	
 	<script type="text/javascript">
-		// 전역변수
+		// calendar를 전역변수로 선언
 		var calendar = null;
 		var userId = null;
 		
@@ -78,12 +78,11 @@
 			String nickname = (String) session.getAttribute("nickname");
 		%>
 		
-		if (m != null){
+		if (<%=m.getMb_id()%> != null){
 			userId = '<%=m.getMb_id()%>';
-		}else{
+		} else if (nickname != null) {
 			userId = '<%=email%>';
 		}
-		
 		console.log("멤버세션값 : ", userId);
 		
 		// 캘린더 출력하기 위한 코드
