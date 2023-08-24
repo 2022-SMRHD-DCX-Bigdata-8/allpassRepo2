@@ -52,7 +52,6 @@ body {
 }
 
 #logoutBtn {
-<<<<<<< HEAD
 	margin-top: 0px;
 	width: 100px;
 	height: 50px;
@@ -67,15 +66,6 @@ body {
 	font-weight: bold;
 	letter-spacing: 2px;
 }
-
-=======
-	height: 48px;
-	width: 100px;
-	border-color: #613f0e;
-	margin-left: 10px;
-	background-color: #ffffff;
-}
->>>>>>> branch 'main' of https://github.com/2022-SMRHD-DCX-Bigdata-8/allpassRepo2.git
 
 #todoMain {
 	width: 27%;
@@ -102,6 +92,7 @@ body {
 	background: linear-gradient(to top, #613f0e 80%, #ffebce);
 	width: 100%;
 	height: 8%;
+	float: left;
 	margin: 0;
 }
 </style>
