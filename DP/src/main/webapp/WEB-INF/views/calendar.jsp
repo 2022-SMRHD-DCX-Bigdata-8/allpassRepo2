@@ -29,7 +29,6 @@
 		#calBack{
 			width: 1000px;
 			height: 770px;
-			/*background: #fff9f0;*/
 			background-image: url('assets/img/notepad-6648710_1920.png');
 			background-size: 100%;
 			border-radius: 30px;
@@ -47,15 +46,11 @@
 			color: #000000;
 			text-decoration: none;
 		}
-		
-		#calendar button{
-			/*background-color: #2F4858;*/
-		}
 				
 	</style>
 
 </head>
-<body>
+<body style="background-color: #ffebce;">
 
 	<!-- 캘린더가 출력되는 div -->
 	<div id="calBack">

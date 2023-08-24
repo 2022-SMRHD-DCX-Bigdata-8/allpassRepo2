@@ -15,89 +15,89 @@
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
 
-<style type="text/css">
-@font-face {
-	font-family: 'Cafe24Supermagic-Bold-v1.0';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2')
-		format('woff2');
-	font-weight: 700;
-	font-style: normal;
-}
-
-#layout, body, html {
-	width: 100%;
-	height: 100%;
-	/* position을 fixed로 주면 태그를 #layout만 줘도 됨 */
-}
-
-body {
-	/*background-image: url("assets/img/paper-1468883_1920.jpg");*/
-	background-color: #ffebce !important;
-	margin: 0 !important;
-}
-
-#header {
-	background: linear-gradient(to bottom, #613f0e 80%, #ffebce);
-	height: 8%;
-	width: 100%;
-	padding-top: 5px;
-	padding-left: 20px;
-}
-
-#username {
-	color: #ffffff;
-	font-family: 'Cafe24Supermagic-Bold-v1.0';
-	font-size: 30px;
-}
-
-#logoutBtn {
-	margin-top: 0px;
-	width: 100px;
-	height: 50px;
-	border: 1;
-	border-bottom-width: 5;
-	border-right-width: 5;
-	outline: none;
-	border-radius: 20px;
-	background: linear-gradient(to left, #aec6ff, #e2bf8a);
-	color: rgb(255, 255, 255);
-	font-size: 1.0em;
-	font-weight: bold;
-	letter-spacing: 2px;
-}
-
-#todoMain {
-	width: 27%;
-	height: 84%;
-	float: left;
-	background-color: red;
-}
-
-#calMain {
-	width: 53%;
-	height: 84%;
-	float: left;
-	background-color: green;
-}
-
-#chatMain {
-	width: 20%;
-	height: 84%;
-	float: left;
-	background-color: blue;
-}
-
-#footer {
-	background: linear-gradient(to top, #613f0e 80%, #ffebce);
-	width: 100%;
-	height: 8%;
-	float: left;
-	margin: 0;
-}
-</style>
+	<style type="text/css">
+		@font-face {
+		    font-family: 'Cafe24Supermagic-Bold-v1.0';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2') format('woff2');
+		    font-weight: 700;
+		    font-style: normal;
+		}
+		
+		#layout, body, html{
+            width: 100%;
+            height: 100%;
+            /* position을 fixed로 주면 태그를 #layout만 줘도 됨 */
+        }
+		
+		body{
+			/*background-image: url("assets/img/paper-1468883_1920.jpg");*/
+			margin: 0;
+		}
+		
+		#header{
+			height: 8%;
+			width: 100%;
+			padding-top: 5px;
+			padding-left: 20px; 
+		}
+		
+		#userinfo{
+			float: right;
+		}
+		
+		#username{
+			color: #613f0e;
+			font-family: 'Cafe24Supermagic-Bold-v1.0';
+			font-size: 30px;
+		}
+		
+		#logoutBtn{
+			height: 48px;
+			width: 100px;
+			border-color: #613f0e;
+			margin-left: 10px;
+			background-color: #ffffff;
+		}
+		
+		#todoMain{
+			width: 27%;
+			height: 84%;
+			float: left;
+		}
+		
+		#calMain{
+			width: 53%;
+			height: 84%;
+			float: left;
+		}
+		
+		#chatMain{
+			width: 20%;
+			height: 84%;
+			float: left;
+		}
+		
+		#footer{
+			width: 100%;
+			height: 8%;
+			float: left;
+			margin: 0;
+		}
+		
+		#nick, #task-cheer {
+		   font-family: 'SBAggroB';
+		   position: relative;
+		   text-align: center;
+		}
+		
+		#task-cheer {
+		   display: inline;
+		   font-size: 20px;
+		   color: #613f0e;
+		}
+	</style>
 </head>
-<body>
+<body style="background-color: #ffebce;">
 	<%
 	Member m = (Member) session.getAttribute("user");
 	String email = (String) session.getAttribute("email");
@@ -107,20 +107,17 @@ body {
 
 	<div id="layout">
 		<div id="header">
-			<span id="username">
-				<%
-				if (email != null) {
-				%> <%=nickname%> <%
- 				} else if (m != null) {
-				 %> <%=m.getMb_nick()%>
-				<%
-				}
-				%>님
-			</span>
-			<a href="logout.do" onclick="alert('로그인 페이지로 이동합니다.')">
-			<input type="button" value="LOGOUT" style="cursor: pointer"	onclick="alert('로그아웃 되었습니다!')" id="logoutBtn">
-			</a>
-
+			<div id="task-cheer"></div>
+			<div id="userinfo">
+				<span id="username">
+					<% if (nickname != null) { %>
+						<%=nickname%>
+					<% } else if (m != null) { %>
+						<%=m.getMb_nick()%>
+					<% }%>님
+				</span> <a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button
+						type="button" id="logoutBtn">로그아웃</button></a>
+			</div>
 		</div>
 
 		<div id="todoMain">
@@ -154,6 +151,41 @@ body {
 		var data = 'email=' + encodeURIComponent(email) + '&nickname='
 				+ encodeURIComponent(nickname);
 		xhr.send(data);
+		
+		// 응원글 변수 선언
+        let cheering;
+        let taskCheering = document.getElementById("task-cheer");
+
+        // 응원글 가져오기
+        function getCheering() {
+            $.ajax({
+                url: "todoCmSelect.do",
+                dataType: 'json',
+                success: function (res) {
+                    console.log("getCheering complete!");
+                    cheering = res;
+                    renderCheering();
+                },
+                error: function (e) {
+                    console.log('getCheering faild!');
+                }
+            });
+
+        };
+        getCheering();
+
+        // 응원글 랜덤 
+        function renderCheering() {
+            const random = Math.floor(Math.random() * cheering.length);
+            console.log(random);
+            let resultHTML = '';
+            if (cheering[random] != "") {
+                resultHTML += `
+    			<div id="task-cheer">${cheering[random].todocm_content}</div>
+    			`;
+                taskCheering.innerHTML = resultHTML;
+            };
+        };
 	</script>
 
 

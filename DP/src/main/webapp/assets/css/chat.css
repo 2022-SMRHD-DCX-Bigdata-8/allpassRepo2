@@ -2,11 +2,6 @@
 	box-sizing: border-box;
 }
 
-body {
-	background-color: #abd9e9;
-	font-family: Arial;
-}
-
 #chatImg {
 	position: absolute;
 }
