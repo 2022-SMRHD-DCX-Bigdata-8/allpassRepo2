@@ -209,13 +209,13 @@ body {
 				if (user != null) {
 				%>
 				<h1 id="nick">
-					<%=user.getMb_id()%>님의 To-do List
+					<%=user.getMb_nick()%>님의 To-do List
 				</h1>
 				<%
 				} else if (nickname != null) {
 				%>
 				<h1 id="nick">
-					<%=email%>님의 To-do List
+					<%=nickname%>님의 To-do List
 				</h1>
 				<%
 				} ;
