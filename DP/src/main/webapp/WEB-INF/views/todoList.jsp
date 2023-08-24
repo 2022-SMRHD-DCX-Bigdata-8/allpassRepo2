@@ -131,7 +131,7 @@ hr {
 
 #nick {
 	font-size: 35px;
-	color: #3f4756;
+	color: #613f0e;
 	height: 50px;
 }
 

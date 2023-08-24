@@ -50,7 +50,7 @@
 	</style>
 
 </head>
-<body>
+<body style="background-color: #ffebce;">
 
 	<!-- 캘린더가 출력되는 div -->
 	<div id="calBack">
