@@ -24,31 +24,34 @@ public class CalUpDataCon implements Controller {
 		String start = request.getParameter("started_at");
 		String end = request.getParameter("ended_at");
 		String color = request.getParameter("cal_color");
+		String content = request.getParameter("cal_content");
 		
-		int cal_seq = Integer.parseInt(seqstr);
-		
-		// 수집한 데이터 하나로 합치기
-		Calendar cal = new Calendar();
-		cal.setCal_color(color);
-		cal.setCal_seq(cal_seq);
-		cal.setCal_title(title);
-		cal.setStarted_at(start);
-		cal.setEnded_at(end);
-		
-		
-		// 기능
-		response.setCharacterEncoding("utf-8");
-		PrintWriter out = response.getWriter();
-		
-		CalendarDAO dao = new CalendarDAO();
-		int cnt = dao.calUp(cal);
-		
-		if(cnt > 0) {
-			out.print(cnt);
-			System.out.println("일정 수정 성공!");			
-		}else {
-			System.out.println("일정 수정 실패!");
-		}
+			int cal_seq = Integer.parseInt(seqstr);
+			
+			// 수집한 데이터 하나로 합치기
+			Calendar cal = new Calendar();
+			cal.setCal_color(color);
+			cal.setCal_seq(cal_seq);
+			cal.setCal_title(title);
+			cal.setStarted_at(start);
+			cal.setEnded_at(end);
+			cal.setCal_content(content);
+			
+			
+			// 기능
+			response.setCharacterEncoding("utf-8");
+			PrintWriter out = response.getWriter();
+			
+			CalendarDAO dao = new CalendarDAO();
+			int cnt = dao.calUp(cal);
+			
+			if(cnt > 0) {
+				out.print(cnt);
+				System.out.println("일정 수정 성공!");			
+			}else {
+				System.out.println("일정 수정 실패!");
+			};
+			
 
 		return null;
 	}

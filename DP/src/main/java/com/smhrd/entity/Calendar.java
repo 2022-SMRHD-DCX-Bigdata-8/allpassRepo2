@@ -16,8 +16,9 @@ public class Calendar {
 	private String started_at;	// 시작날짜
 	private String ended_at;	// 종료날짜
 	private String mb_id;		// 회원아이디
-	private String cal_status;	// 일정 상태
 	private String cal_color;	// 할일 색깔
+	private String cal_check;	// 체크용도 
+	private String cal_content;	// 할일 내용
 	
 	
 }

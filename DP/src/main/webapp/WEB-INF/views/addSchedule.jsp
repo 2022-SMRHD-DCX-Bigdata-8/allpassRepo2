@@ -39,7 +39,7 @@
 		
 		.addCal {
 		   width: 50%;
-		   height: 480px;
+		   height: 680px;
 		   background: white;
 		   border-radius: 20px;
 		   display: flex;
@@ -114,6 +114,22 @@
 		   outline: none;
 		}
 		
+		.cal_content {
+		   margin-top: 20px;
+		   width: 80%;
+		}
+		
+		.cal_content textarea {
+		   /*width: 100%;
+		   height: 30px;*/
+		   border-radius: 30px;
+		   margin-top: 10px;
+		   padding: 10px 20px;
+		   border: 1px solid lightgray;
+		   outline: none;
+		   resize: none;
+		}
+		
 		.btn {
 		   margin-top: 30px;
 		   width: 80%;
@@ -166,6 +182,12 @@
 				<input type="color" name="cal_color">
 			</div>
 			
+			<div class="cal_content">
+				<h4>상세 내용</h4>
+				<!-- <input type="text" name="cal_content"> -->
+				<textarea rows="5" cols="23" name="cal_content"></textarea>
+			</div>
+			
 			<div class="btn">
 				<button id="addBtn" type="button">추가</button>
 			</div>
@@ -188,6 +210,7 @@
 		var start = $('input[name=cal_start]');
 		var end = $('input[name=cal_end]');
 		var color = $('input[name=cal_color]');
+		var content = $('textarea[name=cal_content]');
 		
 		// button 이벤트 연결하기
 		addbtn.on('click', request);
@@ -205,7 +228,8 @@
 						title : title.val(), 
 						start : start.val(), 
 						end : end.val(), 
-						color : color.val() 
+						color : color.val() , 
+						content: content.val()
 					},
 					success : function(res) { // res : response
 						// 요청이 성공이면 실행할 내용

@@ -1,105 +1,136 @@
-<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>임시 메인 페이지</title>
+<!-- 부트스트랩5 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
+	
+	<style type="text/css">
+		@font-face {
+		    font-family: 'Cafe24Supermagic-Bold-v1.0';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2') format('woff2');
+		    font-weight: 700;
+		    font-style: normal;
+		}
+		
+		#layout, body, html{
+            width: 100%;
+            height: 100%;
+            /* position을 fixed로 주면 태그를 #layout만 줘도 됨 */
+        }
+		
+		body{
+			/*background-image: url("assets/img/paper-1468883_1920.jpg");*/
+			background-color: #ffebce !important;
+			margin: 0;
+		}
+		
+		#header{
+			background: linear-gradient(to bottom, #613f0e 80%, #ffebce);
+			
+			height: 10%;
+			width: 100%;
+			padding: 15px;
+			
+		}
+		
+		#username{
+			color: #ffffff;
+			font-family: 'Cafe24Supermagic-Bold-v1.0';
+			font-size: 30px;
+		}
+		
+		#logoutBtn{
+			height: 48px;
+			width: 100px;
+			border-color: #613f0e;
+			margin-left: 10px;
+			background-color: #ffffff;
+		}
+		
+		#todoMain{
+			width: 30%;
+			height: 80%;
+			float: left;
+		}
+		
+		#calMain{
+			width: 50%;
+			height: 80%;
+			float: left;
+		}
+		
+		#chatMain{
+			width: 20%;
+			height: 80%;
+			float: left;
+		}
+		
+		#footer{
+			background-color: #613f0e;
+			width: 100%;
+			height: 10%;
+			float: left;
+		}
+		
+
+	</style>
 </head>
-<style>
-.submit {
-	margin-top: 50px;
-	width: 80%;
-}
-
-.submit input {
-	width: 50%;
-	height: 50px;
-	border: 0;
-	outline: none;
-	border-radius: 40px;
-	background: linear-gradient(to left, #aec6ff, #e2bf8a);
-	color: white;
-	font-size: 1.2em;
-	letter-spacing: 2px;
-}
-</style>
 <body>
-	<%-- Get the email and nickname values from the session --%>
 	<%
-	Member user = (Member) session.getAttribute("user");
-
-	String email = (String) session.getAttribute("email");
-	String nickname = (String) session.getAttribute("nickname");
+		Member m = (Member)session.getAttribute("user");
 	%>
-
-
-	<%-- 카카오 로그인 사용자의 경우 카카오 정보를 보여줌 --%>
-	<%-- 일반 로그인 사용자의 경우 일반 정보를 보여줌 --%>
-	<%
-	if (nickname != null) {
-	%>
-	<p>카카오 로그인 시</p>
-	<p>
-		이메일 :
-		<%=email%></p>
-	<p>
-		닉네임 :
-		<%=nickname%></p>
-	<%
-	}
-	%>
-
-	<%
-	if (user != null) {
-	%>
-	<p>일반 로그인 시</p>
-	<p>
-		아이디 :
-		<%=user.getMb_id()%></p>
-	<p>
-		닉네임 :
-		<%=user.getMb_nick()%></p>
-
-	<h1>
-		<<span style="color: blue"><%=user.getMb_nick()%></span>>님의 임시 메인
-		페이지입니다~
-	</h1>
-
-	<%
-	}
-	%>
-
-	<a href="goCalendar.do">캘린더 가기</a>
-	<br>
-	<a href="goTodo.do">투두리스트 가기</a>
-	<div class="submit">
-		<a href="logout.do" onclick="alert('로그아웃되었습니다!'), alert('메인 페이지1로 이동합니다.')"><input type="submit" value="LOGOUT" style="cursor: pointer"></a>
+	
+	<div id="layout">
+		<div id="header">
+			<span id="username"><%=m.getMb_id() %>님</span>
+			<button type="button" id="logoutBtn">로그아웃</button>		
+		</div>	
+	
+		<div id="todoMain">
+			<jsp:include page="todoList.jsp"></jsp:include>
+		</div>
+		<div id="calMain">
+			<jsp:include page="calendar.jsp"></jsp:include>
+		</div>
+		<div id="chatMain">
+			<!-- <jsp:include page="Chatting.jsp"></jsp:include> -->
+		</div>
+	
+		<div id="footer">
+			footer
+		</div>
 	</div>
+	
+	<%-- 
+	<div class="container-fluid">
+		<div class="row my-3">
+			<div class="col-md-4 p-0">
+				<jsp:include page="todoList.jsp"></jsp:include>
+			</div>
+			
+			<div class="col-md-4">
+				<jsp:include page="calendar.jsp"></jsp:include>
+			</div>
+			
+			<div class="col-md-4">
+				<jsp:include page="Chatting.jsp"></jsp:include>
+			</div>
+		</div>	
+	</div>
+	--%>
+	
 
-	<script>
-    // 카카오 로그인한 사용자 세션에서 이메일 및 닉네임 값 가져오기
-    var email = '<%=session.getAttribute("email")%>';
-    var nickname = '<%=session.getAttribute("nickname")%>
-		';
-
-		// Send the data to the servlet
-		var xhr = new XMLHttpRequest();
-		xhr.open('POST', 'StoreKakaoInfoServlet', true);
-		xhr.setRequestHeader('Content-Type',
-				'application/x-www-form-urlencoded');
-		xhr.onreadystatechange = function() {
-			if (xhr.readyState === 4 && xhr.status === 200) {
-				// Handle the response if needed
-			}
-		};
-		var data = 'email=' + encodeURIComponent(email) + '&nickname='
-				+ encodeURIComponent(nickname);
-		xhr.send(data);
-	</script>
-
+	
+	
 </body>
 </html>
