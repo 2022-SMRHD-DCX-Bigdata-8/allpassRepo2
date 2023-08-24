@@ -34,12 +34,6 @@ body {
 	overflow: hidden;
 }
 
-aside {
-	background-color: #ececed;
-	display: inline-block;
-	font-size: 15px;
-	vertical-align: top;
-}
 
 main {
 	display: inline-block;
@@ -136,10 +130,6 @@ main header {
 	
 }
 
-#invitel{
-	position: absolute;
-	bottom: 100%;
-}
 
 #roomJoinl{
 	position: absolute;
@@ -179,34 +169,6 @@ input#lclos {
 	width: 35px;
 	height: 35px;
 	border-radius: 50%;
-}
-/* 초대기능 버튼
-이건 이미지 안함 */
-input#invite {
-	white-space: pre-line;
-    position: absolute;
-    bottom: 6%;
-    width: 25%;
-    right: 5%;
-    height: 40px;
-}
-
-input#roomJoin {
-	white-space: pre-line;
-	position: absolute;
-	bottom: 6%;
-	width: 25%;
-	right: 37.5%;
-	height: 40px;
-}
-
-input#roomCre {
-	white-space: pre-line;
-    position: absolute;
-    bottom: 6%;
-    width: 25%;
-    right: 70%;
-    height: 40px;
 }
 
 /* 채팅창 닫기 버튼 */
@@ -260,10 +222,6 @@ main header h2 {
 	border-bottom: 2px solid #fff;
 }
 
-#listfoot {
-	height: 110px;
-	overflow-y: scroll;
-}
 
 #chat {
 	padding-left: 0;

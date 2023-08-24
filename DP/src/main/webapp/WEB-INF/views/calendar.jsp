@@ -78,7 +78,7 @@
 			String nickname = (String) session.getAttribute("nickname");
 		%>
 		
-		if (<%=m.getMb_id()%> != null){
+		if ('<%=m.getMb_id()%>' != null){
 			userId = '<%=m.getMb_id()%>';
 		} else if (nickname != null) {
 			userId = '<%=email%>';

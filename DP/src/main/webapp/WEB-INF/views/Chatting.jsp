@@ -19,6 +19,35 @@
 <title>Document</title>
 <link rel="stylesheet" href="assets/css/chat.css" type="text/css" />
 <style>
+aside {
+	background-color: #3f4756;
+	display: inline-block;
+	font-size: 15px;
+	vertical-align: top;
+}
+#asideHead, #cha_list{
+	color: white;
+	font-weight: bold;
+}
+.uid:hover{
+	color: black;
+}
+#invitel{
+	bottom: 100%;
+}
+#listfoot {
+	height: 110px;
+	overflow-y: scroll;
+}
+#chodaeTitle{
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 100%;
+	text-decoration: underline;
+}
+.rN, .rC{
+	
+}
 #ch {
 	position: fixed;
 	right: 10px;
@@ -26,12 +55,43 @@
 	width: 80px;
 	height: 80px;
 }
-
 #overlay {
 	display: none;
 }
+input#invite {/*초대코드 버튼*/
+	white-space: pre-line;
+    position: absolute;
+    bottom: 6%;
+    width: 25%;
+    right: 5%;
+    height: 40px;
+    overflow: hidden;
+    padding: 0;
+    -webkit-transition: border-color 0.3s, background-color 0.3s;
+    transition: border-color 0.3s, background-color 0.3s;
+    -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+}
+input#roomJoin {/*방참가 버튼*/
+	white-space: pre-line;
+	position: absolute;
+	bottom: 6%;
+	width: 25%;
+	right: 37.5%;
+	height: 40px;
+}
+input#roomCre {/*방생성버튼*/
+	white-space: pre-line;
+    position: absolute;
+    bottom: 6%;
+    width: 25%;
+    right: 70%;
+    height: 40px;
+}
 </style>
 </head>
+
+
 
 <body>
 	<%
@@ -70,13 +130,13 @@
 			<div>
 				<input type="button" id="listback" value="뒤로">
 				<div id="listfoot">
-					<input type="button" id="invite" value="초대
-					코드
-					생성">
-					<input type="button" id="roomJoin" value="방
-			참가"> <input
-						type="button" id="roomCre" value="방
-			생성">
+					<input type="button" id="invite" value="초대코드">
+					<input type="button" id="roomJoin" value="방 참가">
+					<input type="button" id="roomCre" value="방 생성">
+					<div id="invitel">
+					<!-- 여기 부분 수정함 -->
+						<h4 id="chodaeTitle">초대 코드</h4>
+					</div>
 				</div>
 				<%--방생성 --%>
 				<div id="roomCrel">
@@ -88,10 +148,6 @@
 					<button id="addRoomBtn">방 생성하기</button>
 				</div>
 
-				<div id="invitel">
-				<!-- 여기 부분 수정함 -->
-					<h4 id="chodaeTitle" style="position: fixed;">초대 코드</h4>
-				</div>
 
 
 				<div id="roomJoinl">
@@ -125,14 +181,7 @@
 			<footer>
 				<textarea id="content" placeholder="Type your message"></textarea>
 				<div>
-					<img
-						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png"
-						alt=""> <img
-						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png"
-						alt=""> <input id="send" class="f_btn_r" type="button"
-						value="보내기"> <input onclick="disconnect()"
-						value="Disconnect" type="button">
-
+					<input id="send" class="f_btn_r" type="button" value="보내기"> 
 
 				</div>
 			</footer>
@@ -410,7 +459,7 @@
    let backElement = document.getElementById('back'); // 뒤로가기
    let lclosElement = document.getElementById('lclos'); // 친구목록창 닫기
    let cclosElement = document.getElementById('cclos'); // 채팅창 닫기
-   let inviteElement = document.getElementById('invite'); // 초대링크 버튼
+   let inviteElement = document.getElementById('invite'); // 초대코드 버튼
    let roomJoinElement = document.getElementById('roomJoin'); // 방 참여 버튼
    let roomCreElement = document.getElementById('roomCre'); // 방 생성 버튼
    let listbackElement = document.getElementById('listback'); // 목록 뒤로가기
@@ -434,11 +483,12 @@
     		  type : 'post',
     		  dataType : 'json',
     		  success : function(res){
+    			  
     			  console.log('이미지 클릭 성공')
     			  roomList = res;
     			  //console.log(roomList);
     			  //console.log(roomList[0]);
-    			  
+    			  $('#cha_list').html('');
     			  for(let i = 0; i < roomList.length; i++){
     				  //console.log(roomList[i].room_title);
     				  resultHTML += `
@@ -461,6 +511,7 @@
          
            chchch.style.display = 'none';
            listbackElement.style.display = "none";
+           inviteLElement.style.display = "none";
 
            // 친구목록 사이즈 조절
            asideElement.style.width = '350px';
@@ -477,7 +528,6 @@
          
            
        })
-   
    
    
    ////////////////////////////////////////////////////////////////////////
@@ -687,22 +737,23 @@
         	type : 'post',
         	dataType : 'json',
         	success : function(res){
+        		$('#invitel').html('');
         		console.log('방 코드 출력 성공');
         		codeList = res;
         		console.log(codeList);
-        		
+        		resultHTML += `<div id="chodaeTitle">초대 코드</div>`;
         		for(let i = 0; i < codeList.length; i++){
         			resultHTML += `
-        			<div>
+        			<div class="rN">
         				방 이름 : \${codeList[i].room_title}
         			</div>
-        			<div>
+        			<div class="rC">
         				방 코드 : \${codeList[i].room_id}
         			</div>
         			`;
         		};
         		// 여기 부분 수정함
-        		$('#listfoot').append(resultHTML);
+        		$('#invitel').append(resultHTML);
         	},
         	error : function(e){
         		console.log('초대코드 요청 실패');
