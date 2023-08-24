@@ -1,3 +1,4 @@
+<%@page import="javax.servlet.jsp.tagext.TryCatchFinally"%>
 <%@page import="java.util.Random"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -8,7 +9,7 @@
 <%@page import="com.smhrd.entity.ChatRoom"%>
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false" %>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,9 +35,11 @@ aside {
 }
 #invitel{
 	bottom: 100%;
+	line-height: 100%;
+	color: white;
 }
 #listfoot {
-	height: 110px;
+	height: 120px;
 	overflow-y: scroll;
 }
 #chodaeTitle{
@@ -51,7 +54,7 @@ aside {
 #ch {
 	position: fixed;
 	right: 10px;
-	bottom: 10px;
+	bottom: 0px;
 	width: 80px;
 	height: 80px;
 }
@@ -65,12 +68,6 @@ input#invite {/*초대코드 버튼*/
     width: 25%;
     right: 5%;
     height: 40px;
-    overflow: hidden;
-    padding: 0;
-    -webkit-transition: border-color 0.3s, background-color 0.3s;
-    transition: border-color 0.3s, background-color 0.3s;
-    -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
-    transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
 }
 input#roomJoin {/*방참가 버튼*/
 	white-space: pre-line;
@@ -88,6 +85,81 @@ input#roomCre {/*방생성버튼*/
     right: 70%;
     height: 40px;
 }
+.footBtn{/*처음 버튼 3개*/
+    background-color:#ffb400;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    min-height:30px; 
+    min-width: 60px;
+}
+.footBtn:hover{
+	background-color:#fff9e9;
+	transition: 0.4s;
+	color: black;
+}
+input[type=text]{
+	font-size: 15px;
+	border: 0;
+  	border-radius: 15px;
+  	outline: none;
+  	padding-left: 10px;
+  	background-color: rgb(233, 233, 233);
+  	line-height: 100%;
+}
+#roomCrel{/*방생성 폼*/
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 15px;
+	line-height: 2em;
+	color: white;
+}
+#roomJoinl{ /*방참가 폼*/
+	padding-top: 27px;
+	padding-left: 10px;
+	padding-bottom: 15px;
+	line-height: 2em;
+	color: white;
+}
+#addRoomBtn{ /*방생성하기 버튼*/
+	background-color:#a3acbd;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    min-height:20px; 
+    min-width: 50px;
+}
+#addRoomBtn:hover{
+	background-color: white;
+	transition: 0.4s;
+	color: black;
+}
+#joinRoom{ /*참가하기버튼*/
+	background-color:#a3acbd;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    min-height:20px; 
+    min-width: 50px;
+}
+#joinRoom:hover{
+	background-color: white;
+	transition: 0.4s;
+	color: black;
+}
+#send{ /*보내기버튼*/
+	background-color: white;
+    color: #fff;
+    border:1px; 
+    border-radius:10px; 
+    min-height:30px; 
+    min-width: 85px;
+}
+#send:hover{
+	background-color: #ffb400;
+	transition: 0.2s;
+	color: black;
+}
 </style>
 </head>
 
@@ -96,8 +168,17 @@ input#roomCre {/*방생성버튼*/
 <body>
 	<%
 	// 사용자 세션
+	String id = "";
 	Member user = (Member) session.getAttribute("user");
-	System.out.println(user.getMb_id());
+	String email = (String) session.getAttribute("email");
+	String nickname = (String) session.getAttribute("nickname");
+
+	if (user != null) {
+		id = user.getMb_id();
+		System.out.println(id);
+	} else if (email != null) {
+		id = email;
+	} ;
 
 	// 개설일자 포맷팅
 	Date today = new Date();
@@ -130,36 +211,39 @@ input#roomCre {/*방생성버튼*/
 			<div>
 				<input type="button" id="listback" value="뒤로">
 				<div id="listfoot">
-					<input type="button" id="invite" value="초대코드">
-					<input type="button" id="roomJoin" value="방 참가">
-					<input type="button" id="roomCre" value="방 생성">
+					<input type="button" id="invite" class="footBtn" value="초대코드">
+					<input type="button" id="roomJoin" class="footBtn" value="방 참가">
+					<input type="button" id="roomCre" class="footBtn" value="방 생성">
+					
 					<div id="invitel">
-					<!-- 여기 부분 수정함 -->
-						<h4 id="chodaeTitle">초대 코드</h4>
+					
 					</div>
-				</div>
-				<%--방생성 --%>
-				<div id="roomCrel">
-					방 제목 : <input name="title" type="text"><br> 방 아이디 : <input
-						name="roomId" type="text" value="<%=generatedString%>" readonly><br>
-					개설자 : <input name="maker" type="text" value="<%=user.getMb_id()%>"
-						readonly><br> 개설일자 : <input name="createDate"
-						type="text" value="<%=sfDay%>" readonly><br>
-					<button id="addRoomBtn">방 생성하기</button>
-				</div>
-
-
-
-				<div id="roomJoinl">
-					<form action="addMember.do" method="post">
-						<div>
-							방 이름 입력 : <input name="roomName" type="text"><br>
-						</div>
-						<div>
-							방 코드 입력 : <input name="roomCode" type="text"><br>
-						</div>
-						<input id="joinRoom" type="button" value="참가하기">
-					</form>
+					<%--방생성 --%>
+					<div id="roomCrel">
+						방 제목 : <input name="title" type="text"><br> 방 아이디 : <input
+							name="roomId" type="text" value="<%=generatedString%>" readonly><br>
+						개설자 : <input name="maker" type="text" value="<%=user.getMb_id()%>" readonly><br>
+						개설일자 : <input name="createDate" type="text" value="<%=sfDay%>"
+							readonly><br>
+						<button id="addRoomBtn">방 생성하기</button>
+					</div>
+	
+					<div id="invitel">
+						<!-- 여기 부분 수정함 -->
+						<h4 id="chodaeTitle" style="position: fixed;">초대 코드</h4>
+					</div>
+	
+					<div id="roomJoinl">
+						<form action="addMember.do" method="post">
+							<div>
+								방 이름 입력 : <input name="roomName" type="text"><br>
+							</div>
+							<div>
+								방 코드 입력 : <input name="roomCode" type="text"><br>
+							</div>
+							<input id="joinRoom" type="button" value="참가하기">
+						</form>
+					</div>
 				</div>
 			</div>
 		</aside>
@@ -172,11 +256,11 @@ input#roomCre {/*방생성버튼*/
 				</div>
 
 			</header>
-			
+
 			<%--채팅 내역 --%>
 			<ul id="chat">
 			</ul>
-			
+
 			<%--메시지 쓰기, 보내기 --%>
 			<footer>
 				<textarea id="content" placeholder="Type your message"></textarea>
@@ -189,9 +273,7 @@ input#roomCre {/*방생성버튼*/
 	</div>
 
 	<%-- 맨처음 시작 아이콘 --%>
-	<img id="ch"
-	      src="assets/img/chat-1873536_1280-removebg-preview.png"
-	      alt="">
+	<img id="ch" src="assets/img/chat-1873536_1280-removebg-preview.png" alt="">
 
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -272,11 +354,11 @@ input#roomCre {/*방생성버튼*/
 	    	let today = new Date();
 
 	    	messageJs = {
-	    		'chatter' : <%=user.getMb_nick()%>,
+	    		'chatter' : '<%=user.getMb_nick()%>',
 	    		'chat': $("#content").val(),
 	    		'chat_file' : '',
 	    		'created_at': today.toLocaleDateString() + ' ' + today.toLocaleTimeString(),
-	    		'mb_id' : <%=user.getMb_id()%>
+	    		'mb_id' : '<%=user.getMb_id()%>'
 	    	}
 	    	
 	    	html = `
@@ -301,7 +383,7 @@ input#roomCre {/*방생성버튼*/
 	    	$("#content").val('');
 	
 	    	// 사용자가 누군지 확인
-	    	console.log('<%=user.getMb_nick()%>')
+	    	console.log('<%=user.getMb_nick()%>');
 	    	
     }
 	    // 버튼 누르기
@@ -454,6 +536,7 @@ input#roomCre {/*방생성버튼*/
    //let uidElement = document.querySelector('.uid'); // 테스트용 사용자
    let uidElement = document.querySelectorAll('.uid'); // 테스트용 사용자
    let addRoomBtn = document.getElementById('addRoomBtn'); //방생성하기 버튼
+   let chodaeTitleElement = document.getElementById('chodaeTitle');
    
    //let uidElement = document.getElementByClassName('uid1'); // 테스트용 사용자
    let backElement = document.getElementById('back'); // 뒤로가기
@@ -507,6 +590,8 @@ input#roomCre {/*방생성버튼*/
     	  });
     	  
          // 전체틀 보이게 하기
+        $('#overlay').fadeTo(400, 1, function(){
+         });
            overlay.style.display = 'block';
          
            chchch.style.display = 'none';
@@ -521,10 +606,16 @@ input#roomCre {/*방생성버튼*/
            listfootElement.style.display = 'block';
 
            // 나머지 부분 사이즈 조절
-            mainElement.style.width = '0px';
+          mainElement.style.width = '0px';
           mainElement.style.height = '0px';
           mainElement.style.display = 'none';
           footElement.style.display = 'block';
+          chodaeTitleElement.style.display = 'none';
+          roomCreLElement.style.display = 'none';
+          roomJoinLElement.style.display = 'none';
+          inviteElement.style.display = 'block';
+          roomJoinElement.style.display = 'block';
+          roomCreElement.style.display = 'block';
          
            
        })
@@ -551,6 +642,7 @@ input#roomCre {/*방생성버튼*/
         roomCreLElement.style.bottom = "0%";
    
   		listbackElement.style.display = "block";
+  		chodaeTitleElement.style.display = 'none';
    
     })
     
@@ -584,6 +676,7 @@ input#roomCre {/*방생성버튼*/
   	    mainElement.style.height = '0px';
   	    mainElement.style.display = 'none';
   	    footElement.style.display = 'none';
+  	  chodaeTitleElement.style.display = 'none';
     	
     	$.ajax({
  		   url : 'addRoom.do',
@@ -629,6 +722,7 @@ input#roomCre {/*방생성버튼*/
            
            
        listbackElement.style.display = "block";
+       chodaeTitleElement.style.display = 'none';
 
 
     })
@@ -658,6 +752,7 @@ input#roomCre {/*방생성버튼*/
   	    mainElement.style.height = '0px';
   	    mainElement.style.display = 'none';
   	    footElement.style.display = 'none';
+  	  chodaeTitleElement.style.display = 'none';
   	    
   	    $.ajax({
   	    	url : 'addMember.do',
@@ -727,6 +822,7 @@ input#roomCre {/*방생성버튼*/
         roomCreLElement.style.display = "none";
         roomJoinLElement.style.display = "none";
         inviteLElement.style.display = "block";
+        chodaeTitleElement.style.display = 'block';
         
         inviteLElement.style.bottom = "0%";
            
@@ -741,7 +837,7 @@ input#roomCre {/*방생성버튼*/
         		console.log('방 코드 출력 성공');
         		codeList = res;
         		console.log(codeList);
-        		resultHTML += `<div id="chodaeTitle">초대 코드</div>`;
+        		resultHTML += `<div id="chodaeTitle">초대 코드</div><hr>`;
         		for(let i = 0; i < codeList.length; i++){
         			resultHTML += `
         			<div class="rN">
@@ -750,6 +846,7 @@ input#roomCre {/*방생성버튼*/
         			<div class="rC">
         				방 코드 : \${codeList[i].room_id}
         			</div>
+        			<hr>
         			`;
         		};
         		// 여기 부분 수정함
@@ -779,6 +876,7 @@ input#roomCre {/*방생성버튼*/
            inviteLElement.style.display = "none";
            
            listbackElement.style.display = 'none';
+           chodaeTitleElement.style.display = 'none';
        })
     
   
@@ -801,6 +899,7 @@ input#roomCre {/*방생성버튼*/
         mainElement.style.display = 'none';
         footElement.style.display = 'block';
         chchch.style.display = 'none';
+        chodaeTitleElement.style.display = 'none';
 
     })
     
@@ -841,9 +940,9 @@ input#roomCre {/*방생성버튼*/
                 		chatList = res1;
                 		console.log(chatList);
                 		for(let i= 0; i < chatList.length; i++){
-                			if(chatList.chatter == '<%=user.getMb_nick()%>'){
+                			if(chatList[i].chatter == '<%=user.getMb_nick()%>'){
 	                			resultHTML += `
-	                				<li class="you">
+	                				<li class="me">
 		                				<div>
 		                					\${chatList[i].chatter}
 		                				</div>
@@ -857,7 +956,7 @@ input#roomCre {/*방생성버튼*/
 	                			`;
                 			}else{
 	                			resultHTML += `
-	                				<li class="me">
+	                				<li class="you">
 										<div>
 											\${chatList[i].chatter}
 										</div>
@@ -888,7 +987,9 @@ input#roomCre {/*방생성버튼*/
     ////////////////////////////////////////////////////////////////////////
     // 친구목록창 닫기버튼
     lclosElement.addEventListener("click", function () {
-       overlay.style.display = 'none';
+    	$('#overlay').fadeOut(400, function(){
+        });
+       	overlay.style.display = 'none';
 		//console.log("시발");
 
         chchch.style.display = 'block';
@@ -900,12 +1001,13 @@ input#roomCre {/*방생성버튼*/
     /* 채팅창 닫기버튼 
     따로 만든 이유 : 위치가 달라서 따로 만듬 */
        cclosElement.addEventListener("click", function () {
-       overlay.style.display = 'none';
-       asideElement.style.display = 'block';
-       console.log("닫기 화긴");
-
-
-        chchch.style.display = 'block';
+    	   $('#overlay').fadeOut(400, function(){
+           });
+	       overlay.style.display = 'none';
+	       asideElement.style.display = 'block';
+	       console.log("닫기 화긴");
+	       
+			chchch.style.display = 'block';
 
     })
     

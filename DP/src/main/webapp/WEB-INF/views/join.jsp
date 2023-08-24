@@ -281,7 +281,7 @@ h2 {
 			<div class="join_nick">
 				<h4>닉네임</h4>
 				<input type="text" name="join_nick" id="join_nick_input"
-					placeholder="ID"> <span id="userNickError"></span>
+					placeholder="Nickname"> <span id="userNickError"></span>
 
 
 			</div>

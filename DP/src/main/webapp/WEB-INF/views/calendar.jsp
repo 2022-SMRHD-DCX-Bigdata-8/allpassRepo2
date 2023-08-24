@@ -28,7 +28,7 @@
 		
 		#calBack{
 			width: 1000px;
-			height: 750px;
+			height: 770px;
 			/*background: #fff9f0;*/
 			background-image: url('assets/img/notepad-6648710_1920.png');
 			background-size: 100%;
@@ -40,7 +40,7 @@
 		
 		#calendar {
 			width: 950px;
-			height: 600px;			
+			height: 620px;			
 		}		
 		
 		#calendar a{
@@ -73,16 +73,24 @@
 			String calList = (String)session.getAttribute("calList");
 			String calSession = (String)session.getAttribute("calSession");
 			
-			Member m = (Member)session.getAttribute("user");
+			Member user = (Member) session.getAttribute("user");
 			String email = (String) session.getAttribute("email");
 			String nickname = (String) session.getAttribute("nickname");
-		%>
+			%>
 		
+<<<<<<< HEAD
 		if ('<%=m.getMb_id()%>' != null){
 			userId = '<%=m.getMb_id()%>';
 		} else if (nickname != null) {
 			userId = '<%=email%>';
 		}
+=======
+		<% if (user != null){ %>
+			userId = "<%=user.getMb_id() %>";
+		<% } else if (email != null) { %>
+			userId = "<%=email %>";
+		<% } %>
+>>>>>>> branch 'main' of https://github.com/2022-SMRHD-DCX-Bigdata-8/allpassRepo2.git
 		console.log("멤버세션값 : ", userId);
 		
 		// 캘린더 출력하기 위한 코드
