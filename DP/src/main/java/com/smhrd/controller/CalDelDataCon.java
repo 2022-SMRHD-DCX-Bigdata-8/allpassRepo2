@@ -19,22 +19,25 @@ public class CalDelDataCon implements Controller {
 		request.setCharacterEncoding("utf-8");
 		
 		String seqstr = request.getParameter("cal_seq");
+
+			System.out.println("admin이라 수정 불가!");
+			int cal_seq = Integer.parseInt(seqstr);
 		
-		int cal_seq = Integer.parseInt(seqstr);
+			// 기능
+			response.setCharacterEncoding("utf-8");
+			PrintWriter out = response.getWriter();
+			
+			CalendarDAO dao = new CalendarDAO();
+			int cnt = dao.calDel(cal_seq);
+			
+			if(cnt > 0) {
+				out.print(cnt);
+				System.out.println("일정 삭제 성공!");			
+			}else {
+				System.out.println("일정 삭제 실패!");
+			}
 		
-		// 기능
-		response.setCharacterEncoding("utf-8");
-		PrintWriter out = response.getWriter();
 		
-		CalendarDAO dao = new CalendarDAO();
-		int cnt = dao.calDel(cal_seq);
-		
-		if(cnt > 0) {
-			out.print(cnt);
-			System.out.println("일정 삭제 성공!");			
-		}else {
-			System.out.println("일정 삭제 실패!");
-		}
 		
 		return null;
 	}
