@@ -104,7 +104,7 @@ body {
 #task-board {
 	width: 465px;
 	font-family: 'GmarketSansMedium';
-	height: 500px;
+	height: 450px;
 	overflow-y: auto;
 	padding: 10px;
 }
@@ -196,13 +196,12 @@ body {
 
 <body>
 	<%
-	Member user = (Member) session.getAttribute("user");
-
-	String email = (String) session.getAttribute("email");
-	String nickname = (String) session.getAttribute("nickname");
+		Member user = (Member) session.getAttribute("user");
+		String email = (String) session.getAttribute("email");
+		String nickname = (String) session.getAttribute("nickname");
 	%>
 	<!-- 모두를 감싸주는 div -->
-	<div class="main-top" style="width: 465px; margin: 0 auto;">
+	<div class="main-top" style="width: 465px; margin: 10px;">
 		<!-- 타이틀 ~ 입력태그까지 감싸는 div 시작-->
 		<div class="main">
 			<div class="title">
