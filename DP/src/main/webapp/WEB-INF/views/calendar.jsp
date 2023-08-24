@@ -78,19 +78,11 @@
 			String nickname = (String) session.getAttribute("nickname");
 			%>
 		
-<<<<<<< HEAD
-		if ('<%=m.getMb_id()%>' != null){
-			userId = '<%=m.getMb_id()%>';
-		} else if (nickname != null) {
-			userId = '<%=email%>';
-		}
-=======
 		<% if (user != null){ %>
 			userId = "<%=user.getMb_id() %>";
 		<% } else if (email != null) { %>
 			userId = "<%=email %>";
 		<% } %>
->>>>>>> branch 'main' of https://github.com/2022-SMRHD-DCX-Bigdata-8/allpassRepo2.git
 		console.log("멤버세션값 : ", userId);
 		
 		// 캘린더 출력하기 위한 코드

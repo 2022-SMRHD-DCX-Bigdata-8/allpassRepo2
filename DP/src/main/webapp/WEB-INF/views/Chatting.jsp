@@ -169,15 +169,18 @@ input[type=text]{
 	<%
 	// 사용자 세션
 	String id = "";
+	String nick_name = "";
 	Member user = (Member) session.getAttribute("user");
 	String email = (String) session.getAttribute("email");
 	String nickname = (String) session.getAttribute("nickname");
 
 	if (user != null) {
 		id = user.getMb_id();
+		nick_name = user.getMb_nick();
 		System.out.println(id);
 	} else if (email != null) {
 		id = email.split("@")[0];
+		nick_name = nickname;
 	} ;
 
 	// 개설일자 포맷팅
@@ -222,7 +225,7 @@ input[type=text]{
 					<div id="roomCrel">
 						방 제목 : <input name="title" type="text"><br> 방 아이디 : <input
 							name="roomId" type="text" value="<%=generatedString%>" readonly><br>
-						개설자 : <input name="maker" type="text" value="<%=user.getMb_id()%>" readonly><br>
+						개설자 : <input name="maker" type="text" value="<%=id%>" readonly><br>
 						개설일자 : <input name="createDate" type="text" value="<%=sfDay%>"
 							readonly><br>
 						<button id="addRoomBtn">방 생성하기</button>
@@ -283,7 +286,7 @@ input[type=text]{
     	
     	
     	// websocket 객체 생성(자동으로 접속 시작 - onopen 함수 호출)
-    	const websocket = new WebSocket("ws://localhost:8082/DP/");//${param.sess} // socket url
+    	const websocket = new WebSocket("ws://localhost:8081/DP/");//${param.sess} // socket url
     	
     	// websocket 서버와 접속이 되면 호출되는 함수
     	websocket.onopen = function(message) {
@@ -354,11 +357,11 @@ input[type=text]{
 	    	let today = new Date();
 
 	    	messageJs = {
-	    		'chatter' : '<%=user.getMb_nick()%>',
+	    		'chatter' : '<%=nick_name%>',
 	    		'chat': $("#content").val(),
 	    		'chat_file' : '',
 	    		'created_at': today.toLocaleDateString() + ' ' + today.toLocaleTimeString(),
-	    		'mb_id' : '<%=user.getMb_id()%>'
+	    		'mb_id' : '<%=id%>'
 	    	}
 	    	
 	    	html = `
@@ -383,7 +386,7 @@ input[type=text]{
 	    	$("#content").val('');
 	
 	    	// 사용자가 누군지 확인
-	    	console.log('<%=user.getMb_nick()%>');
+	    	console.log('<%=nick_name%>');
 	    	
     }
 	    // 버튼 누르기
@@ -940,7 +943,7 @@ input[type=text]{
                 		chatList = res1;
                 		console.log(chatList);
                 		for(let i= 0; i < chatList.length; i++){
-                			if(chatList[i].chatter == '<%=user.getMb_nick()%>'){
+                			if(chatList[i].chatter == '<%=nick_name%>'){
 	                			resultHTML += `
 	                				<li class="me">
 		                				<div>
