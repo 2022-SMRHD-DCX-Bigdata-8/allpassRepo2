@@ -62,27 +62,28 @@
 			width: 27%;
 			height: 84%;
 			float: left;
-			background-color: red;
+			/*background-color: red;*/
 		}
 		
 		#calMain{
 			width: 53%;
 			height: 84%;
 			float: left;
-			background-color: green;
+			/*background-color: green;*/
 		}
 		
 		#chatMain{
 			width: 20%;
 			height: 84%;
 			float: left;
-			background-color: blue;
+			/*background-color: blue;*/
 		}
 		
 		#footer{
 			background: linear-gradient(to top, #613f0e 80%, #ffebce);
 			width: 100%;
 			height: 8%;
+			float: left;
 			margin: 0;
 		}
 	
