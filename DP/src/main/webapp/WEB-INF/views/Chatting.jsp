@@ -20,6 +20,37 @@
 <title>Document</title>
 <link rel="stylesheet" href="assets/css/chat.css" type="text/css" />
 <style>
+aside {
+	background-color: #3f4756;
+	display: inline-block;
+	font-size: 15px;
+	vertical-align: top;
+}
+#asideHead, #cha_list{
+	color: white;
+	font-weight: bold;
+}
+.uid:hover{
+	color: black;
+}
+#invitel{
+	bottom: 100%;
+	line-height: 100%;
+	color: white;
+}
+#listfoot {
+	height: 120px;
+	overflow-y: scroll;
+}
+#chodaeTitle{
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 100%;
+	text-decoration: underline;
+}
+.rN, .rC{
+	
+}
 #ch {
 	position: fixed;
 	right: 10px;
@@ -27,26 +58,129 @@
 	width: 80px;
 	height: 80px;
 }
-
 #overlay {
 	display: none;
 }
+input#invite {/*초대코드 버튼*/
+	white-space: pre-line;
+    position: absolute;
+    bottom: 6%;
+    width: 25%;
+    right: 5%;
+    height: 40px;
+}
+input#roomJoin {/*방참가 버튼*/
+	white-space: pre-line;
+	position: absolute;
+	bottom: 6%;
+	width: 25%;
+	right: 37.5%;
+	height: 40px;
+}
+input#roomCre {/*방생성버튼*/
+	white-space: pre-line;
+    position: absolute;
+    bottom: 6%;
+    width: 25%;
+    right: 70%;
+    height: 40px;
+}
+.footBtn{/*처음 버튼 3개*/
+    background-color:#ffb400;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    min-height:30px; 
+    min-width: 60px;
+}
+.footBtn:hover{
+	background-color:#fff9e9;
+	transition: 0.4s;
+	color: black;
+}
+input[type=text]{
+	font-size: 15px;
+	border: 0;
+  	border-radius: 15px;
+  	outline: none;
+  	padding-left: 10px;
+  	background-color: rgb(233, 233, 233);
+  	line-height: 100%;
+}
+#roomCrel{/*방생성 폼*/
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-bottom: 15px;
+	line-height: 2em;
+	color: white;
+}
+#roomJoinl{ /*방참가 폼*/
+	padding-top: 27px;
+	padding-left: 10px;
+	padding-bottom: 15px;
+	line-height: 2em;
+	color: white;
+}
+#addRoomBtn{ /*방생성하기 버튼*/
+	background-color:#a3acbd;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    min-height:20px; 
+    min-width: 50px;
+}
+#addRoomBtn:hover{
+	background-color: white;
+	transition: 0.4s;
+	color: black;
+}
+#joinRoom{ /*참가하기버튼*/
+	background-color:#a3acbd;
+    color: #fff;
+    border:none; 
+    border-radius:10px; 
+    min-height:20px; 
+    min-width: 50px;
+}
+#joinRoom:hover{
+	background-color: white;
+	transition: 0.4s;
+	color: black;
+}
+#send{ /*보내기버튼*/
+	background-color: white;
+    color: #fff;
+    border:1px; 
+    border-radius:10px; 
+    min-height:30px; 
+    min-width: 85px;
+}
+#send:hover{
+	background-color: #ffb400;
+	transition: 0.2s;
+	color: black;
+}
 </style>
 </head>
+
+
 
 <body>
 	<%
 	// 사용자 세션
 	String id = "";
+	String nick_name = "";
 	Member user = (Member) session.getAttribute("user");
 	String email = (String) session.getAttribute("email");
 	String nickname = (String) session.getAttribute("nickname");
 
 	if (user != null) {
 		id = user.getMb_id();
+		nick_name = user.getMb_nick();
 		System.out.println(id);
 	} else if (email != null) {
 		id = email.split("@")[0];
+		nick_name = nickname;
 	} ;
 
 	// 개설일자 포맷팅
@@ -80,40 +214,39 @@
 			<div>
 				<input type="button" id="listback" value="뒤로">
 				<div id="listfoot">
-					<input type="button" id="invite" value="초대
-					코드
-					생성">
-					<input type="button" id="roomJoin" value="방
-			참가"> <input
-						type="button" id="roomCre" value="방
-			생성">
-				</div>
-				<%--방생성 --%>
-				<div id="roomCrel">
-					방 제목 : <input name="title" type="text"><br> 방 아이디 : <input
-						name="roomId" type="text" value="<%=generatedString%>" readonly><br>
-					개설자 : <input name="maker" type="text" value="<%=id%>" readonly><br>
-					개설일자 : <input name="createDate" type="text" value="<%=sfDay%>"
-						readonly><br>
-					<button id="addRoomBtn">방 생성하기</button>
-				</div>
-
-				<div id="invitel">
-					<!-- 여기 부분 수정함 -->
-					<h4 id="chodaeTitle" style="position: fixed;">초대 코드</h4>
-				</div>
-
-
-				<div id="roomJoinl">
-					<form action="addMember.do" method="post">
-						<div>
-							방 이름 입력 : <input name="roomName" type="text"><br>
-						</div>
-						<div>
-							방 코드 입력 : <input name="roomCode" type="text"><br>
-						</div>
-						<input id="joinRoom" type="button" value="참가하기">
-					</form>
+					<input type="button" id="invite" class="footBtn" value="초대코드">
+					<input type="button" id="roomJoin" class="footBtn" value="방 참가">
+					<input type="button" id="roomCre" class="footBtn" value="방 생성">
+					
+					<div id="invitel">
+					
+					</div>
+					<%--방생성 --%>
+					<div id="roomCrel">
+						방 제목 : <input name="title" type="text"><br> 방 아이디 : <input
+							name="roomId" type="text" value="<%=generatedString%>" readonly><br>
+						개설자 : <input name="maker" type="text" value="<%=id%>" readonly><br>
+						개설일자 : <input name="createDate" type="text" value="<%=sfDay%>"
+							readonly><br>
+						<button id="addRoomBtn">방 생성하기</button>
+					</div>
+	
+					<div id="invitel">
+						<!-- 여기 부분 수정함 -->
+						<h4 id="chodaeTitle" style="position: fixed;">초대 코드</h4>
+					</div>
+	
+					<div id="roomJoinl">
+						<form action="addMember.do" method="post">
+							<div>
+								방 이름 입력 : <input name="roomName" type="text"><br>
+							</div>
+							<div>
+								방 코드 입력 : <input name="roomCode" type="text"><br>
+							</div>
+							<input id="joinRoom" type="button" value="참가하기">
+						</form>
+					</div>
 				</div>
 			</div>
 		</aside>
@@ -135,14 +268,7 @@
 			<footer>
 				<textarea id="content" placeholder="Type your message"></textarea>
 				<div>
-					<img
-						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png"
-						alt=""> <img
-						src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png"
-						alt=""> <input id="send" class="f_btn_r" type="button"
-						value="보내기"> <input onclick="disconnect()"
-						value="Disconnect" type="button">
-
+					<input id="send" class="f_btn_r" type="button" value="보내기"> 
 
 				</div>
 			</footer>
@@ -150,8 +276,7 @@
 	</div>
 
 	<%-- 맨처음 시작 아이콘 --%>
-	<img id="ch" src="assets/img/chat-1873536_1280-removebg-preview.png"
-		alt="">
+	<img id="ch" src="assets/img/chat-1873536_1280-removebg-preview.png" alt="">
 
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -161,7 +286,7 @@
     	
     	
     	// websocket 객체 생성(자동으로 접속 시작 - onopen 함수 호출)
-    	const websocket = new WebSocket("ws://localhost:8082/DP/");//${param.sess} // socket url
+    	const websocket = new WebSocket("ws://localhost:8081/DP/");//${param.sess} // socket url
     	
     	// websocket 서버와 접속이 되면 호출되는 함수
     	websocket.onopen = function(message) {
@@ -232,11 +357,11 @@
 	    	let today = new Date();
 
 	    	messageJs = {
-	    		'chatter' : <%=nickname%>,
+	    		'chatter' : '<%=nick_name%>',
 	    		'chat': $("#content").val(),
 	    		'chat_file' : '',
 	    		'created_at': today.toLocaleDateString() + ' ' + today.toLocaleTimeString(),
-	    		'mb_id' : <%=id%>
+	    		'mb_id' : '<%=id%>'
 	    	}
 	    	
 	    	html = `
@@ -261,7 +386,7 @@
 	    	$("#content").val('');
 	
 	    	// 사용자가 누군지 확인
-	    	console.log('<%=nickname%>')
+	    	console.log('<%=nick_name%>');
 	    	
     }
 	    // 버튼 누르기
@@ -414,12 +539,13 @@
    //let uidElement = document.querySelector('.uid'); // 테스트용 사용자
    let uidElement = document.querySelectorAll('.uid'); // 테스트용 사용자
    let addRoomBtn = document.getElementById('addRoomBtn'); //방생성하기 버튼
+   let chodaeTitleElement = document.getElementById('chodaeTitle');
    
    //let uidElement = document.getElementByClassName('uid1'); // 테스트용 사용자
    let backElement = document.getElementById('back'); // 뒤로가기
    let lclosElement = document.getElementById('lclos'); // 친구목록창 닫기
    let cclosElement = document.getElementById('cclos'); // 채팅창 닫기
-   let inviteElement = document.getElementById('invite'); // 초대링크 버튼
+   let inviteElement = document.getElementById('invite'); // 초대코드 버튼
    let roomJoinElement = document.getElementById('roomJoin'); // 방 참여 버튼
    let roomCreElement = document.getElementById('roomCre'); // 방 생성 버튼
    let listbackElement = document.getElementById('listback'); // 목록 뒤로가기
@@ -443,11 +569,12 @@
     		  type : 'post',
     		  dataType : 'json',
     		  success : function(res){
+    			  
     			  console.log('이미지 클릭 성공')
     			  roomList = res;
     			  //console.log(roomList);
     			  //console.log(roomList[0]);
-    			  
+    			  $('#cha_list').html('');
     			  for(let i = 0; i < roomList.length; i++){
     				  //console.log(roomList[i].room_title);
     				  resultHTML += `
@@ -466,10 +593,13 @@
     	  });
     	  
          // 전체틀 보이게 하기
+        $('#overlay').fadeTo(400, 1, function(){
+         });
            overlay.style.display = 'block';
          
            chchch.style.display = 'none';
            listbackElement.style.display = "none";
+           inviteLElement.style.display = "none";
 
            // 친구목록 사이즈 조절
            asideElement.style.width = '350px';
@@ -479,14 +609,19 @@
            listfootElement.style.display = 'block';
 
            // 나머지 부분 사이즈 조절
-            mainElement.style.width = '0px';
+          mainElement.style.width = '0px';
           mainElement.style.height = '0px';
           mainElement.style.display = 'none';
           footElement.style.display = 'block';
+          chodaeTitleElement.style.display = 'none';
+          roomCreLElement.style.display = 'none';
+          roomJoinLElement.style.display = 'none';
+          inviteElement.style.display = 'block';
+          roomJoinElement.style.display = 'block';
+          roomCreElement.style.display = 'block';
          
            
        })
-   
    
    
    ////////////////////////////////////////////////////////////////////////
@@ -510,6 +645,7 @@
         roomCreLElement.style.bottom = "0%";
    
   		listbackElement.style.display = "block";
+  		chodaeTitleElement.style.display = 'none';
    
     })
     
@@ -543,6 +679,7 @@
   	    mainElement.style.height = '0px';
   	    mainElement.style.display = 'none';
   	    footElement.style.display = 'none';
+  	  chodaeTitleElement.style.display = 'none';
     	
     	$.ajax({
  		   url : 'addRoom.do',
@@ -588,6 +725,7 @@
            
            
        listbackElement.style.display = "block";
+       chodaeTitleElement.style.display = 'none';
 
 
     })
@@ -617,6 +755,7 @@
   	    mainElement.style.height = '0px';
   	    mainElement.style.display = 'none';
   	    footElement.style.display = 'none';
+  	  chodaeTitleElement.style.display = 'none';
   	    
   	    $.ajax({
   	    	url : 'addMember.do',
@@ -686,6 +825,7 @@
         roomCreLElement.style.display = "none";
         roomJoinLElement.style.display = "none";
         inviteLElement.style.display = "block";
+        chodaeTitleElement.style.display = 'block';
         
         inviteLElement.style.bottom = "0%";
            
@@ -696,22 +836,24 @@
         	type : 'post',
         	dataType : 'json',
         	success : function(res){
+        		$('#invitel').html('');
         		console.log('방 코드 출력 성공');
         		codeList = res;
         		console.log(codeList);
-        		
+        		resultHTML += `<div id="chodaeTitle">초대 코드</div><hr>`;
         		for(let i = 0; i < codeList.length; i++){
         			resultHTML += `
-        			<div>
+        			<div class="rN">
         				방 이름 : \${codeList[i].room_title}
         			</div>
-        			<div>
+        			<div class="rC">
         				방 코드 : \${codeList[i].room_id}
         			</div>
+        			<hr>
         			`;
         		};
         		// 여기 부분 수정함
-        		$('#listfoot').append(resultHTML);
+        		$('#invitel').append(resultHTML);
         	},
         	error : function(e){
         		console.log('초대코드 요청 실패');
@@ -737,6 +879,7 @@
            inviteLElement.style.display = "none";
            
            listbackElement.style.display = 'none';
+           chodaeTitleElement.style.display = 'none';
        })
     
   
@@ -759,6 +902,7 @@
         mainElement.style.display = 'none';
         footElement.style.display = 'block';
         chchch.style.display = 'none';
+        chodaeTitleElement.style.display = 'none';
 
     })
     
@@ -799,9 +943,9 @@
                 		chatList = res1;
                 		console.log(chatList);
                 		for(let i= 0; i < chatList.length; i++){
-                			if(chatList.chatter == '<%=nickname%>'){
+                			if(chatList[i].chatter == '<%=nick_name%>'){
 	                			resultHTML += `
-	                				<li class="you">
+	                				<li class="me">
 		                				<div>
 		                					\${chatList[i].chatter}
 		                				</div>
@@ -815,7 +959,7 @@
 	                			`;
                 			}else{
 	                			resultHTML += `
-	                				<li class="me">
+	                				<li class="you">
 										<div>
 											\${chatList[i].chatter}
 										</div>
@@ -846,7 +990,9 @@
     ////////////////////////////////////////////////////////////////////////
     // 친구목록창 닫기버튼
     lclosElement.addEventListener("click", function () {
-       overlay.style.display = 'none';
+    	$('#overlay').fadeOut(400, function(){
+        });
+       	overlay.style.display = 'none';
 		//console.log("시발");
 
         chchch.style.display = 'block';
@@ -858,12 +1004,13 @@
     /* 채팅창 닫기버튼 
     따로 만든 이유 : 위치가 달라서 따로 만듬 */
        cclosElement.addEventListener("click", function () {
-       overlay.style.display = 'none';
-       asideElement.style.display = 'block';
-       console.log("닫기 화긴");
-
-
-        chchch.style.display = 'block';
+    	   $('#overlay').fadeOut(400, function(){
+           });
+	       overlay.style.display = 'none';
+	       asideElement.style.display = 'block';
+	       console.log("닫기 화긴");
+	       
+			chchch.style.display = 'block';
 
     })
     
