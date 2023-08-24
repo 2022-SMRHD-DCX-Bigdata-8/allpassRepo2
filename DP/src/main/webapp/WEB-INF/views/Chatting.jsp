@@ -46,7 +46,7 @@
 		id = user.getMb_id();
 		System.out.println(id);
 	} else if (email != null) {
-		id = email;
+		id = email.split("@")[0];
 	} ;
 
 	// 개설일자 포맷팅
