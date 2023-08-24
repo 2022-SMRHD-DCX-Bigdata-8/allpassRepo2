@@ -21,6 +21,7 @@
 	Kakao.init('8a7d49787221c777a1bdccddbcb51ff7');
 
 	function sendUserDataToServer(email, nickname) {
+						console.log(email, nickname);
 		var xhr = new XMLHttpRequest();
 		xhr.open('POST', 'storeUserData.do', true);
 		xhr.setRequestHeader('Content-Type',
@@ -43,10 +44,11 @@
 						var email = response.kakao_account.email;
 						var nickname = response.properties.nickname;
 						sendUserDataToServer(email, nickname); // Send user data to the server
-						window.location.href = 'goMain2.do';
+						console.log(email, nickname);
 					},
 					fail : function(error) {
 						console.log(error);
+						window.location.href = 'goMain2.do';
 					},
 				});
 			},

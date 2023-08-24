@@ -13,79 +13,6 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
-<<<<<<< HEAD
-	
-	<style type="text/css">
-		@font-face {
-		    font-family: 'Cafe24Supermagic-Bold-v1.0';
-		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2') format('woff2');
-		    font-weight: 700;
-		    font-style: normal;
-		}
-		
-		#layout, body, html{
-            width: 100%;
-            height: 100%;
-            /* position을 fixed로 주면 태그를 #layout만 줘도 됨 */
-        }
-		
-		body{
-			/*background-image: url("assets/img/paper-1468883_1920.jpg");*/
-			background-color: #ffebce !important;
-			margin: 0 !important;
-		}
-		
-		#header{
-			background: linear-gradient(to bottom, #613f0e 80%, #ffebce);
-			
-			height: 10%;
-			width: 100%;
-			padding: 15px;
-			
-		}
-		
-		#username{
-			color: #ffffff;
-			font-family: 'Cafe24Supermagic-Bold-v1.0';
-			font-size: 30px;
-		}
-		
-		#logoutBtn{
-			height: 48px;
-			width: 100px;
-			border-color: #613f0e;
-			margin-left: 10px;
-			background-color: #ffffff;
-		}
-		
-		#todoMain{
-			width: 30%;
-			height: 80%;
-			float: left;
-		}
-		
-		#calMain{
-			width: 50%;
-			height: 80%;
-			float: left;
-		}
-		
-		#chatMain{
-			width: 20%;
-			height: 80%;
-			float: left;
-		}
-		
-		#footer{
-			background-color: #613f0e;
-			width: 100%;
-			height: 10%;
-			float: left;
-		}
-		
-=======
->>>>>>> branch 'main' of https://github.com/2022-SMRHD-DCX-Bigdata-8/allpassRepo2.git
-
 <style type="text/css">
 @font-face {
 	font-family: 'Cafe24Supermagic-Bold-v1.0';
@@ -193,8 +120,7 @@ body {
 	<script>
     // 카카오 로그인한 사용자 세션에서 이메일 및 닉네임 값 가져오기
     var email = '<%=session.getAttribute("email")%>';
-    var nickname = '<%=session.getAttribute("nickname")%>
-		';
+    var nickname = '<%=session.getAttribute("nickname")%>';
 
 		// Send the data to the servlet
 		var xhr = new XMLHttpRequest();

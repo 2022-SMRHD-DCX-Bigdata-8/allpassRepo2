@@ -196,9 +196,9 @@ body {
 
 <body>
 	<%
-		Member user = (Member) session.getAttribute("user");
-		String email = (String) session.getAttribute("email");
-		String nickname = (String) session.getAttribute("nickname");
+	Member user = (Member) session.getAttribute("user");
+	String email = (String) session.getAttribute("email");
+	String nickname = (String) session.getAttribute("nickname");
 	%>
 	<!-- 모두를 감싸주는 div -->
 	<div class="main-top" style="width: 465px; margin: 10px;">
@@ -209,7 +209,7 @@ body {
 				if (user != null) {
 				%>
 				<h1 id="nick">
-					<%=user.getMb_nick()%>님의 To-do List
+					<%=user.getMb_id()%>님의 To-do List
 				</h1>
 				<%
 				} else if (nickname != null) {
