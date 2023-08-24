@@ -216,18 +216,7 @@ h2 {
 	outline: none;
 }
 
-.join_img {
-	margin-top: 20px;
-	width: 80%;
-}
 
-.join_img input {
-	width: 100%;
-	height: 50px;
-	margin-top: 10px;
-	padding: 0px 20px;
-	outline: none;
-}
 
 .join_etc {
 	align-content: center;
@@ -265,6 +254,7 @@ h2 {
 	<form action="join.do">
 	<div class="wrap">
 		<div class="join">
+		<img id="dpLogo" style="width:200px; height:80px; margin-bottom: 10px;" src="assets/image/DPlogo.png">
 			<h2>회원가입</h2>
 			<div class="join_id">
 				<h4>아이디</h4>
@@ -273,7 +263,7 @@ h2 {
 			</div>
 			<div class="join_pw">
 				<h4>비밀번호</h4>
-				<input type="password" name="join_pw" id="join_pw_input" placeholder="Password" >
+				<input type="password" name="join_pw" id="join_pw_input" placeholder="Password">
 			</div>
 
 			<div class="join_pwcheck">
@@ -295,10 +285,7 @@ h2 {
 
 
 			</div>
-			<div class="join_img">
-				<h4>프로필 사진</h4>
-				<input type="file" name="join_img" accept="image/*">
-			</div>
+			
 
 
 			<div class="join_etc"></div>
@@ -317,6 +304,11 @@ h2 {
 			var usernick = $("#join_nick_input").val();
 			 var password = $("#join_pw_input").val();
 		        var passwordCheck = $("#join_pwcheck_input").val();
+		        
+		        if (username === "" || usernick === "" || password === "" || passwordCheck === "") {
+		            alert("모든 필드를 입력하세요.");
+		            return;
+		        }
 
 		        if (password !== passwordCheck) {
 		            alert("비밀번호와 비밀번호 확인이 일치하지 않습니다. 다시 입력하세요!");

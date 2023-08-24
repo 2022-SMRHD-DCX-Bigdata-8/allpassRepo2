@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TodoCm {
+public class TodoRr {
 
-	private int todocm_seq;		// 응원글 순번 
-	private String todocm_content;	// 응원글 내용 
+	private String todorr_id;		// 아이디
+	private int todorr_seq;			// 루린 순번
+	private String todorr_content;	// 루린 내용
 }

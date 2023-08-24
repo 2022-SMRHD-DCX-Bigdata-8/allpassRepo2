@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -22,7 +23,7 @@
 <link
 	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
 	rel="stylesheet">
-	
+
 <style>
 @font-face {
 	font-family: 'GmarketSansMedium';
@@ -68,6 +69,8 @@ hr {
 	border-radius: 10px;
 	margin-left: 5px;
 	padding-top: 5px;
+	border-radius: 10px;
+	font-size: 20px;
 }
 
 .form-control {
@@ -147,9 +150,9 @@ body {
 	font-family: 'GmarketSansMedium';
 }
 
-#task-modify, #modify-button {
-	width: width: 400px;
-	height: 100px;
+#modal.modal-overlay {
+	width: 465px;
+	height: 150px;
 	left: 0;
 	right: 0;
 	display: none;
@@ -163,22 +166,61 @@ body {
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.18);
 }
+
+#modal .modal-window {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: baseline;
+	position: absolute;
+	padding: 15px;
+	background: rgba(195, 228, 255, 0.7);
+	box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+	backdrop-filter: blur(50px);
+	-webkit-backdrop-filter: blur(1.5px);
+	border-radius: 10px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+#text-close {
+	position: absolute;
+	right: 7px;
+	top: 0px;
+	font-size: small;
+	cursor: pointer;
+	text-shadow: 1px 1px 2px gray;
+	color: rgb(36, 22, 22);
+}
 </style>
 
 </head>
 
 <body>
 	<%
-	Member m = (Member) session.getAttribute("user");
+	Member user = (Member) session.getAttribute("user");
+
+	String email = (String) session.getAttribute("email");
+	String nickname = (String) session.getAttribute("nickname");
 	%>
 	<!-- 모두를 감싸주는 div -->
 	<div class="main-top" style="width: 465px; margin: 0 auto;">
 		<!-- 타이틀 ~ 입력태그까지 감싸는 div 시작-->
 		<div class="main">
 			<div class="title">
+				<%
+				if (user != null) {
+				%>
 				<h1 id="nick">
-					<%=m.getMb_id()%>님의 To-do List
+					<%=user.getMb_nick()%>님의 To-do List
 				</h1>
+				<%
+				} else if (nickname != null) {
+				%>
+				<h1 id="nick">
+					<%=nickname%>님의 To-do List
+				</h1>
+				<%
+				} ;
+				%>
 			</div>
 			<br>
 			<div class="input-area">
@@ -192,18 +234,16 @@ body {
 							id="add-button">추가</button>
 					</div>
 					<%-- 응원글 출력 구역 시작 --%>
-					<div id="task-cheer">
-						
-					</div>
+					<div id="task-cheer"></div>
 					<%-- 응원글 출력 구역 끝 --%>
-					<div class="col-auto">
-						<input type="text" class="form-control" id="task-modify"
-							autofocus="autofocus" placeholder="수정할 To Do List 를 입력해주세요~"
-							value="">
-					</div>
-					<div class="col-auto">
-						<button type="submit" class="btn btn-outline-warning mb-3"
-							id="modify-button">수정</button>
+					<div id="modal" class="modal-overlay" title="닫기">
+						<div class="modal-window col-auto">
+							<input type="text" class="form-control" id="task-modify"
+								autofocus="autofocus" placeholder="수정 내용을 입력해주세요~">
+							<button type="submit" class="btn btn-outline-warning mb-3"
+								id="modify-button">수정</button>
+							<div id="text-close" title="닫기">x</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -324,7 +364,7 @@ body {
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">완료</button>
-                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">☆☆</button>
+                    <button class="btn btn-outline-success" onclick="todoRandom('${taskList[i].todo_seq}')">랜덤</button>
                     <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')" title="위로">▲</button><br>
                     <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">삭제</button>
                     <button class="btn btn-outline-danger" onclick = "todoModifyOpen('${taskList[i].todo_seq}')">수정</button>
@@ -340,7 +380,7 @@ body {
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">완료</button>
-                    <button class="btn btn-outline-success" onclick="todoDone('${taskList[i].todo_seq}','${taskList[i].todo_status}')">☆☆</button>
+                    <button class="btn btn-outline-success" onclick="todoRandom('${taskList[i].todo_seq}')">랜덤</button>
                     <button class="btn btn-outline-success" onclick = "todoUp('${taskList[i].todo_seq}','${i}')" title="위로">▲</button><br>
                     <button class="btn btn-outline-danger" onclick = "todoDelete('${taskList[i].todo_seq}')">삭제</button>
                     <button class="btn btn-outline-danger" onclick = "todoModifyOpen('${taskList[i].todo_seq}')">수정</button>
@@ -385,7 +425,6 @@ body {
                             success: function (res) {
                                 console.log("todoDelete complete!");
                                 todoSearch();
-                                getCheering();
                             },
                             error: function (e) {
                                 console.log('todoDelete faild!');
@@ -519,32 +558,34 @@ body {
 
                     // 수정 변수 선언 
                     let todo_seq;
-                    const taskModify = document.getElementById("task-modify");
+                    const modal = document.getElementById("modal");
                     const modifyButton = document.getElementById("modify-button");
-                    const bodyClick = document.body;
 
                     // 수정 열기
                     function todoModifyOpen(i) {
                         todo_seq = i;
                         console.log(todo_seq);
-                        taskModify.style.display = "flex"
-                        modifyButton.style.display = "flex"
+                        modal.style.display = "flex"
                     };
 
                     // 수정 esc 닫기 
                     window.addEventListener("keyup", e => {
-                        if (taskModify.style.display === "flex" && e.key === "Escape") {
-                            taskModify.style.display = "none"
-                            modifyButton.style.display = "none"
+                        if (modal.style.display === "flex" && e.key === "Escape") {
+	                        modal.style.display = "none"
                         };
+                    });
+                    
+                    // 수정 x 닫기
+                    const closeBtn = modal.querySelector("#text-close");
+                    closeBtn.addEventListener("click", e => {
+                    	modal.style.display = "none"
                     });
 
                     // 수정 클릭 닫기
-                    bodyClick.addEventListener("click", e => {
+                    modal.addEventListener("click", e => {
                         const evTarget = e.target;
-                        if (evTarget.classList.contains("main")) {
-                            taskModify.style.display = "none"
-                            modifyButton.style.display = "none"
+                        if (evTarget.classList.contains("modal-overlay")) {
+	                        modal.style.display = "none"
                         };
                     });
 
@@ -588,14 +629,12 @@ body {
                             success: function (res) {
                                 console.log("todoModify complete!");
                                 todoSearch();
-                                getCheering();
                             },
                             error: function (e) {
                                 console.log('todoModify faild!');
                             }
                         });
-                        taskModify.style.display = "none"
-                        modifyButton.style.display = "none"
+                        modal.style.display = "none"
                         $("#task-modify").prop("value", "");
                     };
 
@@ -633,6 +672,49 @@ body {
                             taskCheering.innerHTML = resultHTML;
                         };
                     };
+
+                    // 랜덤 루틴 변수 선언
+                    let todorr_content;
+                    let todorr_seq;
+
+                    // 루틴 가져오기
+                    function todoRandom(todo_seq) {
+                        $.ajax({
+                            url: "todoRrSelect.do",
+                            dataType: 'json',
+                            success: function (res) {
+                                console.log("getCheering complete!");
+                                const random = Math.floor(Math.random() * res.length);
+                                console.log(random);
+                                todorr_content = res[random].todorr_content;
+                                todorr_seq = todo_seq;
+                                todoRandomModify(todorr_seq, todorr_content);
+                            },
+                            error: function (e) {
+                                console.log('getCheering faild!');
+                            }
+                        });
+
+                    };
+
+                    // 루틴 수정 완료
+                    function todoRandomModify(todorr_seq, todorr_content) {
+                        $.ajax({
+                            url: "todoRandomModify.do",
+                            type: "post",
+                            data: {
+                                "todorr_seq": todorr_seq,
+                                "todorr_content": todorr_content
+                            },
+                            success: function (res) {
+                                console.log("todoRandomModify complete!");
+                                todoSearch();
+                            },
+                            error: function (e) {
+                                console.log('todoRandomModify faild!');
+                            }
+                        });
+                    };
                     
                     // 클릭
                     $("#add-button").on("click", function () {
@@ -656,6 +738,7 @@ body {
                     });
 
                 </script>
+
 </body>
 
 </html>

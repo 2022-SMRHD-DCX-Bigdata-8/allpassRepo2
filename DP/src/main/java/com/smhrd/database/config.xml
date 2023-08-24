@@ -30,5 +30,6 @@
     <mapper resource="com/smhrd/dao/CalendarMapper.xml"/>
     <mapper resource="com/smhrd/dao/TodoListMapper.xml"/>
     <mapper resource="com/smhrd/dao/TodoCmMapper.xml"/>
+    <mapper resource="com/smhrd/dao/TodoRrMapper.xml"/>
   </mappers>
 </configuration>

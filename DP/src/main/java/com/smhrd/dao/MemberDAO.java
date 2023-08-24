@@ -39,4 +39,18 @@ public class MemberDAO {
 
 	}
 
+	public int insert(Member member) {
+		SqlSession session = factory.openSession(true);
+		int cnt = 0;
+			cnt = session.insert("insert", member);
+			session.close();
+		return cnt;
+	}
+
+	public Member getMemberByEmail(String MB_ID) {
+		SqlSession session = factory.openSession(true);
+		Member result = session.selectOne("getMemberByEmail", MB_ID);
+		session.close();
+		return result;
+	}
 }

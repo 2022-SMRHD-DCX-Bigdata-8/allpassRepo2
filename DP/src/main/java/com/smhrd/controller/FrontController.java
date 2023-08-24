@@ -14,17 +14,17 @@ import javax.servlet.http.HttpServletResponse;
 public class FrontController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
-	// HashMap 자료구조 
+
+	// HashMap 자료구조
 	// 파이썬의 dict와 유사 : key-value를 짝지어서 저장, 키값을 이용해서 조회
 	// HashMap<Key의 자료형, value의 자료형>
 	private HashMap<String, Controller> handler;
-	
+
 	@Override
-	public void init() throws ServletException{
+	public void init() throws ServletException {
 		// Servlet이 메모리에 등록되었을 때 단 한번만 실행
 		handler = new HashMap<String, Controller>();
-		
+
 		// HashMap에 데이터 넣기
 		handler.put("/goMain.do", new GoMainCon());
 		handler.put("/goMain2.do", new GoMain2Con());
@@ -36,7 +36,8 @@ public class FrontController extends HttpServlet {
 		handler.put("/goLogin.do", new GoLoginCon());
 		handler.put("/goCheckUsername.do", new GoCheckUsernameCon());
 		handler.put("/goCheckNick.do", new  GoCheckUsernickCon());
-
+		handler.put("/logout.do", new LogoutCon());
+		
 		// calendar
 		handler.put("/goCalendar.do", new GoCalendarCon());
 		handler.put("/goAddSchedule.do", new GoAddScheduleCon());
@@ -58,6 +59,8 @@ public class FrontController extends HttpServlet {
 		handler.put("/todoChange.do", new TodoChangeCon());
 		handler.put("/todoModify.do", new TodoModifyCon());
 		handler.put("/todoCmSelect.do", new TodoCmSelectCon());
+		handler.put("/todoRrSelect.do", new TodoRrSelectCon());
+		handler.put("/todoRandomModify.do", new TodoRandomModifyCon());
 
 		
 	}
@@ -83,9 +86,9 @@ public class FrontController extends HttpServlet {
 		// 2. 요청을 구분해서 알맞는 코드를 실행
 		// HasyMap에서 저장되어있는 POJO 하나 꺼내오기
 		con = handler.get(mapping);
-		
-		if(con != null) {
-			url = con.execute(request, response);			
+
+		if (con != null) {
+			url = con.execute(request, response);
 		}
 
 		// ======================================================================
@@ -99,10 +102,6 @@ public class FrontController extends HttpServlet {
 			}
 		}
 
-		
-		
-		
 	}
-
 
 }
