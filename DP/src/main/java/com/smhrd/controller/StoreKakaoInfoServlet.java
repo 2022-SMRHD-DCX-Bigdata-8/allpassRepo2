@@ -44,6 +44,14 @@ public class StoreKakaoInfoServlet extends HttpServlet {
         	System.out.println("email이 이미 존재");
         }else {
         	
+        	 String kakaoEmail = email;
+             String[] kakaoList = kakaoEmail.split("@");
+
+             if (kakaoList.length > 0) {
+                 email = kakaoList[0];
+                 System.out.println(email);
+             }
+        	
         	System.out.println("카카오 로그인 사용자 정보 DB에 없음 -- insert");
             Member member = new Member();
             member.setMb_id(email); // Use email as the ID

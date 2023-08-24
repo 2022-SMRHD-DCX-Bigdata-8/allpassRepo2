@@ -14,7 +14,7 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
-	
+
 	<style type="text/css">
 	
 		/* 큰 글씨용 광양감동체 */
@@ -74,18 +74,27 @@
 		
 		#username{
 			color: #613f0e;
-			font-family: 'Cafe24Supermagic-Bold-v1.0';
+			font-family: 'Gwangyang Touching';
 			font-size: 22px;
+			font-style: bold;
+			width : 20%;
+			margin-right: 10px;
+			top : 3px;
+			left : 80px;
 		}
-		
+			
 		#logoutBtn{
-			height: 48px;
-			width: 100px;
-			border-color: #613f0e;
-			margin-left: 10px;
-			background-color: #ffffff;
+			right : 50px;
+			height: 50px;
+			outline: none;
+			border-radius: 20px;
+			background: linear-gradient(to left, #aec6ff, #e2bf8a);
+			color: rgb(255, 255, 255);
+			font-size: 1.0em;
+			letter-spacing: 2px;
+	    	font-weight: bold;
+	    	float : right;
 		}
-
 		
 		#todoMain{
 			width: 27%;
@@ -125,10 +134,13 @@
 					<% } else if (m != null) { %>
 						<%=m.getMb_nick()%>
 					<% }%>님
-				</span> <a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button
-						type="button" id="logoutBtn">로그아웃</button></a>
-			</div>
+				</span> 
+				<a href="logout.do" onclick="alert('로그인 페이지로 이동합니다.')">
+					<input id="logoutBtn" type="button" value="LOGOUT" style="cursor: pointer"
+	                onclick="alert('로그아웃 되었습니다!')">
+	            </a>
 			
+			</div>
 		</div>
 
 		<div id="todoMain">
@@ -140,8 +152,6 @@
 		<div id="chatMain">
 			<jsp:include page="Chatting.jsp"></jsp:include>
 		</div>
-
-		<div id="footer"></div>
 	</div>
 
 	<script>
@@ -198,5 +208,8 @@
             };
         };
 	</script>
+
+
+
 </body>
 </html>
