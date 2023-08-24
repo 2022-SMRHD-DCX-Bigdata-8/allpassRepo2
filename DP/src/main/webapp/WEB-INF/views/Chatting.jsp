@@ -23,7 +23,7 @@
 #ch {
 	position: fixed;
 	right: 10px;
-	bottom: 10px;
+	bottom: 0px;
 	width: 80px;
 	height: 80px;
 }
@@ -161,7 +161,7 @@
     	
     	
     	// websocket 객체 생성(자동으로 접속 시작 - onopen 함수 호출)
-    	const websocket = new WebSocket("ws://localhost:8081/DP/");//${param.sess} // socket url
+    	const websocket = new WebSocket("ws://localhost:8082/DP/");//${param.sess} // socket url
     	
     	// websocket 서버와 접속이 되면 호출되는 함수
     	websocket.onopen = function(message) {

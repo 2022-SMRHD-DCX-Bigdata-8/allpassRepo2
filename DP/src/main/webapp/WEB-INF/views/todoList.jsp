@@ -215,7 +215,7 @@ body {
 				} else if (nickname != null) {
 				%>
 				<h1 id="nick">
-					<%=nickname%>님의 To-do List
+					<%=email%>님의 To-do List
 				</h1>
 				<%
 				} ;

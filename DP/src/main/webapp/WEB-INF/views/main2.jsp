@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -13,6 +14,7 @@
 	rel="stylesheet"
 	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
 	crossorigin="anonymous">
+
 <style type="text/css">
 @font-face {
 	font-family: 'Cafe24Supermagic-Bold-v1.0';
@@ -37,9 +39,10 @@ body {
 
 #header {
 	background: linear-gradient(to bottom, #613f0e 80%, #ffebce);
-	height: 10%;
+	height: 8%;
 	width: 100%;
-	padding: 15px;
+	padding-top: 5px;
+	padding-left: 20px;
 }
 
 #username {
@@ -57,52 +60,51 @@ body {
 }
 
 #todoMain {
-	width: 30%;
-	height: 80%;
+	width: 27%;
+	height: 84%;
 	float: left;
+	background-color: red;
 }
 
 #calMain {
-	width: 50%;
-	height: 80%;
+	width: 53%;
+	height: 84%;
 	float: left;
+	background-color: green;
 }
 
 #chatMain {
 	width: 20%;
-	height: 80%;
+	height: 84%;
 	float: left;
+	background-color: blue;
 }
 
 #footer {
-	background-color: #613f0e;
+	background: linear-gradient(to top, #613f0e 80%, #ffebce);
 	width: 100%;
-	height: 10%;
-	float: left;
+	height: 8%;
+	margin: 0;
 }
 </style>
 </head>
 <body>
 	<%
-	Member user = (Member) session.getAttribute("user");
+	Member m = (Member) session.getAttribute("user");
 	String email = (String) session.getAttribute("email");
 	String nickname = (String) session.getAttribute("nickname");
 	%>
 
+
 	<div id="layout">
 		<div id="header">
-			<%
-			if (user != null) {
-			%>
-			<span id="username"><%=user.getMb_id()%>님</span>
-			<%
-			} else if (nickname != null) {
-			%>
-			<span id="username"><%=nickname%>님</span>
-			<%
-			} ;
-			%>
-			<a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button
+			<span id="username">
+				<% if (email != null) { %>
+					<%=email%>
+				<% } else if (m != null) { %>
+					<%=m.getMb_id()%>
+				<% }%>님
+			</span> <a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button
 					type="button" id="logoutBtn">로그아웃</button></a>
 		</div>
 
@@ -115,6 +117,8 @@ body {
 		<div id="chatMain">
 			<jsp:include page="Chatting.jsp"></jsp:include>
 		</div>
+
+		<div id="footer"></div>
 	</div>
 
 	<script>

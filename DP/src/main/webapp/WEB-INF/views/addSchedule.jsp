@@ -120,8 +120,8 @@
 		}
 		
 		.cal_content textarea {
-		   /*width: 100%;
-		   height: 30px;*/
+		   /* height: 30px;*/
+		   width: 100%;
 		   border-radius: 30px;
 		   margin-top: 10px;
 		   padding: 10px 20px;
@@ -185,7 +185,7 @@
 			<div class="cal_content">
 				<h4>상세 내용</h4>
 				<!-- <input type="text" name="cal_content"> -->
-				<textarea rows="5" cols="23" name="cal_content"></textarea>
+				<textarea rows="5" name="cal_content"></textarea>
 			</div>
 			
 			<div class="btn">
@@ -198,9 +198,17 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 
 	<script type="text/javascript">
-		<% Member user = (Member)session.getAttribute("user"); %>
+		<% 
+		Member m = (Member)session.getAttribute("user");
+		String email = (String) session.getAttribute("email");
+		String nickname = (String) session.getAttribute("nickname");
+		%>
 		
-		var userId = '<%=user.getMb_id()%>';
+		<% if (m != null){ %>
+			userId = "<%=m.getMb_id() %>";
+		<% } else if (email != null) { %>
+			userId = "<%=email %>";
+		<% } %>
 	
 		// Ajax 기술 활용! -> Jquery 라이브러리도 필요하다
 
