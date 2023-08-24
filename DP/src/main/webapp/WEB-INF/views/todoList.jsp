@@ -311,6 +311,7 @@ body {
                             dataType: 'json',
                             success: function (res) {
                                 console.log("todoSearch complete!");
+                                console.log(res);
                                 taskList = res;
                                 console.log(taskList.length);
                                 render();

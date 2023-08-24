@@ -4,8 +4,8 @@
 
 	<!-- 일정 추가 SQL -->
 	<insert id="calAdd" parameterType="com.smhrd.entity.Calendar">
-		insert into TB_CALENDAR(cal_seq, cal_title, started_at, ended_at, mb_id, cal_status, cal_color)
-		values(tb_calendar_seq.nextval, #{cal_title}, #{started_at}, #{ended_at}, #{mb_id}, #{cal_status}, #{cal_color})		
+		insert into TB_CALENDAR(cal_seq, cal_title, started_at, ended_at, mb_id, cal_color, cal_content, cal_check)
+		values(tb_calendar_seq.nextval, #{cal_title}, #{started_at}, #{ended_at}, #{mb_id}, #{cal_color}, #{cal_content}, #{cal_check})		
 	</insert>
 	
 	<!-- 개별 일정 조회 SQL -->
@@ -23,7 +23,7 @@
 	<!-- 일정 수정 SQL -->
 	<update id="calUp" parameterType="com.smhrd.entity.Calendar">
 		update tb_calendar
-		set cal_title=#{cal_title}, started_at=#{started_at}, ended_at=#{ended_at}, cal_color=#{cal_color}
+		set cal_title=#{cal_title}, started_at=#{started_at}, ended_at=#{ended_at}, cal_color=#{cal_color}, cal_content=#{cal_content}
 		where cal_seq = #{cal_seq}
 	</update>
 	

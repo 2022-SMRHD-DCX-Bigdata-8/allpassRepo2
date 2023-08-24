@@ -10,4 +10,18 @@
 	<natures>
 	</natures>
 </projectDescription>
+=======
+<<<<<<< HEAD
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>allpassRepo2</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+</projectDescription>
 
+>>>>>>> branch 'main' of https://github.com/2022-SMRHD-DCX-Bigdata-8/allpassRepo2.git

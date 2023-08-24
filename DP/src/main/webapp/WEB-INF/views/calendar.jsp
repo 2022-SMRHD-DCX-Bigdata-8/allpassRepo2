@@ -26,23 +26,16 @@
 	
 	<style type="text/css">
 		
-		body{
-			background: #d6c1a1;
-		}
-		
 		#calBack{
 			width: 950px;
-			height: 610px;
-			background: #fff9f0;
+			height: 710px;
+			/*background: #fff9f0;*/
+			background-image: url('assets/img/notepad-6648710_1920.png');
+			background-size: 100%;
 			border-radius: 30px;
 			
-			padding-top: 25px;
+			padding-top: 100px;
 			padding-left: 25px;
-			
-			position: absolute;
-			
-			left: 550px;
-			top: 300px;
 		}
 		
 		#calendar {
@@ -50,9 +43,13 @@
 			height: 560px;			
 		}		
 		
-		a{
+		#calendar a{
 			color: #000000;
 			text-decoration: none;
+		}
+		
+		#calendar button{
+			/*background-color: #2F4858;*/
 		}
 				
 	</style>
@@ -65,6 +62,7 @@
 		<div id="calendar"></div>
 	</div>
 	
+	
 	<script type="text/javascript">
 		// calendar를 전역변수로 선언
 		var calendar = null;
@@ -73,16 +71,16 @@
 		<%
 			String calList = (String)session.getAttribute("calList");
 			String calSession = (String)session.getAttribute("calSession");
-			Member user = (Member)session.getAttribute("user");
+			Member m = (Member)session.getAttribute("user");
 		%>
 		
-		var userId = '<%=user.getMb_id()%>';
+		var userId = '<%=m.getMb_id()%>';
 		console.log("멤버세션값 : ", userId);
 		
 		// 캘린더 출력하기 위한 코드
 		document.addEventListener('DOMContentLoaded', function() {
 			var Calendar = FullCalendar.Calendar;
-	
+			
 			var calendarEl = document.getElementById('calendar');
 			
 			calendar = new FullCalendar.Calendar(calendarEl, {
@@ -98,54 +96,137 @@
 						    });
 						
 						    // db에 저장된 데이터를 캘린더에 다시 표시
-						    $.ajax({
-						        url: 'calList.do',
-						        type: 'post',
-						        data: { "mb_id" : userId },
-						        dataType: "json",
-						        success: function(res){
-									// select로 받아온 데이터를 모두 추가하기 위해 for문 사용
-									for(var i = 0 ; i < res.length ; i++){
-										// 날짜에서 시간부분을 지우기위해 substr 사용
-										var start = res[i].started_at.substr(0, 10);
-										var end = res[i].ended_at.substr(0, 10);
-										// 풀캘린더가 종료날짜를 하루 빼고 적용하길래 임의로 1 더해주기
-										var end2 = end.substr(0, 8);
-										var day = end.substr(8, 2) * 1 + 1;
-										// 일자가 10일 미만인 경우에는 09가 아니라 9로 표시되서
-										// 풀캘린더에 표시가 안 되므로 임의로 일자 앞에 0 붙여주기
-										if(day < 10){
-											day = "0" + day;
+						    if(userId != 'admin'){
+						    	$.ajax({
+							        url: 'calList.do',
+							        type: 'post',
+							        data: { "mb_id" : userId },
+							        dataType: "json",
+							        success: function(res){
+										// select로 받아온 데이터를 모두 추가하기 위해 for문 사용
+										for(var i = 0 ; i < res.length ; i++){
+											// 날짜에서 시간부분을 지우기위해 substr 사용
+											var start = res[i].started_at.substr(0, 10);
+											var end = res[i].ended_at.substr(0, 10);
+											// 풀캘린더가 종료날짜를 하루 빼고 적용하길래 임의로 1 더해주기
+											var end2 = end.substr(0, 8);
+											var day = end.substr(8, 2) * 1 + 1;
+											// 일자가 10일 미만인 경우에는 09가 아니라 9로 표시되서
+											// 풀캘린더에 표시가 안 되므로 임의로 일자 앞에 0 붙여주기
+											if(day < 10){
+												day = "0" + day;
+											}
+											end = end2 + day;
+											
+											console.log(end);
+											
+											// 캘린더에 일정을 추가하는 풀캘린더 내부 기능
+											calendar.addEvent({
+												id: res[i].cal_seq, 
+												title: res[i].cal_title ,
+												start: start, 
+												end: end, 
+												color: res[i].cal_color 
+											});
 										}
-										end = end2 + day;
-										
-										console.log(end);
-										
-										// 캘린더에 일정을 추가하는 풀캘린더 내부 기능
-										calendar.addEvent({
-											id: res[i].cal_seq, 
-											title: res[i].cal_title ,
-											start: start, 
-											end: end, 
-											color: res[i].cal_color 
-										});
-									}
-								} ,
-						        error: function(e) {
-						            alert('calList 요청 실패');
-						        }
-						    });
+									} ,
+							        error: function(e) {
+							            alert('calList 요청 실패');
+							        }
+							    });
+						    	
+						    	$.ajax({
+							        url: 'calList.do',
+							        type: 'post',
+							        data: { "mb_id" : 'admin' },
+							        dataType: "json",
+							        success: function(res){
+										// select로 받아온 데이터를 모두 추가하기 위해 for문 사용
+										for(var i = 0 ; i < res.length ; i++){
+											// 날짜에서 시간부분을 지우기위해 substr 사용
+											var start = res[i].started_at.substr(0, 10);
+											var end = res[i].ended_at.substr(0, 10);
+											// 풀캘린더가 종료날짜를 하루 빼고 적용하길래 임의로 1 더해주기
+											var end2 = end.substr(0, 8);
+											var day = end.substr(8, 2) * 1 + 1;
+											// 일자가 10일 미만인 경우에는 09가 아니라 9로 표시되서
+											// 풀캘린더에 표시가 안 되므로 임의로 일자 앞에 0 붙여주기
+											if(day < 10){
+												day = "0" + day;
+											}
+											end = end2 + day;
+											
+											console.log(end);
+											
+											// 캘린더에 일정을 추가하는 풀캘린더 내부 기능
+											calendar.addEvent({
+												id: res[i].cal_seq, 
+												title: res[i].cal_title ,
+												start: start, 
+												end: end, 
+												color: res[i].cal_color 
+											});
+										}
+									} ,
+							        error: function(e) {
+							            alert('calList 요청 실패');
+							        }
+							    });
+						    	
+						    }else{
+						    	$.ajax({
+							        url: 'calList.do',
+							        type: 'post',
+							        data: { "mb_id" : userId },
+							        dataType: "json",
+							        success: function(res){
+										// select로 받아온 데이터를 모두 추가하기 위해 for문 사용
+										for(var i = 0 ; i < res.length ; i++){
+											// 날짜에서 시간부분을 지우기위해 substr 사용
+											var start = res[i].started_at.substr(0, 10);
+											var end = res[i].ended_at.substr(0, 10);
+											// 풀캘린더가 종료날짜를 하루 빼고 적용하길래 임의로 1 더해주기
+											var end2 = end.substr(0, 8);
+											var day = end.substr(8, 2) * 1 + 1;
+											// 일자가 10일 미만인 경우에는 09가 아니라 9로 표시되서
+											// 풀캘린더에 표시가 안 되므로 임의로 일자 앞에 0 붙여주기
+											if(day < 10){
+												day = "0" + day;
+											}
+											end = end2 + day;
+											
+											console.log(end);
+											
+											// 캘린더에 일정을 추가하는 풀캘린더 내부 기능
+											calendar.addEvent({
+												id: res[i].cal_seq, 
+												title: res[i].cal_title ,
+												start: start, 
+												end: end, 
+												color: res[i].cal_color 
+											});
+										}
+									} ,
+							        error: function(e) {
+							            alert('calList 요청 실패');
+							        }
+							    });
+						    };
+						    
+						    
+						    
 						}
 					}
 				} , 
 				views: {
 					listMonth:{buttonText: '월간 일정'} , 
-					listWeek:{buttonText: '주간 일정'}
+					listWeek:{buttonText: '주간 일정'} , 
+					dayGridMonth:{buttonText: '달력'}
 				} , 
 				headerToolbar : { // 헤더에 표시할 툴 바
 					left : 'prev,next today reloadBtn',
 					center : 'title',
-					right : 'listMonth listWeek dayGridMonth'
+					right : 'dayGridMonth listMonth listWeek'
 				},
 				//editable : true, // 일정 수정 가능 여부
 				//navLinks : true, // 달력에 날짜 클릭시 해달 날짜의 일별달력으로 이동
@@ -165,7 +246,7 @@
 							
 							var url = "goAddSchedule.do";
 							var name = "addSchedule";
-							var option = "left=710, top=100, width=500, height=500, scrollbars=no, status=no, toolbars=no, location=no"
+							var option = "left=710, top=100, width=500, height=700, scrollbars=no, status=no, toolbars=no, location=no"
 							window.open(url, name, option);
 						} , 
 						error: function(e){
@@ -174,26 +255,26 @@
 					});
 				},  
 				eventClick: function(info){ // 일정 클릭시 수정/삭제화면 팝업
-					$.ajax({
-						url: 'calUpDelSession.do' ,
-						type: 'post' , 
-						data: {
-							"cal_seq" : info.event.id
-						} , 
-						dataType: 'json' , 
-						success: function(res){
-							console.log("calSession로그 : ", res.started_at);
-							
-							var url = "goUpDelSchedule.do";
-							var name = "upDelSchedule";
-							var option = "left=710, top=100, width=500, height=500, scrollbars=no, status=no, toolbars=no, location=no"
-							window.open(url, name, option);
-						} , 
-						error: function(e){
-							alert('goUpDelSchedule 요청 실패');
-						}						
-					});	
-					console.log(typeof(info.event));
+						$.ajax({
+							url: 'calUpDelSession.do' ,
+							type: 'post' , 
+							data: {
+								"cal_seq" : info.event.id
+							} , 
+							dataType: 'json' , 
+							success: function(res){
+								console.log("calSession로그 : ", res.started_at);
+								
+								var url = "goUpDelSchedule.do";
+								var name = "upDelSchedule";
+								var option = "left=710, top=100, width=500, height=700, scrollbars=no, status=no, toolbars=no, location=no"
+								window.open(url, name, option);
+							} , 
+							error: function(e){
+								alert('goUpDelSchedule 요청 실패');
+							}						
+						});	
+						console.log(typeof(info.event));
 				} ,				 
 				timeZone: 'UTC'
 			});	
@@ -237,6 +318,50 @@
 				}
 			});
 			
+			if(userId != 'admin'){
+				$.ajax({ 
+					url: 'calList.do' ,
+					type: 'post' , 
+					data: { "mb_id" : 'admin' } , 
+					dataType: "json" , 
+					success: function(res){
+						// select로 받아온 데이터를 모두 추가하기 위해 for문 사용
+						for(var i = 0 ; i < res.length ; i++){
+							// 날짜에서 시간부분을 지우기위해 substr 사용
+							var start = res[i].started_at.substr(0, 10);
+							var end = res[i].ended_at.substr(0, 10);
+							// 풀캘린더가 종료날짜를 하루 빼고 적용하길래 임의로 1 더해주기
+							var end2 = end.substr(0, 8);
+							var day = end.substr(8, 2) * 1 + 1;
+							// 일자가 10일 미만인 경우에는 09가 아니라 9로 표시되서
+							// 풀캘린더에 표시가 안 되므로 임의로 일자 앞에 0 붙여주기
+							if(day < 10){
+								day = "0" + day;
+							}
+							end = end2 + day;
+							
+							console.log(end);
+							
+							// 캘린더에 일정을 추가하는 풀캘린더 내부 기능
+							calendar.addEvent({
+								id: res[i].cal_seq, 
+								title: res[i].cal_title ,
+								start: start, 
+								end: end, 
+								color: res[i].cal_color 
+							});
+						}
+					} , 
+					error: function(e){
+						alert('calList 요청 실패');
+					}
+				});
+				
+			};
+			
+			
+			
+			
 			// 캘린더 렌더링
 			calendar.render();	
 			console.log("첫렌더링", calendar);
@@ -244,6 +369,58 @@
 		// 캘린더 출력하기 위한 코드
 		// ===============================================
 		
+		
+		// admin 일정을 모두에게 배포하기 위한 ajax
+									/*if(username != 'admin'){
+										$.ajax({
+									        url: 'calList.do',
+									        type: 'post',
+									        data: { "mb_id" : 'admin' },
+									        dataType: "json",
+									        success: function(res){
+												for(var i = 0 ; i < res.length ; i++){
+													var start = res[i].started_at.substr(0, 10);
+													var end = res[i].ended_at.substr(0, 10);
+													
+													var end2 = end.substr(0, 8);
+													var day = end.substr(8, 2) * 1 + 1;
+													
+													if(day < 10){
+														day = "0" + day;
+													}
+													end = end2 + day;
+													
+													console.log(end);
+													
+													$.ajax({
+														url: 'calAddData.do' , 
+														type: 'post' , 
+														data: {
+															title : res[i].cal_title , 
+															start : res[i].started_at , 
+															end : res[i].ended_at , 
+															mb_id: username, 
+															color: res[i].cal_color, 
+															content: res[i].cal_content, 
+															check: res[i].cal_check
+														} , 
+														success: function(res){
+															console.log("admin cal add data : ", res);
+
+														} , 
+														error: function(e){
+															alert("admin cal add data.do 요청실패 : ", e);
+														}
+													});
+												}
+											} ,
+									        error: function(e) {
+									            alert('admin calList 요청 실패');
+									        }
+									    });*/
+		
+			
+			
 	</script>
 
 </body>

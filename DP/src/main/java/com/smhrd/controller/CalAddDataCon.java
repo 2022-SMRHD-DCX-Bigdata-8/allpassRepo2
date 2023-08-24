@@ -27,7 +27,8 @@ public class CalAddDataCon implements Controller {
 		String endstr = request.getParameter("end");
 		String color = request.getParameter("color");
 		String mb_id = request.getParameter("mb_id");
-		String status = "test2";
+		String content = request.getParameter("content");
+		String check = "admin";
 		
 		// 수집된 데이터들을 하나로 묶어줌
 		Calendar cal = new Calendar();
@@ -36,7 +37,8 @@ public class CalAddDataCon implements Controller {
 		cal.setEnded_at(endstr);
 		cal.setCal_color(color);
 		cal.setMb_id(mb_id);
-		cal.setCal_status(status);
+		cal.setCal_content(content);
+		cal.setCal_check(check);
 		
 		// 기능
 		response.setCharacterEncoding("utf-8");

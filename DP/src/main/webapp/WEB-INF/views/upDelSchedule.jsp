@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.entity.Member"%>
 <%@page import="com.smhrd.entity.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -38,7 +39,7 @@
 		
 		.upDelCal {
 		   width: 50%;
-		   height: 480px;
+		   height: 680px;
 		   background: white;
 		   border-radius: 20px;
 		   display: flex;
@@ -113,6 +114,22 @@
 		   outline: none;
 		}
 		
+		.cal_content {
+		   margin-top: 20px;
+		   width: 80%;
+		}
+		
+		.cal_content textarea {
+		   /*width: 100%;
+		   height: 30px;*/
+		   border-radius: 30px;
+		   margin-top: 10px;
+		   padding: 10px 20px;
+		   border: 1px solid lightgray;
+		   outline: none;
+		   resize: none;
+		}
+		
 		.btn {
 		   margin-top: 30px;
 		   width: 80%;
@@ -137,6 +154,7 @@
 
 	<% 
 	Calendar calData = (Calendar)session.getAttribute("calData"); 
+	Member m = (Member)session.getAttribute("user");
 	System.out.println("넘어온 세션의 일정제목 : " + calData.getCal_title());
 	%>
 	
@@ -165,6 +183,12 @@
 				<input type="color" value=<%= calData.getCal_color()%> name="cal_color">
 			</div>
 			
+			<div class="cal_content">
+				<h4>상세 내용</h4>
+				<%-- <input type="text" value=<%= calData.getCal_content()%> name="cal_content"> --%>
+				<textarea rows="5" cols="23" name="cal_content"><%= calData.getCal_content()%></textarea>
+			</div>
+			
 			<div class="btn">
 				<button id="upBtn" type="button">수정</button>
 				<button id="delBtn" type="button">삭제</button>
@@ -182,59 +206,71 @@
 		var start = $('input[name=cal_start]');
 		var end = $('input[name=cal_end]');
 		var color = $('input[name=cal_color]');
+		var content = $('textarea[name=cal_content]');
+		var cal_id = '<%= calData.getMb_id() %>';
+		var mb_id = '<%= m.getMb_id() %>';
+		
+		console.log('일정 아이디:', cal_id, '로그인한 아이디:', mb_id);
 		
 		upbtn.on('click', update);
 		function update(){
-			var answer = confirm("일정을 수정하시겠습니까?");
-			
-			if(answer == true){
-				$.ajax({
-					url: 'calUpData.do', 
-					type: 'post',
-					data: {
-						"cal_seq" : <%= calData.getCal_seq() %>, 
-						"cal_title" : title.val(), 
-						"started_at" : start.val(), 
-						"ended_at" : end.val(), 
-						"cal_color" : color.val()
-					} , 
-					success: function(res){
-						console.log(res);
-						alert("수정이 완료되었습니다!");
-						window.close();
-					} , 
-					error: function(e){
-						alert("upCalData error")
-					}
-				});
+			if(cal_id != mb_id){
+				alert('수정할 수 없는 일정입니다.');
 			}else{
-				alert("취소하였습니다!");
+				var answer = confirm("일정을 수정하시겠습니까?");
+				
+				if(answer == true){
+					$.ajax({
+						url: 'calUpData.do', 
+						type: 'post',
+						data: {
+							"cal_seq" : <%= calData.getCal_seq() %>, 
+							"cal_title" : title.val(), 
+							"started_at" : start.val(), 
+							"ended_at" : end.val(), 
+							"cal_color" : color.val(), 
+							"cal_content" : content.val()
+						} , 
+						success: function(res){
+							console.log(res);
+							alert("수정이 완료되었습니다!");
+							window.close();
+						} , 
+						error: function(e){
+							alert("upCalData error")
+						}
+					});
+				}else{
+					alert("취소하였습니다!");
+				};
 			};
-			
 		};
 				
 		delbtn.on('click', del);
 		function del(){
-			var answer = confirm("일정을 삭제하시겠습니까?");		
-			
-			if(answer == true){
-				$.ajax({
-					url: 'calDelData.do', 
-					type: 'post',
-					data: {"cal_seq" : <%= calData.getCal_seq() %>} , 
-					success: function(res){
-						console.log(res);
-						alert("삭제가 완료되었습니다!");
-						window.close();
-					} , 
-					error: function(e){
-						alert("delCalData error")
-					}
-				});
+			if(cal_id != mb_id){
+				alert('삭제할 수 없는 일정입니다.');
 			}else{
-				alert("취소하였습니다!");
+				var answer = confirm("일정을 삭제하시겠습니까?");		
+				
+				if(answer == true){
+					$.ajax({
+						url: 'calDelData.do', 
+						type: 'post',
+						data: {"cal_seq" : <%= calData.getCal_seq() %>} , 
+						success: function(res){
+							console.log(res);
+							alert("삭제가 완료되었습니다!");
+							window.close();
+						} , 
+						error: function(e){
+							alert("delCalData error")
+						}
+					});
+				}else{
+					alert("취소하였습니다!");
+				};
 			};
-			
 		};
 	</script>
 	
