@@ -32,7 +32,7 @@ public class LogoutCon implements Controller {
 		
 		
 		// 4. 뷰 선택
-		response.sendRedirect("goMain.do");
+		response.sendRedirect("goLogin.do");
 		
 		return null;
 	}
