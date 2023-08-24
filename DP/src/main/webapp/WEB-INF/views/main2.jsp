@@ -31,21 +31,22 @@
 		
 		body{
 			/*background-image: url("assets/img/paper-1468883_1920.jpg");*/
-			background-color: #ffebce !important;
-			margin: 0 !important;
+			margin: 0;
 		}
 		
 		#header{
-			background: linear-gradient(to bottom, #613f0e 80%, #ffebce);
-			
 			height: 8%;
 			width: 100%;
 			padding-top: 5px;
 			padding-left: 20px; 
 		}
 		
+		#userinfo{
+			float: right;
+		}
+		
 		#username{
-			color: #ffffff;
+			color: #613f0e;
 			font-family: 'Cafe24Supermagic-Bold-v1.0';
 			font-size: 30px;
 		}
@@ -62,33 +63,41 @@
 			width: 27%;
 			height: 84%;
 			float: left;
-			/*background-color: red;*/
 		}
 		
 		#calMain{
 			width: 53%;
 			height: 84%;
 			float: left;
-			/*background-color: green;*/
 		}
 		
 		#chatMain{
 			width: 20%;
 			height: 84%;
 			float: left;
-			/*background-color: blue;*/
 		}
 		
 		#footer{
-			background: linear-gradient(to top, #613f0e 80%, #ffebce);
 			width: 100%;
 			height: 8%;
 			float: left;
 			margin: 0;
 		}
+		
+		#nick, #task-cheer {
+		   font-family: 'SBAggroB';
+		   position: relative;
+		   text-align: center;
+		}
+		
+		#task-cheer {
+		   display: inline;
+		   font-size: 20px;
+		   color: #613f0e;
+		}
 	</style>
 </head>
-<body>
+<body style="background-color: #ffebce;">
 	<%
 	Member m = (Member) session.getAttribute("user");
 	String email = (String) session.getAttribute("email");
@@ -98,14 +107,18 @@
 
 	<div id="layout">
 		<div id="header">
-			<span id="username">
-				<% if (email != null) { %>
-					<%=email%>
-				<% } else if (m != null) { %>
-					<%=m.getMb_id()%>
-				<% }%>님
-			</span> <a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button
-					type="button" id="logoutBtn">로그아웃</button></a>
+			<div id="task-cheer"></div>
+			<div id="userinfo">
+				<span id="username">
+					<% if (nickname != null) { %>
+						<%=nickname%>
+					<% } else if (m != null) { %>
+						<%=m.getMb_nick()%>
+					<% }%>님
+				</span> <a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button
+						type="button" id="logoutBtn">로그아웃</button></a>
+			</div>
+			
 		</div>
 
 		<div id="todoMain">
@@ -139,6 +152,41 @@
 		var data = 'email=' + encodeURIComponent(email) + '&nickname='
 				+ encodeURIComponent(nickname);
 		xhr.send(data);
+		
+		// 응원글 변수 선언
+        let cheering;
+        let taskCheering = document.getElementById("task-cheer");
+
+        // 응원글 가져오기
+        function getCheering() {
+            $.ajax({
+                url: "todoCmSelect.do",
+                dataType: 'json',
+                success: function (res) {
+                    console.log("getCheering complete!");
+                    cheering = res;
+                    renderCheering();
+                },
+                error: function (e) {
+                    console.log('getCheering faild!');
+                }
+            });
+
+        };
+        getCheering();
+
+        // 응원글 랜덤 
+        function renderCheering() {
+            const random = Math.floor(Math.random() * cheering.length);
+            console.log(random);
+            let resultHTML = '';
+            if (cheering[random] != "") {
+                resultHTML += `
+    			<div id="task-cheer">${cheering[random].todocm_content}</div>
+    			`;
+                taskCheering.innerHTML = resultHTML;
+            };
+        };
 	</script>
 </body>
 </html>

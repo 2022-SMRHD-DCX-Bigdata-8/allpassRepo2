@@ -221,6 +221,7 @@
 		var color = $('input[name=cal_color]');
 		var content = $('textarea[name=cal_content]');
 		var cal_id = '<%= calData.getMb_id() %>';
+		var userId = null;
 		
 		<% if (m != null){ %>
 			userId = "<%=m.getMb_id() %>";
@@ -228,11 +229,11 @@
 			userId = "<%=email %>";
 		<% } %>
 		
-		console.log('일정 아이디:', cal_id, '로그인한 아이디:', mb_id);
+		console.log('일정 아이디:', cal_id, '로그인한 아이디:', userId);
 		
 		upbtn.on('click', update);
 		function update(){
-			if(cal_id != mb_id){
+			if(cal_id != userId){
 				alert('수정할 수 없는 일정입니다.');
 			}else{
 				var answer = confirm("일정을 수정하시겠습니까?");
@@ -266,7 +267,7 @@
 				
 		delbtn.on('click', del);
 		function del(){
-			if(cal_id != mb_id){
+			if(cal_id != userId){
 				alert('삭제할 수 없는 일정입니다.');
 			}else{
 				var answer = confirm("일정을 삭제하시겠습니까?");		

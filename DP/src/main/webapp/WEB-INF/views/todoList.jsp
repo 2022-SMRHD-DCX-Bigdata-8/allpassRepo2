@@ -77,11 +77,6 @@ hr {
 	width: 350px !important;
 }
 
-body {
-	margin: 20px;
-	background-color: #d6c1a1;
-}
-
 .main-top {
 	background-color: white;
 	padding: 10px;
@@ -138,12 +133,6 @@ body {
 	font-size: 35px;
 	color: #3f4756;
 	height: 50px;
-}
-
-#task-cheer {
-	display: inline;
-	font-size: 20px;
-	color: crimson;
 }
 
 .input-area {
@@ -209,13 +198,13 @@ body {
 				if (user != null) {
 				%>
 				<h1 id="nick">
-					<%=user.getMb_id()%>님의 To-do List
+					<%=user.getMb_nick()%>님의 To-do List
 				</h1>
 				<%
 				} else if (nickname != null) {
 				%>
 				<h1 id="nick">
-					<%=email%>님의 To-do List
+					<%=nickname%>님의 To-do List
 				</h1>
 				<%
 				} ;
@@ -232,9 +221,9 @@ body {
 						<button type="submit" class="btn btn-outline-warning mb-3"
 							id="add-button">추가</button>
 					</div>
-					<%-- 응원글 출력 구역 시작 --%>
+					<%-- 응원글 출력 구역 시작
 					<div id="task-cheer"></div>
-					<%-- 응원글 출력 구역 끝 --%>
+						응원글 출력 구역 끝 --%>
 					<div id="modal" class="modal-overlay" title="닫기">
 						<div class="modal-window col-auto">
 							<input type="text" class="form-control" id="task-modify"
@@ -638,40 +627,6 @@ body {
                         $("#task-modify").prop("value", "");
                     };
 
-                    // 응원글 변수 선언
-                    let cheering;
-                    let taskCheering = document.getElementById("task-cheer");
-
-                    // 응원글 가져오기
-                    function getCheering() {
-                        $.ajax({
-                            url: "todoCmSelect.do",
-                            dataType: 'json',
-                            success: function (res) {
-                                console.log("getCheering complete!");
-                                cheering = res;
-                                renderCheering();
-                            },
-                            error: function (e) {
-                                console.log('getCheering faild!');
-                            }
-                        });
-
-                    };
-                    getCheering();
-
-                    // 응원글 랜덤 
-                    function renderCheering() {
-                        const random = Math.floor(Math.random() * cheering.length);
-                        console.log(random);
-                        let resultHTML = '';
-                        if (cheering[random] != "") {
-                            resultHTML += `
-                <div id="task-cheer">${cheering[random].todocm_content}</div>
-                `;
-                            taskCheering.innerHTML = resultHTML;
-                        };
-                    };
 
                     // 랜덤 루틴 변수 선언
                     let todorr_content;
