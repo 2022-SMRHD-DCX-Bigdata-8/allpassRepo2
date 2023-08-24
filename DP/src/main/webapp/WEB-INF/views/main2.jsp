@@ -136,8 +136,5 @@ body {
 				+ encodeURIComponent(nickname);
 		xhr.send(data);
 	</script>
-
-
-
 </body>
 </html>
