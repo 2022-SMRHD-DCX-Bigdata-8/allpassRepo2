@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -82,36 +83,79 @@
 			background: linear-gradient(to top, #613f0e 80%, #ffebce);
 			width: 100%;
 			height: 8%;
+			margin: 0;
+		}
+		
+		#header{
+			background: linear-gradient(to bottom, #613f0e 80%, #ffebce);
+			
+			height: 10%;
+			width: 100%;
+			padding: 15px;
+			
+		}
+		
+		#username{
+			color: #ffffff;
+			font-family: 'Cafe24Supermagic-Bold-v1.0';
+			font-size: 30px;
+		}
+		
+		#logoutBtn{
+			height: 48px;
+			width: 100px;
+			border-color: #613f0e;
+			margin-left: 10px;
+			background-color: #ffffff;
+		}
+		
+		#todoMain{
+			width: 30%;
+			height: 80%;
+			float: left;
+		}
+		
+		#calMain{
+			width: 50%;
+			height: 80%;
+			float: left;
+		}
+		
+		#chatMain{
+			width: 20%;
+			height: 80%;
+			float: left;
+		}
+		
+		#footer{
+			background-color: #613f0e;
+			width: 100%;
+			height: 10%;
 			float: left;
 		}
 		
 
-</style>
+	</style>
 </head>
 <body>
 	<%
-	Member user = (Member) session.getAttribute("user");
-	String email = (String) session.getAttribute("email");
-	String nickname = (String) session.getAttribute("nickname");
+		Member m = (Member)session.getAttribute("user");
+		String email = (String)session.getAttribute("email");
+		String nickname = (String)session.getAttribute("nickname");
+		
 	%>
-
+		
+		
 	<div id="layout">
 		<div id="header">
-			<%
-			if (user != null) {
-			%>
-			<span id="username"><%=user.getMb_id()%>님</span>
-			<%
-			} else if (nickname != null) {
-			%>
-			<span id="username"><%=nickname%>님</span>
-			<%
-			} ;
-			%>
-			<a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button
-					type="button" id="logoutBtn">로그아웃</button></a>
-		</div>
-
+			<span id="username"><%if(email != null){%>
+								<%=email%>
+								<%}else if(m != null){ %>
+								<%=m.getMb_id()%>
+								<%} %>님</span>
+			<a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button type="button" id="logoutBtn">로그아웃</button></a>
+		</div>	
+	
 		<div id="todoMain">
 			<jsp:include page="todoList.jsp"></jsp:include>
 		</div>
@@ -123,6 +167,7 @@
 		</div>
 		
 		<div id="footer">
+	
 		</div>
 	</div>
 
@@ -146,7 +191,7 @@
 		xhr.send(data);
 	</script>
 
-
-
+	
+	
 </body>
 </html>
