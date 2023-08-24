@@ -19,8 +19,8 @@ body {
 
 #overlay {
 	position: fixed;
-	right: 10px;
-	bottom: 0px;
+	right: 40px;
+	bottom: 54px;
 	width: 350px;
 	height: 600px;
 	background: #bacee0;
@@ -34,12 +34,6 @@ body {
 	overflow: hidden;
 }
 
-aside {
-	background-color: #ececed;
-	display: inline-block;
-	font-size: 15px;
-	vertical-align: top;
-}
 
 main {
 	display: inline-block;
@@ -130,26 +124,16 @@ main header {
 }
 
 #listback{
+	background-image: url("assets/img/backBtn.png");
+	/*background-size: 100% 100%;*/
+	/*background-color: #ffff;*/
 	position: fixed;
 	display: none;
 	right: 0px;
 	
 }
 
-#invitel{
-	position: absolute;
-	bottom: 100%;
-}
 
-#roomJoinl{
-	position: absolute;
-	bottom: 100%;
-}
-
-#roomCrel{
-	position: absolute;
-	bottom: 100%;
-}
 
 input#back {
 	/* 뒤로가기 버튼 url 주소 바꿔서 이미지 수정가능 */
@@ -179,34 +163,6 @@ input#lclos {
 	width: 35px;
 	height: 35px;
 	border-radius: 50%;
-}
-/* 초대기능 버튼
-이건 이미지 안함 */
-input#invite {
-	white-space: pre-line;
-    position: absolute;
-    bottom: 6%;
-    width: 25%;
-    right: 5%;
-    height: 40px;
-}
-
-input#roomJoin {
-	white-space: pre-line;
-	position: absolute;
-	bottom: 6%;
-	width: 25%;
-	right: 37.5%;
-	height: 40px;
-}
-
-input#roomCre {
-	white-space: pre-line;
-    position: absolute;
-    bottom: 6%;
-    width: 25%;
-    right: 70%;
-    height: 40px;
 }
 
 /* 채팅창 닫기 버튼 */
@@ -260,10 +216,6 @@ main header h2 {
 	border-bottom: 2px solid #fff;
 }
 
-#listfoot {
-	height: 110px;
-	overflow-y: scroll;
-}
 
 #chat {
 	padding-left: 0;
