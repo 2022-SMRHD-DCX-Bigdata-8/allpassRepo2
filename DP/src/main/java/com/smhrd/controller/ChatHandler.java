@@ -38,7 +38,7 @@ public class ChatHandler {
 		public void handleOpen(Session session, @PathParam("chatRoom") String chatRoom) {// 사용자 정보 들어있는 session
 			// 매개변수에 String 변수를 추가 + @PathParam 어노테이션으로 지정 --> Path Variable을 받아올 수 있다.
 			
-			System.out.println("채팅방 아이디: " + chatRoom);
+			//System.out.println("채팅방 아이디: " + chatRoom);
 			System.out.println("사용자 접속");
 			
 			List<Session> list = users.get(chatRoom);// HashMap 형태로 사용자 목록을 저장하고, 꺼내기

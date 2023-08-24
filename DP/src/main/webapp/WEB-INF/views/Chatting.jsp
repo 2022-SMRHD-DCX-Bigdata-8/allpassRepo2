@@ -8,7 +8,7 @@
 <%@page import="com.smhrd.entity.ChatRoom"%>
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -111,36 +111,16 @@
 			<header>
 				<input type="button" id="back"> <input type="button"
 					id="cclos">
-				<div id="rName">
-					<h2>채팅방 이름</h2>
+				<div>
+					<h2 id="rName"></h2>
 				</div>
 
 			</header>
+			
 			<%--채팅 내역 --%>
 			<ul id="chat">
-				<c:forEach var="chatList" items="${chatRec}">
-
-					<c:catch var="e">
-						<c:if test="${chatList.chatter eq user.getMb_nick()}">
-							<li class="me">
-								<div>${chatList.chatter}</div>
-								<div class="message">${chatList.chat}</div>
-								<div>${chatList.created_at}</div>
-							</li>
-						</c:if>
-						<c:if test="${chatList.chatter ne user.getMb_nick()}">
-							<li class="you">
-								<div>${chatList.chatter}</div>
-								<div class="message">${chatList.chat}</div>
-								<div>${chatList.created_at}</div>
-							</li>
-						</c:if>
-					</c:catch>
-					<c:if test="${e != null }">
-	            		에러 메세지 : ${e.message }
-	            	</c:if>
-				</c:forEach>
 			</ul>
+			
 			<%--메시지 쓰기, 보내기 --%>
 			<footer>
 				<textarea id="content" placeholder="Type your message"></textarea>
@@ -161,9 +141,8 @@
 
 	<%-- 맨처음 시작 아이콘 --%>
 	<img id="ch"
-		src="https://w7.pngwing.com/pngs/237/587/png-transparent-cute-pikachu-thumbnail.png"
-		alt="">
-
+	      src="assets/img/chat-1873536_1280-removebg-preview.png"
+	      alt="">
 
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -173,7 +152,7 @@
     	
     	
     	// websocket 객체 생성(자동으로 접속 시작 - onopen 함수 호출)
-    	const websocket = new WebSocket("ws://localhost:8081/DPtest/${param.sess}"); // socket url
+    	const websocket = new WebSocket("ws://localhost:8081/DP/");//${param.sess} // socket url
     	
     	// websocket 서버와 접속이 되면 호출되는 함수
     	websocket.onopen = function(message) {
@@ -257,7 +236,7 @@
 						\${messageJs.chatter}
 					</div>
 	               <div class="message">
-	                   \${messageJs.chat}
+	                  \${messageJs.chat}
 	               </div>
 	               <div>
 	    				\${messageJs.created_at}
@@ -425,6 +404,7 @@
    let footElement = overlay.querySelector('footer'); // 채팅입력창
    //let uidElement = document.querySelector('.uid'); // 테스트용 사용자
    let uidElement = document.querySelectorAll('.uid'); // 테스트용 사용자
+   let addRoomBtn = document.getElementById('addRoomBtn'); //방생성하기 버튼
    
    //let uidElement = document.getElementByClassName('uid1'); // 테스트용 사용자
    let backElement = document.getElementById('back'); // 뒤로가기
@@ -462,7 +442,7 @@
     			  for(let i = 0; i < roomList.length; i++){
     				  //console.log(roomList[i].room_title);
     				  resultHTML += `
-    				  <div class="uid" onclick="goChat('${roomList[i].room_id}')">
+    				  <div class="uid" onclick="goChat()">
 	    				  <li>
 	    					  \${roomList[i].room_title}
 	    				  </li>
@@ -777,10 +757,10 @@
     ////////////////////////////////////////////////////////////////////////
     // 채팅창들어가는 함수
     let chatList = [];
-    const goChat = function(roomId){
+    const goChat = function(){
     	
     	let resultHTML = '';
-    	console.log("눌림");
+    	//console.log("채팅창 눌림");
     	
        	// 목록창 크기를 0으로해서 안보이게함
         asideElement.style.width = '0px';
@@ -805,9 +785,45 @@
                 	type : 'post',
                 	dataType : 'json',
                 	success : function(res1){
+                		$('#chat').html('');
                 		console.log('채팅 내용 불러오기 성공');
                 		chatList = res1;
                 		console.log(chatList);
+                		for(let i= 0; i < chatList.length; i++){
+                			if(chatList.chatter == '<%=user.getMb_nick()%>'){
+	                			resultHTML += `
+	                				<li class="you">
+		                				<div>
+		                					\${chatList[i].chatter}
+		                				</div>
+										<div class="message">
+											\${chatList[i].chat}
+										</div>
+										<div>
+											\${chatList[i].created_at}
+										</div>
+	                				</li>
+	                			`;
+                			}else{
+	                			resultHTML += `
+	                				<li class="me">
+										<div>
+											\${chatList[i].chatter}
+										</div>
+										<div class="message">
+											\${chatList[i].chat}
+										</div>
+										<div>
+											\${chatList[i].created_at}
+										</div>
+									</li>
+								`;
+                			}
+                		};
+                			$('#chat').append(resultHTML);
+                			<%--$('#rName').innerHTML += chatList[0].;--%>
+                		
+                		
                 	},
                 	error : function(e){
                 		console.log('채팅 내용 불러오기 실패...');
