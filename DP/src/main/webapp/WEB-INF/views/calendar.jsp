@@ -64,17 +64,26 @@
 	
 	
 	<script type="text/javascript">
-		// calendar를 전역변수로 선언
+		// 전역변수
 		var calendar = null;
+		var userId = null;
 		
 		// 컨트롤러에서 만든 JSON데이터들
 		<%
 			String calList = (String)session.getAttribute("calList");
 			String calSession = (String)session.getAttribute("calSession");
+			
 			Member m = (Member)session.getAttribute("user");
+			String email = (String) session.getAttribute("email");
+			String nickname = (String) session.getAttribute("nickname");
 		%>
 		
-		var userId = '<%=m.getMb_id()%>';
+		if (m != null){
+			userId = '<%=m.getMb_id()%>';
+		}else{
+			userId = '<%=email%>';
+		}
+		
 		console.log("멤버세션값 : ", userId);
 		
 		// 캘린더 출력하기 위한 코드
