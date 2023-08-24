@@ -93,7 +93,7 @@
 	<div id="layout">
 		<div id="header">
 			<span id="username"><%=m.getMb_id() %>님</span>
-			<button type="button" id="logoutBtn">로그아웃</button>		
+			<a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button type="button" id="logoutBtn">로그아웃</button></a>
 		</div>	
 	
 		<div id="todoMain">
@@ -110,6 +110,26 @@
 			footer
 		</div>
 	</div>
+
+	<script>
+    // 카카오 로그인한 사용자 세션에서 이메일 및 닉네임 값 가져오기
+    var email = '<%=session.getAttribute("email")%>';
+    var nickname = '<%=session.getAttribute("nickname")%>';
+
+		// Send the data to the servlet
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', 'StoreKakaoInfoServlet', true);
+		xhr.setRequestHeader('Content-Type',
+				'application/x-www-form-urlencoded');
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState === 4 && xhr.status === 200) {
+				// Handle the response if needed
+			}
+		};
+		var data = 'email=' + encodeURIComponent(email) + '&nickname='
+				+ encodeURIComponent(nickname);
+		xhr.send(data);
+	</script>
 
 	
 	
