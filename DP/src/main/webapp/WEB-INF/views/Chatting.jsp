@@ -1,3 +1,4 @@
+<%@page import="javax.servlet.jsp.tagext.TryCatchFinally"%>
 <%@page import="java.util.Random"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Date"%>
@@ -8,7 +9,7 @@
 <%@page import="com.smhrd.entity.ChatRoom"%>
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" isELIgnored="false" %>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,8 +37,17 @@
 <body>
 	<%
 	// 사용자 세션
+	String id = "";
 	Member user = (Member) session.getAttribute("user");
-	System.out.println(user.getMb_id());
+	String email = (String) session.getAttribute("email");
+	String nickname = (String) session.getAttribute("nickname");
+
+	if (user != null) {
+		id = user.getMb_id();
+		System.out.println(id);
+	} else if (email != null) {
+		id = email;
+	} ;
 
 	// 개설일자 포맷팅
 	Date today = new Date();
@@ -82,14 +92,14 @@
 				<div id="roomCrel">
 					방 제목 : <input name="title" type="text"><br> 방 아이디 : <input
 						name="roomId" type="text" value="<%=generatedString%>" readonly><br>
-					개설자 : <input name="maker" type="text" value="<%=user.getMb_id()%>"
-						readonly><br> 개설일자 : <input name="createDate"
-						type="text" value="<%=sfDay%>" readonly><br>
+					개설자 : <input name="maker" type="text" value="<%=id%>" readonly><br>
+					개설일자 : <input name="createDate" type="text" value="<%=sfDay%>"
+						readonly><br>
 					<button id="addRoomBtn">방 생성하기</button>
 				</div>
 
 				<div id="invitel">
-				<!-- 여기 부분 수정함 -->
+					<!-- 여기 부분 수정함 -->
 					<h4 id="chodaeTitle" style="position: fixed;">초대 코드</h4>
 				</div>
 
@@ -116,11 +126,11 @@
 				</div>
 
 			</header>
-			
+
 			<%--채팅 내역 --%>
 			<ul id="chat">
 			</ul>
-			
+
 			<%--메시지 쓰기, 보내기 --%>
 			<footer>
 				<textarea id="content" placeholder="Type your message"></textarea>
@@ -140,9 +150,8 @@
 	</div>
 
 	<%-- 맨처음 시작 아이콘 --%>
-	<img id="ch"
-	      src="assets/img/chat-1873536_1280-removebg-preview.png"
-	      alt="">
+	<img id="ch" src="assets/img/chat-1873536_1280-removebg-preview.png"
+		alt="">
 
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -223,11 +232,11 @@
 	    	let today = new Date();
 
 	    	messageJs = {
-	    		'chatter' : <%=user.getMb_nick()%>,
+	    		'chatter' : <%=nickname%>,
 	    		'chat': $("#content").val(),
 	    		'chat_file' : '',
 	    		'created_at': today.toLocaleDateString() + ' ' + today.toLocaleTimeString(),
-	    		'mb_id' : <%=user.getMb_id()%>
+	    		'mb_id' : <%=id%>
 	    	}
 	    	
 	    	html = `
@@ -252,7 +261,7 @@
 	    	$("#content").val('');
 	
 	    	// 사용자가 누군지 확인
-	    	console.log('<%=user.getMb_nick()%>')
+	    	console.log('<%=nickname%>')
 	    	
     }
 	    // 버튼 누르기
@@ -790,7 +799,7 @@
                 		chatList = res1;
                 		console.log(chatList);
                 		for(let i= 0; i < chatList.length; i++){
-                			if(chatList.chatter == '<%=user.getMb_nick()%>'){
+                			if(chatList.chatter == '<%=nickname%>'){
 	                			resultHTML += `
 	                				<li class="you">
 		                				<div>

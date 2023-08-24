@@ -129,8 +129,7 @@
 	<script>
     // 카카오 로그인한 사용자 세션에서 이메일 및 닉네임 값 가져오기
     var email = '<%=session.getAttribute("email")%>';
-    var nickname = '<%=session.getAttribute("nickname")%>
-		';
+    var nickname = '<%=session.getAttribute("nickname")%>';
 
 		// Send the data to the servlet
 		var xhr = new XMLHttpRequest();

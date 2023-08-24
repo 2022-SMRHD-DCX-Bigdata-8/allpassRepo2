@@ -161,7 +161,7 @@
 
 	<% 
 	Calendar calData = (Calendar)session.getAttribute("calData"); 
-	Member m = (Member)session.getAttribute("user");
+	
 	System.out.println("넘어온 세션의 일정제목 : " + calData.getCal_title());
 	%>
 	
@@ -207,6 +207,12 @@
 	<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
 	
 	<script type="text/javascript">
+		<%
+		Member m = (Member)session.getAttribute("user");
+		String email = (String) session.getAttribute("email");
+		String nickname = (String) session.getAttribute("nickname");
+		%>
+	
 		var upbtn = $('#upBtn');
 		var delbtn = $('#delBtn');
 		var title = $('input[name=cal_title]');
@@ -215,7 +221,12 @@
 		var color = $('input[name=cal_color]');
 		var content = $('textarea[name=cal_content]');
 		var cal_id = '<%= calData.getMb_id() %>';
-		var mb_id = '<%= m.getMb_id() %>';
+		
+		<% if (m != null){ %>
+			userId = "<%=m.getMb_id() %>";
+		<% } else if (email != null) { %>
+			userId = "<%=email %>";
+		<% } %>
 		
 		console.log('일정 아이디:', cal_id, '로그인한 아이디:', mb_id);
 		
