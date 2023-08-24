@@ -18,8 +18,15 @@ public class TodoDoneCon implements Controller {
 			throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		Member m = (Member)session.getAttribute("user");
-		String id = m.getMb_id();
+		Member user = (Member) session.getAttribute("user");
+		String email = (String) session.getAttribute("email");
+		
+		String id = "";
+		if (user != null) {
+			id = user.getMb_id();
+		}else if(email != null) {
+			id = email;
+		}
 
 		request.setCharacterEncoding("UTF-8");
 		int todo_seq = Integer.parseInt(request.getParameter("todo_seq"));

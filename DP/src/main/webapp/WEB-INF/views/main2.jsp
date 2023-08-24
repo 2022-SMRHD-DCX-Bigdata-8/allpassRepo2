@@ -86,30 +86,28 @@
 			float: left;
 			margin: 0;
 		}
-	
-		
-
 	</style>
 </head>
 <body>
 	<%
-		Member m = (Member)session.getAttribute("user");
-		String email = (String)session.getAttribute("email");
-		String nickname = (String)session.getAttribute("nickname");
-		
+	Member m = (Member) session.getAttribute("user");
+	String email = (String) session.getAttribute("email");
+	String nickname = (String) session.getAttribute("nickname");
 	%>
-		
-		
+
+
 	<div id="layout">
 		<div id="header">
-			<span id="username"><%if(email != null){%>
-								<%=email%>
-								<%}else if(m != null){ %>
-								<%=m.getMb_id()%>
-								<%} %>님</span>
-			<a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button type="button" id="logoutBtn">로그아웃</button></a>
-		</div>	
-	
+			<span id="username">
+				<% if (email != null) { %>
+					<%=email%>
+				<% } else if (m != null) { %>
+					<%=m.getMb_id()%>
+				<% }%>님
+			</span> <a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button
+					type="button" id="logoutBtn">로그아웃</button></a>
+		</div>
+
 		<div id="todoMain">
 			<jsp:include page="todoList.jsp"></jsp:include>
 		</div>
@@ -119,10 +117,8 @@
 		<div id="chatMain">
 			<jsp:include page="Chatting.jsp"></jsp:include>
 		</div>
-		
-		<div id="footer">
-	
-		</div>
+
+		<div id="footer"></div>
 	</div>
 
 	<script>
@@ -144,8 +140,5 @@
 				+ encodeURIComponent(nickname);
 		xhr.send(data);
 	</script>
-
-	
-	
 </body>
 </html>
