@@ -19,7 +19,7 @@
 	<!-- 채팅 기록 조회 -->
 	<select id="chatRec" resultType="com.smhrd.entity.Chat">
 		select * from tb_chatting
-		where room_id = #{room_id}
+		<!-- where room_id = #{room_id} -->
 		order by chat_seq
 	</select>
 	

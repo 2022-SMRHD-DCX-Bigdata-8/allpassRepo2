@@ -25,10 +25,10 @@ public class ChatDAO {
 	}
 	
 	// 채팅기록 보여주는 기능
-	public List<Chat> chatRec(String chat) {
+	public List<Chat> chatRec() { //String chat - 매개변수 후보
 		SqlSession session = factory.openSession(true);
 		
-		List<Chat> result =  session.selectList("chatRec", chat);
+		List<Chat> result =  session.selectList("chatRec");
 		
 		session.close();
 		

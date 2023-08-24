@@ -31,7 +31,7 @@
 		body{
 			/*background-image: url("assets/img/paper-1468883_1920.jpg");*/
 			background-color: #ffebce !important;
-			margin: 0;
+			margin: 0 !important;
 		}
 		
 		#header{

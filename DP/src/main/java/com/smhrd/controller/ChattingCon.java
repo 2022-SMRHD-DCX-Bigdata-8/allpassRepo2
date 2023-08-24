@@ -22,21 +22,20 @@ public class ChattingCon implements Controller {
 		// 채팅 기록 보여주기
 		System.out.println("방 아이디 요청 들어옴");
 		
-		HttpSession session = request.getSession();
-		Member user = (Member)session.getAttribute("user");
+//		HttpSession session = request.getSession();
+//		Member user = (Member)session.getAttribute("user");
 		
 		request.setCharacterEncoding("UTF-8");
 		
 		
 		response.setCharacterEncoding("UTF-8");
 		
-		String roomId = request.getParameter("roomId");
 		
 		PrintWriter out = response.getWriter();
 		
 		
 		ChatDAO dao = new ChatDAO();
-		List<Chat> chatRec =  dao.chatRec(roomId);
+		List<Chat> chatRec =  dao.chatRec();
 		
 		System.out.println(chatRec);
 		
