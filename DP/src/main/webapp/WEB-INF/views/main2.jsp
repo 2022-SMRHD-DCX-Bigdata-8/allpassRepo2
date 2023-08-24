@@ -52,6 +52,7 @@ body {
 }
 
 #logoutBtn {
+<<<<<<< HEAD
 	margin-top: 0px;
 	width: 100px;
 	height: 50px;
@@ -67,6 +68,14 @@ body {
 	letter-spacing: 2px;
 }
 
+=======
+	height: 48px;
+	width: 100px;
+	border-color: #613f0e;
+	margin-left: 10px;
+	background-color: #ffffff;
+}
+>>>>>>> branch 'main' of https://github.com/2022-SMRHD-DCX-Bigdata-8/allpassRepo2.git
 
 #todoMain {
 	width: 27%;
@@ -111,8 +120,8 @@ body {
 				<%
 				if (email != null) {
 				%> <%=nickname%> <%
- } else if (m != null) {
- %> <%=m.getMb_nick()%>
+ 				} else if (m != null) {
+				 %> <%=m.getMb_nick()%>
 				<%
 				}
 				%>님
@@ -120,6 +129,7 @@ body {
 			<a href="logout.do" onclick="alert('로그인 페이지로 이동합니다.')">
 			<input type="button" value="LOGOUT" style="cursor: pointer"	onclick="alert('로그아웃 되었습니다!')" id="logoutBtn">
 			</a>
+
 		</div>
 
 		<div id="todoMain">
@@ -155,8 +165,11 @@ body {
 				+ encodeURIComponent(nickname);
 		xhr.send(data);
 	</script>
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> branch 'main' of https://github.com/2022-SMRHD-DCX-Bigdata-8/allpassRepo2.git
 </body>
 </html>
