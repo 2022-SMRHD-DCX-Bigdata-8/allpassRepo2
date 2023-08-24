@@ -40,9 +40,14 @@
 		#calendar {
 			width: 950px;
 			height: 620px;			
-		}		
+		}	
+		
+		#calendar button{
+			font-family: 'Dolbomche_R';
+		}	
 		
 		#calendar a{
+			font-family: 'Dolbomche_R' !important;
 			color: #000000;
 			text-decoration: none;
 		}

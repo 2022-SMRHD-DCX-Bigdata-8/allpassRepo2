@@ -12,6 +12,14 @@
 	src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 
 	<style type="text/css">
+	/* 큰 글씨용 광양감동체 */
+		@font-face{
+			font-family: 'Gwangyang Touching';
+			font-style: normal;
+			font-weight: normal;
+			src: url("assets/font/Gwangyang Touching(TTF용).ttf");
+		}
+	
 		* {
 		   margin: 0;
 		   padding: 0;

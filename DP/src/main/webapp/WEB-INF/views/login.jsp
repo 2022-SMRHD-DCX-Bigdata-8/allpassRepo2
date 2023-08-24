@@ -81,6 +81,18 @@
 </head>
 
 <style>
+/* 큰 글씨용 광양감동체 */
+@font-face{
+	font-family: 'Gwangyang Touching';
+	font-style: normal;
+	font-weight: normal;
+	src: url("assets/font/Gwangyang Touching(TTF용).ttf");
+}
+
+body, h1, h2, h3, h4, h5, h6, p, span, input, textarea, button {
+	font-family: 'Gwangyang Touching'!important;
+}
+
 * {
 	margin: 0;
 	padding: 0;

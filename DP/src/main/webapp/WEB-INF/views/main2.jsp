@@ -16,11 +16,29 @@
 	crossorigin="anonymous">
 	
 	<style type="text/css">
+	
+		/* 큰 글씨용 광양감동체 */
+		@font-face{
+			font-family: 'Gwangyang Touching';
+			font-style: normal;
+			font-weight: normal;
+			src: url("assets/font/Gwangyang Touching(TTF용).ttf");
+		}
+		
+		/* 작은 글씨용 문화재돌봄체 */
 		@font-face {
-		    font-family: 'Cafe24Supermagic-Bold-v1.0';
-		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/Cafe24Supermagic-Bold-v1.0.woff2') format('woff2');
-		    font-weight: 700;
+		    font-family: 'Dolbomche_R';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2104@1.0/Dolbomche_R.woff') format('woff');
+		    font-weight: normal;
 		    font-style: normal;
+		}
+		
+		body, h1, h2, h3, h4, h5, h6, p, span, input, textarea, button {
+			font-family: 'Gwangyang Touching';
+		}
+		
+		div.fc-event-title.fc-sticky{
+			font-family: 'Dolbomche_R';
 		}
 		
 		#layout, body, html{
@@ -30,15 +48,24 @@
         }
 		
 		body{
-			/*background-image: url("assets/img/paper-1468883_1920.jpg");*/
 			margin: 0;
 		}
 		
 		#header{
-			height: 8%;
+			height: 10%;
 			width: 100%;
-			padding-top: 5px;
+			padding-top: 20px;
 			padding-left: 20px; 
+			padding-right: 20px; 
+		}
+				
+		#task-cheer {
+		   display: inline;
+		   font-family: 'Gwangyang Touching';
+		   font-size: 22px;
+		   color: #613f0e;
+		   text-align: left;
+		   font-style: bold;
 		}
 		
 		#userinfo{
@@ -48,7 +75,7 @@
 		#username{
 			color: #613f0e;
 			font-family: 'Cafe24Supermagic-Bold-v1.0';
-			font-size: 30px;
+			font-size: 22px;
 		}
 		
 		#logoutBtn{
@@ -58,43 +85,26 @@
 			margin-left: 10px;
 			background-color: #ffffff;
 		}
+
 		
 		#todoMain{
 			width: 27%;
-			height: 84%;
+			height: 90%;
 			float: left;
 		}
 		
 		#calMain{
 			width: 53%;
-			height: 84%;
+			height: 90%;
 			float: left;
 		}
 		
 		#chatMain{
 			width: 20%;
-			height: 84%;
+			height: 90%;
 			float: left;
 		}
 		
-		#footer{
-			width: 100%;
-			height: 8%;
-			float: left;
-			margin: 0;
-		}
-		
-		#nick, #task-cheer {
-		   font-family: 'SBAggroB';
-		   position: relative;
-		   text-align: center;
-		}
-		
-		#task-cheer {
-		   display: inline;
-		   font-size: 20px;
-		   color: #613f0e;
-		}
 	</style>
 </head>
 <body style="background-color: #ffebce;">

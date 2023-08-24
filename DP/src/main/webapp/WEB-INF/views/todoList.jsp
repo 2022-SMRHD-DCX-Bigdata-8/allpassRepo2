@@ -25,32 +25,6 @@
 	rel="stylesheet">
 
 <style>
-@font-face {
-	font-family: 'GmarketSansMedium';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
-		format('woff2');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'SBAggroB';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-@font-face {
-	font-family: 'sans-serif';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SBAggroB.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
 
 hr {
 	width: 445px;
@@ -61,7 +35,7 @@ hr {
 }
 
 .todo {
-	font-family: 'SBAggroB';
+	font-family: 'Gwangyang Touching';
 	coler: #7c653f;
 	font-size: 20px;
 	width: 200px;
@@ -98,7 +72,7 @@ hr {
 
 #task-board {
 	width: 465px;
-	font-family: 'GmarketSansMedium';
+	font-family: 'Gwangyang Touching';
 	height: 450px;
 	overflow-y: auto;
 	padding: 10px;
@@ -123,8 +97,8 @@ hr {
 	text-align: center;
 }
 
-#nick, #task-cheer {
-	font-family: 'SBAggroB';
+#nick {
+	font-family: 'Gwangyang Touching';
 	position: relative;
 	text-align: center;
 }
@@ -136,7 +110,7 @@ hr {
 }
 
 .input-area {
-	font-family: 'GmarketSansMedium';
+	font-family: 'Gwangyang Touching';
 }
 
 #modal.modal-overlay {
