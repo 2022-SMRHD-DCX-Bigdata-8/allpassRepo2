@@ -700,6 +700,7 @@ input[type=text]{
   			  console.log('방생성 성공');
   			  alert('방생성 완료!');
   			  //console.log(res);
+  			  listUp();
   		  },
   		  error : function(e){
   			  console.log('방생성 실패');
