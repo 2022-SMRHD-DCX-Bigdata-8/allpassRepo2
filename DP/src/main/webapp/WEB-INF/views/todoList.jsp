@@ -39,7 +39,7 @@ hr {
 	coler: #7c653f;
 	font-size: 20px;
 	width: 200px;
-	background-color: #a2c6ff;
+	background-color: #e3eeff;
 	border-radius: 10px;
 	margin-left: 5px;
 	padding-top: 5px;

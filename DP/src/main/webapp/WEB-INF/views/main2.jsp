@@ -54,7 +54,8 @@
 		#header{
 			height: 10%;
 			width: 100%;
-			padding-top: 20px;
+			position: relative;
+			padding-top: 5px;
 			padding-left: 20px; 
 			padding-right: 20px; 
 		}
@@ -70,6 +71,10 @@
 		
 		#userinfo{
 			float: right;
+			position: absolute;
+			margin-right: 12px; 
+			right: 30px;
+			top: 20%;
 		}
 		
 		#username{
@@ -78,7 +83,7 @@
 			font-size: 22px;
 			font-style: bold;
 			width : 20%;
-			margin-right: 10px;
+			margin-right: 20px;
 			top : 3px;
 			left : 80px;
 		}
