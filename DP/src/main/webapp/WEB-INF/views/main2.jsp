@@ -93,7 +93,7 @@
 	<div id="layout">
 		<div id="header">
 			<span id="username"><%=m.getMb_id() %>님</span>
-			<button type="button" id="logoutBtn">로그아웃</button>		
+			<a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button type="button" id="logoutBtn">로그아웃</button></a>
 		</div>	
 	
 		<div id="todoMain">
