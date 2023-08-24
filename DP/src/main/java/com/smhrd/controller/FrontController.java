@@ -61,7 +61,16 @@ public class FrontController extends HttpServlet {
 		handler.put("/todoCmSelect.do", new TodoCmSelectCon());
 		handler.put("/todoRrSelect.do", new TodoRrSelectCon());
 		handler.put("/todoRandomModify.do", new TodoRandomModifyCon());
-
+		
+		// Chatting
+		// HashMap에 데이터 넣음
+		handler.put("goChat.do", new GoChatCon());
+		handler.put("/roomList.do", new RoomListCon()); // 이미지 클릭 후 방 리스트 출력
+		handler.put("/addRoom.do", new AddRoomCon()); // 방생성 클릭 시 
+		handler.put("/addMember.do", new AddMemberCon()); // 방 참가하기 클릭 시
+		handler.put("/invite.do", new InviteCon()); // 초대코드 클릭 시
+		handler.put("/chatting.do", new ChattingCon()); //채팅방 입장시
+		handler.put("/chatRec.do", new ChatRecCon());
 		
 	}
 

@@ -79,6 +79,7 @@
 	<div class="submit">
 		<a href="logout.do" onclick="alert('로그아웃되었습니다!'), alert('메인 페이지1로 이동합니다.')"><input type="submit" value="LOGOUT" style="cursor: pointer"></a>
 	</div>
+	<a href="goChat.do">채팅 가기</a>
 
 	<script>
     // 카카오 로그인한 사용자 세션에서 이메일 및 닉네임 값 가져오기
