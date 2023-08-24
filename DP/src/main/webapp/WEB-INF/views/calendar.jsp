@@ -78,10 +78,10 @@
 			String nickname = (String) session.getAttribute("nickname");
 		%>
 		
-		if (m != null){
+		if ("<%=m%>" != null){
 			userId = "<%=m.getMb_id()%>";
-		} else if (nickname != null) {
-			userId = "<%=email%>";
+		} else{
+			userId = "<%=nickname%>";
 		}
 		console.log("멤버세션값 : ", userId);
 		
