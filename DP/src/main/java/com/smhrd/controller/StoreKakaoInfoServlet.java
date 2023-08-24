@@ -36,8 +36,15 @@ public class StoreKakaoInfoServlet extends HttpServlet {
         MemberDAO dao = new MemberDAO();
         
         Member existingUser = dao.getMemberByEmail(email);
-
-        if (existingUser == null) {
+        
+        System.out.println(email+"과"+nickname);
+        System.out.println(existingUser);
+        if (existingUser != null) {
+        	
+        	System.out.println("email이 이미 존재");
+        }else {
+        	
+        	System.out.println("카카오 로그인 사용자 정보 DB에 없음 -- insert");
             Member member = new Member();
             member.setMb_id(email); // Use email as the ID
             member.setMb_pw(pw); // You can generate a random password or leave it empty
@@ -48,7 +55,7 @@ public class StoreKakaoInfoServlet extends HttpServlet {
 
         // Respond to the AJAX request (optional)
         response.getWriter().write("Data inserted successfully");
-        
+        System.out.println("StoreKakaoInfoServlet 작동되었나?");
         // Redirect to the main page
         response.sendRedirect("goMain2.do");
     }
