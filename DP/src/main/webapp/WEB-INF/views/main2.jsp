@@ -1,3 +1,4 @@
+<%@page import="org.apache.ibatis.reflection.SystemMetaObject"%>
 <%@page import="com.smhrd.entity.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -89,11 +90,19 @@
 <body>
 	<%
 		Member m = (Member)session.getAttribute("user");
+		String email = (String)session.getAttribute("email");
+		String nickname = (String)session.getAttribute("nickname");
+		
 	%>
-	
+		
+		
 	<div id="layout">
 		<div id="header">
-			<span id="username"><%=m.getMb_id() %>님</span>
+			<span id="username"><%if(email != null){%>
+								<%=email%>
+								<%}else if(m != null){ %>
+								<%=m.getMb_id()%>
+								<%} %>님</span>
 			<a href="logout.do" onclick="alert('로그아웃 되었습니다!')"><button type="button" id="logoutBtn">로그아웃</button></a>
 		</div>	
 	
