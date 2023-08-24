@@ -37,13 +37,17 @@
 		#header{
 			height: 8%;
 			width: 100%;
+			position: relative;
 			padding-top: 5px;
 			padding-left: 20px; 
 		}
 		
 		#userinfo{
 			float: right;
-			width : 20%;
+			position: absolute;
+			margin-right: 12px; 
+			right: 30px;
+			top: 20%;
 		}
 		
 		#username{
@@ -51,6 +55,7 @@
 			font-family: 'Cafe24Supermagic-Bold-v1.0';
 			font-size: 30px;
 			width : 20%;
+			margin-right: 20px;
 			top : 3px;
 			left : 80px;
 			
