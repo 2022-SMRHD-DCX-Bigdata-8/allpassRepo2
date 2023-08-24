@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Dream Planner</title>
 
 <!-- 제이쿼리 스크립트 -->
 <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
