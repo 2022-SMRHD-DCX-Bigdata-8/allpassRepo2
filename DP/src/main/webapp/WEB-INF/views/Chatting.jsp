@@ -419,17 +419,20 @@ input[type=text]{
 	                         let edd = "20" + end;
 	                         let title = content;
 	                         
-	                         $.ajax({
+	                        $.ajax({
 	                        type: 'post',
-	                        url: "addCalData.do",
+	                        url: "calAddData.do",
 	                        data: { 
 	                            title: title,
 	                            start: stt,
-	                            end: edd
+	                            end: edd, 
+	                            mb_id: '<%=id%>', 
+	                            color: '#000000', 
+	                            content: null
 	                        },
-	                        dataType:'Json',
 	                        success: function (response) {
 	                            console.log('전송 성공:', response);
+	                            alert("일정 추가 완료!");
 	                        },
 	                        error: function (error) {
 	                            console.error('전송 실패:', error);
@@ -437,7 +440,7 @@ input[type=text]{
 	                    });
 	                        			console.log("여기인가?");
 
-	                         alert("일정 추가 완료!");
+	                        
 	                         sendMessage();
 	                         let existingPreviewText = document.querySelector("#preview-text");
 	                if (existingPreviewText) {
@@ -488,22 +491,25 @@ input[type=text]{
 
 		                         $.ajax({
 		                        type: 'post',
-		                        url: "addCalData.do",
+		                        url: "calAddData.do",
 		                        data: { 
 		                            title: title,
 		                            start: stt,
-		                            end: edd
+		                            end: edd, 
+		                            mb_id: '<%=id%>',
+		                            color: '#000000', 
+		                            content: null
 		                        },
-		                        dataType:'Json',
 		                        success: function (response) {
 		                            console.log('전송 성공:', response);
+		                            alert("일정 추가 완료!");
 		                        },
 		                        error: function (error) {
 		                            console.error('전송 실패:', error);
 		                        }
 		                    });
 
-		                            alert("일정 추가 완료!");
+		                            
 		                         let existingPreviewText = document.querySelector("#preview-text");
 		                if (existingPreviewText) {
 		                    existingPreviewText.remove();
@@ -768,6 +774,7 @@ input[type=text]{
   	    		console.log('방 참가 완료');
   	    		alert('방 참가가 완료 되었습니다.');
   	    		listUp();
+  	    		
   	    	},
   	    	error : function(e){
   	    		console.log('방 참가 실패');
