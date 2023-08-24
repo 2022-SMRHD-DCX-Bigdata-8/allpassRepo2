@@ -73,16 +73,16 @@
 			String calList = (String)session.getAttribute("calList");
 			String calSession = (String)session.getAttribute("calSession");
 			
-			Member m = (Member)session.getAttribute("user");
+			Member user = (Member) session.getAttribute("user");
 			String email = (String) session.getAttribute("email");
 			String nickname = (String) session.getAttribute("nickname");
-		%>
+			%>
 		
-		if ("<%=m.getMb_id()%>" != null){
-			userId = '<%=m.getMb_id()%>';
-		} else if (nickname != null) {
-			userId = '<%=email%>';
-		}
+		<% if (user != null){ %>
+			userId = "<%=user.getMb_id() %>";
+		<% } else if (email != null) { %>
+			userId = "<%=email %>";
+		<% } %>
 		console.log("멤버세션값 : ", userId);
 		
 		// 캘린더 출력하기 위한 코드

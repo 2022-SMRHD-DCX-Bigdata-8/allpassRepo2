@@ -33,6 +33,7 @@
 		var data = 'email=' + encodeURIComponent(email) + '&nickname='
 				+ encodeURIComponent(nickname);
 		xhr.send(data);
+		window.location.href = 'goMain2.do'; // goMain2 자리 
 	}
 
 	function kakaoLogin() {
@@ -48,7 +49,6 @@
 					},
 					fail : function(error) {
 						console.log(error);
-						window.location.href = 'goMain2.do';
 					},
 				});
 			},

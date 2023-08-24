@@ -396,6 +396,7 @@ body {
                     // 쓰기
                     function todoWrite() {
                         let taskInput = $("#task-input").val();
+                                console.log(taskInput);
                         $.ajax({
                             url: "todoWrite.do",
                             type: "post",
