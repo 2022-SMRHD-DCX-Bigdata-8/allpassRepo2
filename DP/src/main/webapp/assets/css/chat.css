@@ -20,7 +20,7 @@ body {
 #overlay {
 	position: fixed;
 	right: 10px;
-	bottom: 10px;
+	bottom: 0px;
 	width: 350px;
 	height: 600px;
 	background: #bacee0;

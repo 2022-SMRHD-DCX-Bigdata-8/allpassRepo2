@@ -28,7 +28,7 @@
 		
 		#calBack{
 			width: 1000px;
-			height: 750px;
+			height: 770px;
 			/*background: #fff9f0;*/
 			background-image: url('assets/img/notepad-6648710_1920.png');
 			background-size: 100%;
@@ -40,7 +40,7 @@
 		
 		#calendar {
 			width: 950px;
-			height: 600px;			
+			height: 620px;			
 		}		
 		
 		#calendar a{

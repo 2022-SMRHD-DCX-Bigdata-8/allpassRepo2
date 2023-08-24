@@ -120,8 +120,8 @@
 		}
 		
 		.cal_content textarea {
-		   /*width: 100%;
-		   height: 30px;*/
+		   /* height: 30px;*/
+		   width: 100%;
 		   border-radius: 30px;
 		   margin-top: 10px;
 		   padding: 10px 20px;
@@ -133,6 +133,9 @@
 		.btn {
 		   margin-top: 30px;
 		   width: 80%;
+		   display: flex;
+		   justify-content: center;
+		   align-items: center;
 		}
 		
 		.btn button {
@@ -141,11 +144,15 @@
 		   border: 0;
 		   outline: none;
 		   border-radius: 40px;
-		   margin-left: 10px;
+		   /*margin-left: 10px;*/
 		   background: linear-gradient(to left, #aec6ff, #e2bf8a);
 		   color: white;
 		   font-size: 1.2em;
 		   letter-spacing: 2px;
+		}
+		
+		#delBtn{
+			margin-left: 10px;
 		}
 	</style>
 
@@ -186,7 +193,7 @@
 			<div class="cal_content">
 				<h4>상세 내용</h4>
 				<%-- <input type="text" value=<%= calData.getCal_content()%> name="cal_content"> --%>
-				<textarea rows="5" cols="23" name="cal_content"><%= calData.getCal_content()%></textarea>
+				<textarea rows="5" name="cal_content"><%= calData.getCal_content()%></textarea>
 			</div>
 			
 			<div class="btn">

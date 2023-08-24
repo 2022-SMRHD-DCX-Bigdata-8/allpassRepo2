@@ -120,8 +120,8 @@
 		}
 		
 		.cal_content textarea {
-		   /*width: 100%;
-		   height: 30px;*/
+		   /* height: 30px;*/
+		   width: 100%;
 		   border-radius: 30px;
 		   margin-top: 10px;
 		   padding: 10px 20px;
@@ -185,7 +185,7 @@
 			<div class="cal_content">
 				<h4>상세 내용</h4>
 				<!-- <input type="text" name="cal_content"> -->
-				<textarea rows="5" cols="23" name="cal_content"></textarea>
+				<textarea rows="5" name="cal_content"></textarea>
 			</div>
 			
 			<div class="btn">

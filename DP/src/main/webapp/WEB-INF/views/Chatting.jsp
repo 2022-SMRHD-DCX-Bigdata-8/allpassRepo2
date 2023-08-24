@@ -22,7 +22,7 @@
 #ch {
 	position: fixed;
 	right: 10px;
-	bottom: 10px;
+	bottom: 0px;
 	width: 80px;
 	height: 80px;
 }
